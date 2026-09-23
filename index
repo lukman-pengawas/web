@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LUKMAN HAKIM, S.Pd., M.Pd.</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <meta name="description" content="Website Resmi Bapak Lukman Hakim Selaku Pengawas Cabang Dinas Pendidikan Wilayah Kediri">
+    <meta name="keywords" content="Pengawas SMK, Cabang Dinas Kediri, CABDIN, Lukman Hakim Pengawas SMK">
+    <meta name="author" content="Lukman Hakim, S.Pd., M.Pd.">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="id">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.lukmanhakim.net/">
+    <meta property="og:title" content="LUKMAN HAKIM, S.Pd., M.Pd.">
+    <meta property="og:description" content="Website Resmi Bapak Lukman Hakim.">
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #ffffff; }
+        iframe { border: none; width: 100%; height: 100%; }
+    </style>
+</head>
+<body>
+    <script>
+        const URL_PARAMETER = window.location.search;
+
+        // ⚠️ GANTI DENGAN LINK EXEC APPS SCRIPT WEB SMP INI (Deploy > Manage deployments)
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbl--c5R81bjAo11nAJmdz_IQQoc_diQGx2bprfxbMR5p-WtXk5UcnhXsLcop41Kfy/exec";
+
+        const LINK_AKHIR = GOOGLE_SCRIPT_URL + URL_PARAMETER;
+
+        // Tambah id="app-frame" dan allow="geolocation" (selain clipboard) supaya
+        // browser mengizinkan permintaan lokasi GPS yang didelegasikan ke iframe ini.
+        document.write('<iframe id="app-frame" src="' + LINK_AKHIR + '" allow="clipboard-read; clipboard-write; geolocation *"></iframe>');
+    </script>
+
+    <script>
+        // Menyimpan state navigasi terakhir yang diketahui wrapper ini, supaya
+        // tahu kapan harus menambah entri riwayat baru (pushState) vs cuma
+        // memperbarui entri yang sudah ada (replaceState).
+        let _navStateSaatIni = null;
+        let _navPertamaKali = true;
+
+        function _samaNavState(a, b) {
+            if (!a || !b) return false;
+            return (a.page || '') === (b.page || '') &&
+                   (a.sub || '') === (b.sub || '') &&
+                   (a.berita_id || '') === (b.berita_id || '');
+        }
+
+        function updateUrlBarFromNavState(data) {
+            const usp = new URLSearchParams();
+            if (data.page && data.page !== 'home') usp.set('page', data.page);
+            if (data.sub) usp.set('sub', data.sub);
+            if (data.berita_id) usp.set('berita_id', data.berita_id);
+            const query = usp.toString();
+            const newUrl = window.location.pathname + (query ? '?' + query : '');
+
+            if (_navPertamaKali) {
+                // Muat pertama kali (baik dari link yang dibagikan atau Beranda
+                // polos) -> jadi entri riwayat pertama, jangan ditambah dobel.
+                history.replaceState(data, '', newUrl);
+                _navPertamaKali = false;
+            } else if (!_samaNavState(_navStateSaatIni, data)) {
+                // Menu berubah -> tambah entri riwayat baru, supaya tombol
+                // Back/Forward browser bisa pindah antar menu (bukan langsung
+                // keluar dari website).
+                history.pushState(data, '', newUrl);
+            } else {
+                history.replaceState(data, '', newUrl);
+            }
+            _navStateSaatIni = data;
+        }
+
+        // Apps Script (mode sandbox IFRAME) sebenarnya membungkus konten kita
+        // di dalam 1-2 lapis iframe INTERNAL milik Google sendiri
+        // (script.googleusercontent.com), di dalam <iframe id="app-frame">
+        // yang kita buat. Jadi frame.contentWindow BELUM TENTU window tempat
+        // kode aplikasi kita benar-benar jalan -> kirim pesan ke beberapa
+        // lapis sekaligus supaya pasti nyampai ke lapisan manapun kode kita
+        // berada. Membaca properti .frames dari window beda origin itu aman
+        // (diizinkan browser), jadi tidak akan kena error cross-origin.
+        function _kirimKeSemuaLapisIframe_(payload) {
+            const frame = document.getElementById('app-frame');
+            if (!frame || !frame.contentWindow) return;
+
+            const targets = [frame.contentWindow];
+            try {
+                if (frame.contentWindow.frames && frame.contentWindow.frames[0]) {
+                    targets.push(frame.contentWindow.frames[0]);
+                    if (frame.contentWindow.frames[0].frames && frame.contentWindow.frames[0].frames[0]) {
+                        targets.push(frame.contentWindow.frames[0].frames[0]);
+                    }
+                }
+            } catch (e) { /* abaikan diam-diam kalau struktur framenya beda dari dugaan */ }
+
+            targets.forEach(function (t) {
+                try { t.postMessage(payload, '*'); } catch (e) { /* abaikan */ }
+            });
+        }
+
+        // Tombol Back/Forward browser ditekan: beri tahu iframe (aplikasi SMP)
+        // untuk pindah ke menu sesuai state riwayat ini, supaya kontennya ikut
+        // berubah tanpa perlu me-reload ulang seluruh iframe.
+        window.addEventListener('popstate', function (e) {
+            const state = e.state || {};
+            _navStateSaatIni = state;
+            _kirimKeSemuaLapisIframe_({
+                type: 'NAV_GOTO',
+                page: state.page || 'home',
+                sub: state.sub || '',
+                berita_id: state.berita_id || ''
+            });
+        });
+
+        window.addEventListener('message', function (e) {
+            const data = e.data || {};
+
+            if (data.type === 'NAV_STATE') {
+                updateUrlBarFromNavState(data);
+                return;
+            }
+
+            console.log('[GEO] Halaman GitHub menerima pesan:', e.data, 'dari origin:', e.origin);
+            if (data.type !== 'REQUEST_GEO_LOCATION') return;
+
+            const target = e.source;
+            if (!target) {
+                console.log('[GEO] e.source kosong, tidak bisa membalas.');
+                return;
+            }
+
+            if (!navigator.geolocation) {
+                target.postMessage(
+                    { type: 'GEO_LOCATION_RESULT', error: 'Geolocation tidak didukung browser ini.' },
+                    '*'
+                );
+                return;
+            }
+
+            console.log('[GEO] Meminta getCurrentPosition ke browser...');
+            navigator.geolocation.getCurrentPosition(
+                function (pos) {
+                    console.log('[GEO] Sukses, mengirim balik ke pengirim...');
+                    target.postMessage({
+                        type: 'GEO_LOCATION_RESULT',
+                        lat: pos.coords.latitude,
+                        lng: pos.coords.longitude
+                    }, '*');
+                },
+                function (err) {
+                    console.log('[GEO] getCurrentPosition error:', err.code, err.message);
+                    target.postMessage(
+                        { type: 'GEO_LOCATION_RESULT', error: err.message },
+                        '*'
+                    );
+                }
+            );
+        });
+    </script>
+</body>
+</html>
