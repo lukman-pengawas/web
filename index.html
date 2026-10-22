@@ -1152,39 +1152,8 @@
       <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Unduh berkas kelengkapan supervisi dan pedoman pengawas</p>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between hover:border-brand-500 transition">
-        <div class="flex items-center gap-3">
-          <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
-          <div>
-            <p class="font-bold text-xs text-slate-800 dark:text-white">Instrumen Supervisi Akademik 2026</p>
-            <p class="text-[11px] text-slate-400">PDF • 1.2 MB</p>
-          </div>
-        </div>
-        <button onclick="downloadMock('Instrumen Supervisi Akademik')" class="p-2 text-brand-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"><i class="fa-solid fa-download"></i></button>
-      </div>
-
-      <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between hover:border-brand-500 transition">
-        <div class="flex items-center gap-3">
-          <i class="fa-solid fa-file-word text-blue-500 text-2xl"></i>
-          <div>
-            <p class="font-bold text-xs text-slate-800 dark:text-white">Format Laporan Tindak Lanjut</p>
-            <p class="text-[11px] text-slate-400">DOCX • 450 KB</p>
-          </div>
-        </div>
-        <button onclick="downloadMock('Format Laporan Tindak Lanjut')" class="p-2 text-brand-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"><i class="fa-solid fa-download"></i></button>
-      </div>
-
-      <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between hover:border-brand-500 transition">
-        <div class="flex items-center gap-3">
-          <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
-          <div>
-            <p class="font-bold text-xs text-slate-800 dark:text-white">Permendikbud Ristek No 12 Thn 2024</p>
-            <p class="text-[11px] text-slate-400">PDF • 3.5 MB</p>
-          </div>
-        </div>
-        <button onclick="downloadMock('Permendikbud Ristek No 12')" class="p-2 text-brand-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"><i class="fa-solid fa-download"></i></button>
-      </div>
+    <div id="dokumenGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <p class="col-span-full text-center text-sm text-slate-400 py-6"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Memuat dokumen...</p>
     </div>
   </section>
 
@@ -3241,6 +3210,49 @@
     }
 
     // Mock Download Action
+    // ============ DOKUMEN & INSTRUMEN PUBLIK: data dari Spreadsheet (sheet Dokumen_Instrumen) ============
+    let DOKUMEN_ALL = [];
+    function dokEsc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+    function dokIcon(tipe) {
+      const t = String(tipe || '').toUpperCase();
+      if (t.indexOf('DOC') === 0) return '<i class="fa-solid fa-file-word text-blue-500 text-2xl"></i>';
+      if (t.indexOf('XLS') === 0) return '<i class="fa-solid fa-file-excel text-emerald-500 text-2xl"></i>';
+      return '<i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>';
+    }
+    function loadPublicDokumen() {
+      const grid = document.getElementById('dokumenGrid');
+      if (!grid) return;
+      google.script.run.withSuccessHandler(res => {
+        DOKUMEN_ALL = ((res && res.data) || []).filter(d => d.Judul_Dokumen);
+        if (!DOKUMEN_ALL.length) {
+          grid.innerHTML = '<p class="col-span-full text-center text-sm text-slate-400 py-6">Belum ada dokumen.</p>';
+          return;
+        }
+        grid.innerHTML = DOKUMEN_ALL.map((d, i) => `
+          <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between hover:border-brand-500 transition">
+            <div class="flex items-center gap-3">
+              ${dokIcon(d.Tipe_File)}
+              <div>
+                <p class="font-bold text-xs text-slate-800 dark:text-white">${dokEsc(d.Judul_Dokumen)}</p>
+                <p class="text-[11px] text-slate-400">${dokEsc(d.Tipe_File || '-')} • ${dokEsc(d.Ukuran || '-')}</p>
+              </div>
+            </div>
+            <button onclick="openDokumen(${i})" class="p-2 text-brand-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg" title="Unduh"><i class="fa-solid fa-download"></i></button>
+          </div>`).join('');
+      }).withFailureHandler(err => {
+        grid.innerHTML = `<p class="col-span-full text-center text-sm text-red-500 py-6">Gagal memuat dokumen: ${dokEsc((err && err.message) || err)}</p>`;
+      }).getPublicDokumen();
+    }
+    function openDokumen(i) {
+      const d = DOKUMEN_ALL[i];
+      let url = d && String(d.URL_Download || '').trim();
+      if (!/^https?:\/\//i.test(url || '')) { alert('Berkas belum memiliki tautan unduhan.'); return; }
+      const m = url.match(/drive\.google\.com\/file\/d\/([^\/?#]+)/);
+      if (m) url = 'https://drive.google.com/uc?export=download&id=' + m[1];
+      window.open(url, '_blank', 'noopener');
+    }
+    window.addEventListener('load', loadPublicDokumen);
+
     function downloadMock(filename) {
       alert('Mengunduh berkas: ' + filename + '.pdf');
     }
