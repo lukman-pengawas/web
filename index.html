@@ -645,6 +645,67 @@
     @media (prefers-reduced-motion: reduce) {
       #schoolGrid > .school-card, #schoolGrid > .school-card:hover { transition: none; transform: none; }
     }
+    /* =====================================================================
+       BENTUK LEMBUT — sudut membulat secukupnya, tanpa garis tepi (outline)
+       Pemisah antar-kartu memakai bayangan halus dan warna latar lembut.
+       ===================================================================== */
+    :root { --r: 18px; --r-kecil: 12px; --bayangan: 0 6px 22px rgba(7,59,76,.08); --bayangan-hover: 0 14px 32px rgba(7,59,76,.14); }
+
+    /* --- Hilangkan garis tepi kotak (garis pemisah baris/tabel tetap) --- */
+    section .border, section .border-2, #cmsAdminPanel .border, #cmsAdminPanel .border-2,
+    #loginModal .border, #chatbotModal .border, #cmsModal .border, .floating-dock .border { border-width: 0 !important; }
+    section [class*="border-slate"].rounded-2xl, section [class*="border-slate"].rounded-xl { border-width: 0 !important; }
+    .school-card, #schoolGrid > .school-card, #schoolGrid > .school-card:hover,
+    #statsBar, .sambutan-card, .info-box, .agenda-tabs, .tl-card, .tl-card:hover,
+    section .rounded-2xl:not(.hero-slide-card), #cmsAdminPanel .rounded-2xl,
+    #schoolFilters button, #schoolFilters button.bg-brand-800 { border: 0 !important; }
+    .dark #schoolGrid > .school-card, .dark #schoolGrid > .school-card:hover, .dark .tl-card, .dark .info-box,
+    .dark .sambutan-card, .dark #statsBar, .dark .agenda-tabs, .dark section .rounded-2xl:not(.hero-slide-card) { border: 0 !important; }
+    #statsBar { border-top: 0 !important; }
+    #chatbotModal > div, #loginModal > div, #cmsModal > div { border-top: 0 !important; }
+    .topbar { border-bottom: 0 !important; }
+    header.border-b, .bg-brand-900.border-b { border-bottom-width: 0 !important; }
+    .hero-badge, .hero-btn-outline, .hero-arrow { border: 0 !important; }
+    .hero-btn-outline { background: rgba(255,255,255,.16); }
+    .hero-btn-outline:hover { background: #fff; }
+    #cmsAdminPanel .cms-nav-item { border-left: 0; }
+
+    /* --- Kolom isian: tanpa garis, pakai latar lembut --- */
+    input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]):not([type=color]),
+    select, textarea { border: 0 !important; background-color: var(--g50); box-shadow: inset 0 0 0 0 transparent; }
+    .dark input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]):not([type=color]),
+    .dark select, .dark textarea { background-color: #143b49; }
+    input:focus, select:focus, textarea:focus { background-color: #ffffff; box-shadow: 0 0 0 3px rgba(17,138,154,.28) !important; }
+    .dark input:focus, .dark select:focus, .dark textarea:focus { background-color: #0e2a35; }
+
+    /* --- Radius: membulat tapi tidak berlebihan --- */
+    section .rounded-lg, #cmsContent .rounded-lg { border-radius: 12px !important; }
+    section .rounded-xl, #cmsContent .rounded-xl { border-radius: 14px !important; }
+    section .rounded-2xl, #cmsAdminPanel .rounded-2xl { border-radius: 20px !important; }
+    section .rounded-3xl:not(.hero-slide-card), #supervisi .rounded-3xl { border-radius: 28px !important; }
+    #statsBar { border-radius: 22px !important; }
+    .sambutan-card { border-radius: 26px; }
+    .tl-card { border-radius: 18px; }
+    .tl-dot { border-radius: 50%; }
+    .sambutan-label, #pubJabatanBadge, .agenda-tab, .tl-pill { border-radius: 8px; }
+    .agenda-tabs { border-radius: 14px; }
+    #cmsContent .rounded-full:not(.w-2):not(.w-3):not(.h-2):not(.h-3) { border-radius: 999px !important; }
+    header nav > a, header nav button { border-radius: 999px !important; }
+    header nav .active-nav { background: rgba(255,255,255,.16); box-shadow: none; border-radius: 999px !important; }
+    section h2.font-extrabold::after { border-radius: 999px; }
+    ::-webkit-scrollbar-thumb { border-radius: 999px; }
+    #chatbotModal > div, #loginModal > div, #cmsModal > div { border-radius: 24px !important; }
+    .floating-dock > div { border-radius: 20px !important; }
+    .floating-dock button, .floating-dock a { border-radius: 14px !important; }
+
+    /* --- Pengganti garis: bayangan halus --- */
+    #schoolGrid > .school-card { box-shadow: var(--bayangan) !important; }
+    #schoolGrid > .school-card:hover { box-shadow: var(--bayangan-hover) !important; }
+    #statsBar, .sambutan-card, .tl-card, section .rounded-2xl:not(.hero-slide-card):not(.school-card):not(#statsBar) { box-shadow: var(--bayangan) !important; }
+    .tl-card:hover { box-shadow: var(--bayangan-hover) !important; }
+    #supervisi .rounded-3xl, .info-box, .agenda-tabs { box-shadow: none !important; }
+    #schoolFilters button:not(.bg-brand-800) { background: var(--g100) !important; }
+    .dark .tl-card, .dark #statsBar, .dark .sambutan-card, .dark #schoolGrid > .school-card, .dark section .rounded-2xl:not(.hero-slide-card) { box-shadow: none !important; }
   </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-300 pb-24">
