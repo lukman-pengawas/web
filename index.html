@@ -1,162 +1,1702 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Resmi Pengawas Cabang Dinas Pendidikan</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f5ff',
+              100: '#e0ebff',
+              500: '#2563eb',
+              800: '#1e3a5f',
+              900: '#101f42',
+              accent: '#f59e0b',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
 
-    <title>LUKMAN HAKIM, S.Pd., M.Pd.</title>
-    <link rel="icon" type="image/png" href="logo.png">
-    <meta name="description" content="Website Resmi Bapak Lukman Hakim Selaku Pengawas Cabang Dinas Pendidikan Wilayah Kediri">
-    <meta name="keywords" content="Pengawas SMK, Cabang Dinas Kediri, CABDIN, Lukman Hakim Pengawas SMK">
-    <meta name="author" content="Lukman Hakim, S.Pd., M.Pd.">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="id">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.lukmanhakim.net/">
-    <meta property="og:title" content="LUKMAN HAKIM, S.Pd., M.Pd.">
-    <meta property="og:description" content="Website Resmi Bapak Lukman Hakim.">
-    <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #ffffff; }
-        iframe { border: none; width: 100%; height: 100%; }
-    </style>
+  <style>
+    /* Custom Scrollbar & Aesthetics */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    .dark ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+    
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .dark .glass-effect {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .hero-card-gradient {
+      background: linear-gradient(135deg, rgba(30, 58, 95, 0.95) 0%, rgba(16, 31, 66, 0.9) 100%);
+    }
+
+    /* Hero Banner Slider: transisi fade halus saat foto/slide berganti */
+    .hero-slide-card {
+      transition: opacity 0.35s ease;
+    }
+    .hero-slide-card img {
+      transition: transform 8s ease;
+    }
+    .hero-slide-card:hover img {
+      transform: scale(1.08);
+    }
+
+    /* Floating Dock Animation */
+    .floating-dock {
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+    }
+    
+    .floating-dock:hover {
+      transform: translateX(-50%) translateY(-4px);
+    }
+  </style>
 </head>
-<body>
-    <script>
-        const URL_PARAMETER = window.location.search;
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-300 pb-24">
 
-        // ⚠️ GANTI DENGAN LINK EXEC APPS SCRIPT WEB SMP INI (Deploy > Manage deployments)
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbl--c5R81bjAo11nAJmdz_IQQoc_diQGx2bprfxbMR5p-WtXk5UcnhXsLcop41Kfy/exec";
+  <!-- ==================== TOP CONTACT & SOCIAL BAR ==================== -->
+  <div class="bg-brand-900 text-white text-xs py-2 px-4 border-b border-white/10 hidden sm:block">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="flex items-center gap-6">
+        <a href="tel:085735902504" class="flex items-center gap-2 hover:text-amber-400 transition">
+          <i class="fa-solid fa-phone text-amber-400"></i>
+          <span>(0354) 771234 / 0857-3590-2504</span>
+        </a>
+        <a href="mailto:cabdin.pengawas@kemdikbud.go.id" class="flex items-center gap-2 hover:text-amber-400 transition">
+          <i class="fa-solid fa-envelope text-amber-400"></i>
+          <span>cabdin.pengawas@kemdikbud.go.id</span>
+        </a>
+        <span class="flex items-center gap-1.5 text-emerald-400 font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          Layanan E-Supervisi Aktif
+        </span>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="#" class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center hover:scale-110 transition text-white" title="Facebook"><i class="fa-brands fa-facebook-f text-xs"></i></a>
+        <a href="#" class="w-6 h-6 rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 flex items-center justify-center hover:scale-110 transition text-white" title="Instagram"><i class="fa-brands fa-instagram text-xs"></i></a>
+        <a href="#" class="w-6 h-6 rounded-full bg-red-600 flex items-center justify-center hover:scale-110 transition text-white" title="YouTube"><i class="fa-brands fa-youtube text-xs"></i></a>
+        <a href="#" class="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center hover:scale-110 transition text-white" title="WhatsApp"><i class="fa-brands fa-whatsapp text-xs"></i></a>
+        <a href="#" class="w-6 h-6 rounded-full bg-black flex items-center justify-center hover:scale-110 transition text-white" title="TikTok"><i class="fa-brands fa-tiktok text-xs"></i></a>
+      </div>
+    </div>
+  </div>
 
-        const LINK_AKHIR = GOOGLE_SCRIPT_URL + URL_PARAMETER;
+  <!-- ==================== MAIN HEADER / NAVBAR ==================== -->
+  <header class="bg-brand-900 text-white sticky top-0 z-40 shadow-xl border-b border-slate-700/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo & Title -->
+        <div class="flex items-center gap-3 shrink-0">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-brand-900 shadow-lg font-black text-2xl ring-2 ring-white/20 shrink-0">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="min-w-0">
+            <h1 class="font-bold text-sm sm:text-base xl:text-lg leading-tight tracking-wide text-white uppercase whitespace-nowrap">
+              Pengawas Sekolah
+            </h1>
+            <p class="text-[11px] xl:text-xs text-amber-400 font-medium whitespace-nowrap hidden sm:block">Cabang Dinas Pendidikan Wilayah</p>
+          </div>
+        </div>
 
-        // Tambah id="app-frame" dan allow="geolocation" (selain clipboard) supaya
-        // browser mengizinkan permintaan lokasi GPS yang didelegasikan ke iframe ini.
-        document.write('<iframe id="app-frame" src="' + LINK_AKHIR + '" allow="clipboard-read; clipboard-write; geolocation *"></iframe>');
-    </script>
+        <!-- Desktop Navigation -->
+        <nav class="hidden xl:flex items-center gap-1 font-medium text-sm shrink-0">
+          <a href="#beranda" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition flex items-center gap-1.5 active-nav whitespace-nowrap">
+            <i class="fa-solid fa-house text-amber-400"></i> Beranda
+          </a>
+          <div class="relative group">
+            <button class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition flex items-center gap-1 whitespace-nowrap">
+              Profil <i class="fa-solid fa-chevron-down text-[10px] text-slate-300"></i>
+            </button>
+            <div class="absolute top-full left-0 hidden group-hover:block w-52 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-xl shadow-xl py-2 border border-slate-100 dark:border-slate-700">
+              <a href="#profil-pengawas" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-semibold">Profil Pengawas</a>
+              <a href="#sambutan" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-semibold">Sambutan Pengawas</a>
+              <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-semibold">Visi & Misi</a>
+              <a href="#tugas-fungsi" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-semibold">Tugas & Fungsi</a>
+              <a href="#struktur" class="block px-4 py-2 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-semibold">Struktur Pengawas</a>
+            </div>
+          </div>
+          <a href="#sekolah" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition whitespace-nowrap">Sekolah Binaan</a>
+          <a href="#supervisi" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition whitespace-nowrap">E-Supervisi</a>
+          <a href="#agenda" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition whitespace-nowrap">Agenda Kerja</a>
+          <a href="#dokumen" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition whitespace-nowrap">Instrumen & Unduhan</a>
+          <a href="#berita" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition whitespace-nowrap">Informasi</a>
+        </nav>
 
-    <script>
-        // Menyimpan state navigasi terakhir yang diketahui wrapper ini, supaya
-        // tahu kapan harus menambah entri riwayat baru (pushState) vs cuma
-        // memperbarui entri yang sudah ada (replaceState).
-        let _navStateSaatIni = null;
-        let _navPertamaKali = true;
+        <!-- Header Right Actions -->
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+          <button onclick="openLoginModal()" class="hidden md:flex bg-amber-500 hover:bg-amber-400 text-brand-900 font-bold text-xs xl:text-sm px-3 xl:px-4 py-2.5 rounded-full transition shadow-lg items-center gap-2 transform active:scale-95 whitespace-nowrap">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            <span>Portal Sistem CMS</span>
+          </button>
 
-        function _samaNavState(a, b) {
-            if (!a || !b) return false;
-            return (a.page || '') === (b.page || '') &&
-                   (a.sub || '') === (b.sub || '') &&
-                   (a.berita_id || '') === (b.berita_id || '');
+          <button onclick="openLoginModal()" class="md:hidden w-10 h-10 rounded-full bg-amber-500 hover:bg-amber-400 flex items-center justify-center text-brand-900 transition shrink-0" title="Portal Sistem CMS">
+            <i class="fa-solid fa-right-to-bracket text-sm"></i>
+          </button>
+
+          <button onclick="openLoginModal()" class="hidden sm:flex w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 items-center justify-center text-white transition shrink-0" title="Login Pengawas">
+            <i class="fa-solid fa-user-gear text-sm"></i>
+          </button>
+
+          <!-- Mobile Hamburger (otomatis muncul begitu ruang mulai sempit) -->
+          <button onclick="toggleMobileMenu()" class="xl:hidden text-white p-2 rounded-lg hover:bg-white/10 shrink-0">
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden xl:hidden bg-brand-900 border-t border-slate-700 px-4 py-4 space-y-2">
+      <a href="#beranda" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white text-sm font-medium">Beranda</a>
+      <a href="#profil-pengawas" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white text-sm font-medium">Profil Pengawas</a>
+      <a href="#sambutan" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white text-sm font-medium">Sambutan Pengawas</a>
+      <a href="#sekolah" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white text-sm font-medium">Sekolah Binaan</a>
+      <a href="#supervisi" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white text-sm font-medium">E-Supervisi</a>
+      <a href="#agenda" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white text-sm font-medium">Agenda Kerja</a>
+      <a href="#dokumen" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white text-sm font-medium">Dokumen & Instrumen</a>
+      <a href="#berita" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/10 text-white text-sm font-medium">Informasi & Berita</a>
+    </div>
+  </header>
+
+  <!-- ==================== HERO BANNER SLIDER (2 KARTU, BISA SLIDE, FOTO DARI CMS) ==================== -->
+  <section id="beranda" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Slot Banner 1 -->
+      <div id="heroSlot1" class="hero-slide-card relative overflow-hidden rounded-3xl text-white shadow-2xl min-h-[320px] sm:min-h-[380px] flex flex-col justify-between p-6 sm:p-8 border border-white/10 group bg-brand-900">
+        <p class="relative z-10 text-xs text-white/50"><i class="fa-solid fa-spinner fa-spin"></i> Memuat banner...</p>
+      </div>
+      <!-- Slot Banner 2 -->
+      <div id="heroSlot2" class="hero-slide-card relative overflow-hidden rounded-3xl text-white shadow-2xl min-h-[320px] sm:min-h-[380px] flex flex-col justify-between p-6 sm:p-8 border border-white/10 group bg-brand-900">
+        <p class="relative z-10 text-xs text-white/50"><i class="fa-solid fa-spinner fa-spin"></i> Memuat banner...</p>
+      </div>
+    </div>
+
+    <!-- Kontrol Slider: Panah & Titik Indikator -->
+    <div class="flex items-center justify-center gap-3 mt-5">
+      <button onclick="heroPrev()" aria-label="Sebelumnya" class="w-9 h-9 shrink-0 rounded-full bg-white dark:bg-slate-800 shadow border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center justify-center transition">
+        <i class="fa-solid fa-chevron-left text-xs"></i>
+      </button>
+      <div id="heroDots" class="flex items-center gap-2"></div>
+      <button onclick="heroNext()" aria-label="Berikutnya" class="w-9 h-9 shrink-0 rounded-full bg-white dark:bg-slate-800 shadow border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center justify-center transition">
+        <i class="fa-solid fa-chevron-right text-xs"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- ==================== QUICK STATS SUMMARY ==================== -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl border border-slate-200/80 dark:border-slate-700 grid grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-300 flex items-center justify-center text-xl font-bold">
+          <i class="fa-solid fa-school"></i>
+        </div>
+        <div>
+          <p class="text-2xl font-black text-slate-800 dark:text-white">28</p>
+          <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Sekolah Binaan</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-300 flex items-center justify-center text-xl font-bold">
+          <i class="fa-solid fa-clipboard-check"></i>
+        </div>
+        <div>
+          <p class="text-2xl font-black text-slate-800 dark:text-white">142</p>
+          <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Laporan Supervisi</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-300 flex items-center justify-center text-xl font-bold">
+          <i class="fa-solid fa-chalkboard-user"></i>
+        </div>
+        <div>
+          <p class="text-2xl font-black text-slate-800 dark:text-white">650+</p>
+          <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Guru Terpinta</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 flex items-center justify-center text-xl font-bold">
+          <i class="fa-solid fa-award"></i>
+        </div>
+        <div>
+          <p class="text-2xl font-black text-slate-800 dark:text-white">94.8%</p>
+          <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Indeks Mutu Binaan</p>
+        </div>
+      </div>
+
+  </section>
+
+  <!-- ==================== PROFIL & SAMBUTAN PENGAWAS ====================
+       WADAH INI SIAP DIISI:
+       1. Ganti src foto besar & pas foto di bawah dengan foto pengawas asli.
+       2. Ganti semua teks "— isi ... —" dengan data pengawas yang sebenarnya.
+       3. Ganti paragraf sambutan dengan naskah sambutan pengawas.
+  ======================================================================= -->
+  <section id="profil-pengawas" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+    <div class="text-center mb-8">
+      <span class="text-xs font-bold uppercase tracking-wider text-amber-500">Mengenal Kami</span>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Profil Pengawas Sekolah</h2>
+      <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Cabang Dinas Pendidikan Wilayah</p>
+    </div>
+
+    <!-- Foto Besar Pengawas (Hero Full Photo) -->
+    <div class="relative rounded-3xl overflow-hidden shadow-2xl mb-8 min-h-[360px] sm:min-h-[480px]">
+      <img id="pubFotoBesar" src="https://placehold.co/1600x900/1e3a5f/f59e0b?text=Foto+Pengawas+Sekolah"
+           alt="Foto Pengawas Sekolah"
+           class="absolute inset-0 w-full h-full object-cover object-top">
+      <div class="absolute inset-0 bg-gradient-to-t from-brand-900 via-brand-900/50 to-transparent"></div>
+
+      <div class="absolute bottom-0 left-0 p-6 sm:p-10 text-white">
+        <span id="pubJabatanBadge" class="inline-flex items-center gap-2 bg-amber-500 text-brand-900 text-xs font-bold px-3 py-1 rounded-full mb-3">
+          <i class="fa-solid fa-id-badge"></i> Pengawas Sekolah Pembina
+        </span>
+        <h3 id="pubNamaHero" class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">— Nama Pengawas, S.Pd., M.Pd. —</h3>
+        <p id="pubHeroSubtitle" class="text-sm sm:text-base text-slate-200 mt-2 max-w-xl">
+          NIP. — isi NIP — &middot; Pengawas Jenjang — isi (SD/SMP/SMA/SMK) — &middot; Cabang Dinas Pendidikan Wilayah — isi —
+        </p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Kartu Profil Ringkas / Biodata -->
+      <div class="lg:col-span-1 bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl overflow-hidden flex flex-col">
+        <div class="w-full aspect-square">
+          <img id="pubPasFoto" src="https://placehold.co/300x300/1e3a5f/f59e0b?text=Pas+Foto" alt="Pas Foto Pengawas" class="w-full h-full object-cover">
+        </div>
+        <div class="flex flex-col items-center text-center p-6">
+          <h4 id="pubNamaCard" class="font-bold text-lg text-slate-900 dark:text-white">— Nama Pengawas, S.Pd., M.Pd. —</h4>
+          <p id="pubJabatanCard" class="text-xs text-amber-500 font-semibold uppercase tracking-wide">Pengawas Sekolah Pembina</p>
+        </div>
+      </div>
+
+      <!-- Sambutan Pengawas -->
+      <div id="sambutan" class="lg:col-span-2 bg-gradient-to-br from-brand-900 to-brand-800 text-white rounded-3xl shadow-2xl p-8 sm:p-10 relative overflow-hidden">
+        <i class="fa-solid fa-quote-left text-6xl text-amber-400/20 absolute top-6 right-8"></i>
+
+        <span class="text-xs font-bold uppercase tracking-widest text-amber-400 relative z-10">Sambutan</span>
+        <h4 id="pubSambutanJudul" class="text-2xl sm:text-3xl font-extrabold mt-2 mb-4 relative z-10">Selamat Datang di Portal Pengawas Sekolah</h4>
+
+        <div class="text-sm sm:text-[15px] text-slate-200 leading-relaxed space-y-3 relative z-10">
+          <p id="pubSambutanP1">
+            — Tulis paragraf pertama sambutan di sini. Contoh isi: ucapan syukur, latar belakang tugas pengawasan sekolah, serta tujuan dibangunnya portal ini bagi sekolah binaan. —
+          </p>
+          <p id="pubSambutanP2">
+            — Tulis paragraf kedua sambutan di sini (opsional). Contoh isi: harapan terhadap kepala sekolah, guru, dan tenaga kependidikan agar bersama-sama mendukung program supervisi dan peningkatan mutu pendidikan. —
+          </p>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between relative z-10">
+          <div>
+            <p id="pubNamaSign" class="font-bold text-sm">— Nama Pengawas, S.Pd., M.Pd. —</p>
+            <p id="pubJabatanSign" class="text-xs text-amber-400">Pengawas Sekolah Pembina</p>
+          </div>
+          <p id="pubNipSign" class="text-xs text-slate-400 font-mono">NIP. — isi —</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <section id="sekolah" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-wider text-amber-500">Wilayah Pembinaan</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Sekolah Dalam Binaan</h2>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Daftar SMA, SMK, dan SLB di bawah kepengawasan Cabang Dinas Pendidikan</p>
+      </div>
+      
+      <!-- Filter Chips -->
+      <div class="mt-4 md:mt-0 flex flex-wrap gap-2">
+        <button onclick="filterSchool('semua')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-800 text-white shadow">Semua</button>
+        <button onclick="filterSchool('SMA')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100">SMA</button>
+        <button onclick="filterSchool('SMK')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100">SMK</button>
+        <button onclick="filterSchool('SLB')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100">SLB</button>
+      </div>
+    </div>
+
+    <!-- School Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="schoolGrid">
+      
+      <!-- Card 1 -->
+      <div class="school-card bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 shadow-md hover:shadow-xl transition group" data-jenjang="SMA">
+        <div class="flex items-start justify-between mb-3">
+          <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-950 text-blue-600 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-school"></i>
+          </div>
+          <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">Akreditasi A</span>
+        </div>
+        <h3 class="font-bold text-base text-slate-800 dark:text-white group-hover:text-brand-500 transition">SMKN 1 KOTA</h3>
+        <p class="text-xs text-slate-400 mb-4"><i class="fa-solid fa-location-dot mr-1"></i> Jl. Veteran No. 12, Kec. Kota</p>
+        <div class="text-xs text-slate-600 dark:text-slate-300 space-y-1.5 pt-3 border-t border-slate-100 dark:border-slate-700">
+          <div class="flex justify-between"><span>Kepala Sekolah:</span> <strong class="text-slate-800 dark:text-white">Drs. Ahmad Dahlan, M.Pd</strong></div>
+          <div class="flex justify-between"><span>NPSN:</span> <span class="font-mono">20512345</span></div>
+          <div class="flex justify-between"><span>Status Supervisi:</span> <span class="text-emerald-600 font-semibold"><i class="fa-solid fa-circle-check"></i> Selesai (2026)</span></div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="school-card bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 shadow-md hover:shadow-xl transition group" data-jenjang="SMA">
+        <div class="flex items-start justify-between mb-3">
+          <div class="w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-950 text-indigo-600 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">Akreditasi A</span>
+        </div>
+        <h3 class="font-bold text-base text-slate-800 dark:text-white group-hover:text-brand-500 transition">SMAN 2 KEDIRI</h3>
+        <p class="text-xs text-slate-400 mb-4"><i class="fa-solid fa-location-dot mr-1"></i> Jl. Veteran No. 1, Kec. Mojoroto</p>
+        <div class="text-xs text-slate-600 dark:text-slate-300 space-y-1.5 pt-3 border-t border-slate-100 dark:border-slate-700">
+          <div class="flex justify-between"><span>Kepala Sekolah:</span> <strong class="text-slate-800 dark:text-white">Siti Nurjanah, S.Pd, M.Si</strong></div>
+          <div class="flex justify-between"><span>NPSN:</span> <span class="font-mono">20554321</span></div>
+          <div class="flex justify-between"><span>Status Supervisi:</span> <span class="text-amber-600 font-semibold"><i class="fa-solid fa-clock"></i> Dijadwalkan Mei</span></div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="school-card bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 shadow-md hover:shadow-xl transition group" data-jenjang="SMK">
+        <div class="flex items-start justify-between mb-3">
+          <div class="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-950 text-purple-600 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-gear"></i>
+          </div>
+          <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-100 text-blue-700">Akreditasi B</span>
+        </div>
+        <h3 class="font-bold text-base text-slate-800 dark:text-white group-hover:text-brand-500 transition">SMK PGRI 1 BINAAN</h3>
+        <p class="text-xs text-slate-400 mb-4"><i class="fa-solid fa-location-dot mr-1"></i> Jl. KH. Ahmad Dahlan No. 45</p>
+        <div class="text-xs text-slate-600 dark:text-slate-300 space-y-1.5 pt-3 border-t border-slate-100 dark:border-slate-700">
+          <div class="flex justify-between"><span>Kepala Sekolah:</span> <strong class="text-slate-800 dark:text-white">Budi Santoso, ST, MT</strong></div>
+          <div class="flex justify-between"><span>NPSN:</span> <span class="font-mono">20599887</span></div>
+          <div class="flex justify-between"><span>Status Supervisi:</span> <span class="text-emerald-600 font-semibold"><i class="fa-solid fa-circle-check"></i> Selesai (2026)</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== AGENDA & FITUR SUPERVISI ==================== -->
+  <section id="supervisi" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="bg-gradient-to-br from-brand-900 to-brand-800 text-white rounded-3xl p-8 sm:p-10 shadow-2xl relative overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative z-10">
+        <div>
+          <span class="bg-amber-400 text-brand-900 font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block">Fitur Utama E-Supervisi</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
+            Digitalisasi Pendampingan & Penjaminan Mutu Pendidikan
+          </h2>
+          <p class="text-slate-300 text-sm mb-6 leading-relaxed">
+            Aplikasi e-Supervisi terintegrasi dengan Google Sheets backend memungkinkan Pengawas Sekolah mencatat hasil visitasi, mengunggah tindak lanjut, dan memantau tugas secara real-time.
+          </p>
+
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm font-bold"><i class="fa-solid fa-check"></i></div>
+              <span class="text-sm font-medium">Instrumen Supervisi Akademik & Manajerial Terstandar</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm font-bold"><i class="fa-solid fa-check"></i></div>
+              <span class="text-sm font-medium">Rekapitulasi Skor Otomatis & Grafik Perkembangan Mutu</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-sm font-bold"><i class="fa-solid fa-check"></i></div>
+              <span class="text-sm font-medium">Manajemen Tugas & Remind Deadline Terintegrasi</span>
+            </div>
+          </div>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <button onclick="openLoginModal()" class="bg-amber-500 hover:bg-amber-400 text-brand-900 font-bold text-sm px-6 py-3 rounded-xl transition shadow-lg flex items-center gap-2">
+              <i class="fa-solid fa-clipboard-list"></i> Buka Aplikasi Admin
+            </button>
+            <a href="#dokumen" class="bg-white/10 hover:bg-white/20 text-white font-medium text-sm px-5 py-3 rounded-xl border border-white/20 transition">
+              Unduh Instumen PDF
+            </a>
+          </div>
+        </div>
+
+        <!-- Preview Mockup Card -->
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-2xl">
+          <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-red-400"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-400"></span>
+              <span class="w-3 h-3 rounded-full bg-green-400"></span>
+            </div>
+            <span class="text-xs text-slate-300 font-mono">Live System Monitor</span>
+          </div>
+          <div class="space-y-3">
+            <div class="bg-black/30 p-3 rounded-xl flex justify-between items-center text-xs">
+              <div>
+                <p class="font-bold text-amber-300">Supervisi Akademik SMAN 2</p>
+                <p class="text-slate-400">Aspek: Proses Pembelajaran Kurikulum Merdeka</p>
+              </div>
+              <span class="px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded font-bold">Skor: 92.5</span>
+            </div>
+            <div class="bg-black/30 p-3 rounded-xl flex justify-between items-center text-xs">
+              <div>
+                <p class="font-bold text-amber-300">Supervisi Manajerial SMKN 1</p>
+                <p class="text-slate-400">Aspek: Pengelolaan RKT & RKAS 2026</p>
+              </div>
+              <span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded font-bold">Skor: 88.0</span>
+            </div>
+            <div class="bg-black/30 p-3 rounded-xl flex justify-between items-center text-xs">
+              <div>
+                <p class="font-bold text-amber-300">Tindak Lanjut Catatan Binaan</p>
+                <p class="text-slate-400">Status: 3 Rekomendasi Terlaksana</p>
+              </div>
+              <span class="px-2 py-1 bg-amber-500/20 text-amber-300 rounded font-bold">Proses</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== INFORMASI & UNDUHAN DOKUMEN ==================== -->
+  <section id="dokumen" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="text-center mb-8">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Instrumen & Regulasi</h2>
+      <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Unduh berkas kelengkapan supervisi dan pedoman pengawas</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between hover:border-brand-500 transition">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
+          <div>
+            <p class="font-bold text-xs text-slate-800 dark:text-white">Instrumen Supervisi Akademik 2026</p>
+            <p class="text-[11px] text-slate-400">PDF • 1.2 MB</p>
+          </div>
+        </div>
+        <button onclick="downloadMock('Instrumen Supervisi Akademik')" class="p-2 text-brand-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"><i class="fa-solid fa-download"></i></button>
+      </div>
+
+      <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between hover:border-brand-500 transition">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-file-word text-blue-500 text-2xl"></i>
+          <div>
+            <p class="font-bold text-xs text-slate-800 dark:text-white">Format Laporan Tindak Lanjut</p>
+            <p class="text-[11px] text-slate-400">DOCX • 450 KB</p>
+          </div>
+        </div>
+        <button onclick="downloadMock('Format Laporan Tindak Lanjut')" class="p-2 text-brand-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"><i class="fa-solid fa-download"></i></button>
+      </div>
+
+      <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center justify-between hover:border-brand-500 transition">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
+          <div>
+            <p class="font-bold text-xs text-slate-800 dark:text-white">Permendikbud Ristek No 12 Thn 2024</p>
+            <p class="text-[11px] text-slate-400">PDF • 3.5 MB</p>
+          </div>
+        </div>
+        <button onclick="downloadMock('Permendikbud Ristek No 12')" class="p-2 text-brand-500 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg"><i class="fa-solid fa-download"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-brand-900 text-white pt-12 pb-24 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-lg bg-amber-500 flex items-center justify-center text-brand-900 font-bold text-xl">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <span class="font-bold text-base">Sistem Pengawas Cabdin</span>
+        </div>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Portal Pelayanan & Pengawasan Mutu Pendidikan Cabang Dinas Pendidikan Provinsi. Mendorong transformasi satuan pendidikan yang berkualitas, transparan, dan berakhlak.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-sm mb-4 text-amber-400">Tautan Cepat</h4>
+        <ul class="space-y-2 text-xs text-slate-300">
+          <li><a href="#beranda" class="hover:text-amber-400">Beranda Portal</a></li>
+          <li><a href="#sekolah" class="hover:text-amber-400">Data Sekolah Binaan</a></li>
+          <li><a href="#supervisi" class="hover:text-amber-400">E-Supervisi Akademik</a></li>
+          <li><a href="#dokumen" class="hover:text-amber-400">Instrumen & Format Dokumen</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-sm mb-4 text-amber-400">Kantor Sekretariat</h4>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          <i class="fa-solid fa-location-dot text-amber-400 mr-2"></i>
+          Jl. Pendidikan No. 88, Kompleks Perkantoran Cabang Dinas Pendidikan.
+        </p>
+        <p class="text-xs text-slate-300 mt-2">
+          <i class="fa-solid fa-phone text-amber-400 mr-2"></i> (0354) 771234
+        </p>
+        <p class="text-xs text-slate-300 mt-1">
+          <i class="fa-solid fa-envelope text-amber-400 mr-2"></i> cabdin.pengawas@kemdikbud.go.id
+        </p>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-800 pt-6 text-center text-xs text-slate-500">
+      &copy; 2026 Cabang Dinas Pendidikan. All Rights Reserved. Hak Cipta Dilindungi Undang-Undang.
+    </div>
+  </footer>
+
+  <!-- ==================== FLOATING DOCK TOOLBAR (EXACT MATCH TO REFERENCE IMAGE) ==================== -->
+  <div class="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 floating-dock">
+    <div class="bg-white/90 dark:bg-slate-800/95 backdrop-blur-xl border border-slate-200 dark:border-slate-700 shadow-2xl rounded-full px-5 py-2.5 flex items-center gap-4 text-slate-700 dark:text-slate-200">
+      
+      <!-- Grid Menu Button -->
+      <button onclick="toggleQuickDrawer()" class="w-9 h-9 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center justify-center transition text-slate-600 dark:text-slate-300" title="Menu Lengkap">
+        <i class="fa-solid fa-border-all text-sm"></i>
+      </button>
+
+      <!-- Quick Search Button -->
+      <button onclick="toggleSearchModal()" class="w-9 h-9 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center justify-center transition text-slate-600 dark:text-slate-300" title="Cari Data">
+        <i class="fa-solid fa-magnifying-glass text-sm"></i>
+      </button>
+
+      <!-- Floating WhatsApp Button (Green Highlight) -->
+      <a href="https://wa.me/6285735902504" target="_blank" class="w-11 h-11 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white flex items-center justify-center transition shadow-lg transform hover:scale-110" title="Hubungi WhatsApp Pengawas">
+        <i class="fa-brands fa-whatsapp text-xl"></i>
+      </a>
+
+      <!-- Floating Chatbot AI Button (Navy/Indigo Highlight) -->
+      <button onclick="openChatbotModal()" class="w-11 h-11 rounded-full bg-brand-900 hover:bg-brand-800 text-white flex items-center justify-center transition shadow-lg transform hover:scale-110 relative" title="Tanya Chatbot AI">
+        <i class="fa-solid fa-comment-dots text-lg"></i>
+        <span class="absolute -top-1 -right-1 flex h-3 w-3">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
+        </span>
+      </button>
+
+      <!-- Dark Mode Toggle Toggle -->
+      <button onclick="toggleDarkMode()" class="w-9 h-9 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center justify-center transition text-slate-600 dark:text-slate-300" title="Ganti Mode Gelap/Terang">
+        <i id="themeIcon" class="fa-solid fa-moon text-sm"></i>
+      </button>
+
+      <!-- Scroll To Top Button -->
+      <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="w-9 h-9 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center justify-center transition text-slate-600 dark:text-slate-300" title="Kembali ke Atas">
+        <i class="fa-solid fa-arrow-up text-sm"></i>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 1: LOGIN PORTAL CMS ==================== -->
+  <div id="loginModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-md p-6 sm:p-8 relative border border-slate-200 dark:border-slate-700">
+      <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="text-center mb-6">
+        <div class="w-16 h-16 bg-brand-900 rounded-2xl flex items-center justify-center text-amber-400 text-2xl mx-auto mb-3 shadow-lg">
+          <i class="fa-solid fa-user-shield"></i>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Portal Pengawas CMS</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Masuk untuk mengelola Data Sekolah, Supervisi & Tugas</p>
+      </div>
+
+      <form onsubmit="handleLoginSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Username / NIP</label>
+          <input type="text" id="loginUser" required placeholder="admin" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Password</label>
+          <input type="password" id="loginPass" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+        </div>
+        
+        <button type="submit" class="w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-3 rounded-xl transition shadow-lg text-sm flex items-center justify-center gap-2">
+          <i class="fa-solid fa-right-to-bracket"></i> Masuk Ke Dashboard
+        </button>
+      </form>
+
+      <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700 text-center">
+        <p class="text-[11px] text-slate-400">Default Login Admin: <strong class="text-slate-600 dark:text-slate-300">admin / pengawas123</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: CHATBOT AI ASSISTANT ==================== -->
+  <div id="chatbotModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-lg h-[520px] flex flex-col overflow-hidden border border-slate-200 dark:border-slate-700">
+      
+      <!-- Chat Header -->
+      <div class="bg-brand-900 text-white p-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-amber-400 text-brand-900 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div>
+            <p class="font-bold text-sm">Asisten AI Pengawas</p>
+            <p class="text-[10px] text-emerald-400 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Online • Siap Membantu
+            </p>
+          </div>
+        </div>
+        <button onclick="closeChatbotModal()" class="text-slate-300 hover:text-white p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Chat Body -->
+      <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-slate-50 dark:bg-slate-900 text-xs">
+        <div class="flex items-start gap-2">
+          <div class="w-7 h-7 rounded-full bg-brand-900 text-amber-400 flex items-center justify-center font-bold shrink-0">
+            <i class="fa-solid fa-robot text-xs"></i>
+          </div>
+          <div class="bg-white dark:bg-slate-800 p-3 rounded-2xl rounded-tl-none shadow border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 max-w-[80%]">
+            Halo! Saya Asisten AI Pengawas Cabang Dinas Pendidikan. Ada yang bisa saya bantu terkait jadwal supervisi, instrumen, atau prosedur pelaporan?
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Input -->
+      <div class="p-3 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 flex items-center gap-2">
+        <input type="text" id="chatInput" placeholder="Ketik pertanyaan Anda..." onkeypress="if(event.key==='Enter') sendChatMessage()" class="flex-1 px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-xs text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+        <button onclick="sendChatMessage()" class="bg-brand-900 hover:bg-brand-800 text-white w-9 h-9 rounded-xl flex items-center justify-center transition">
+          <i class="fa-solid fa-paper-plane text-xs"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== QUICK MENU DRAWER ==================== -->
+  <div id="quickDrawer" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 w-full max-w-md border border-slate-200 dark:border-slate-700 shadow-2xl">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="font-bold text-sm text-slate-800 dark:text-white">Pintasan Layanan</h3>
+        <button onclick="toggleQuickDrawer()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="grid grid-cols-3 gap-3">
+        <a href="#sekolah" onclick="toggleQuickDrawer()" class="p-3 rounded-2xl bg-slate-100 dark:bg-slate-700/50 hover:bg-blue-50 dark:hover:bg-slate-700 text-center transition">
+          <i class="fa-solid fa-school text-blue-600 text-xl mb-1"></i>
+          <p class="text-[11px] font-semibold text-slate-700 dark:text-slate-200">Sekolah Binaan</p>
+        </a>
+        <a href="#supervisi" onclick="toggleQuickDrawer()" class="p-3 rounded-2xl bg-slate-100 dark:bg-slate-700/50 hover:bg-emerald-50 dark:hover:bg-slate-700 text-center transition">
+          <i class="fa-solid fa-clipboard-check text-emerald-600 text-xl mb-1"></i>
+          <p class="text-[11px] font-semibold text-slate-700 dark:text-slate-200">E-Supervisi</p>
+        </a>
+        <a href="#dokumen" onclick="toggleQuickDrawer()" class="p-3 rounded-2xl bg-slate-100 dark:bg-slate-700/50 hover:bg-purple-50 dark:hover:bg-slate-700 text-center transition">
+          <i class="fa-solid fa-folder-open text-purple-600 text-xl mb-1"></i>
+          <p class="text-[11px] font-semibold text-slate-700 dark:text-slate-200">Instrumen</p>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== CMS ADMIN PANEL (muncul setelah login berhasil) ==================== -->
+  <div id="cmsAdminPanel" class="hidden fixed inset-0 z-[60] bg-slate-100 dark:bg-slate-900 flex flex-col lg:flex-row">
+
+    <!-- Sidebar CMS -->
+    <aside class="lg:w-64 bg-brand-900 text-white flex flex-col shrink-0">
+      <div class="flex items-center gap-3 p-5 border-b border-white/10">
+        <div class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-brand-900 font-bold text-lg"><i class="fa-solid fa-user-shield"></i></div>
+        <div>
+          <p class="font-bold text-sm leading-tight">CMS Admin</p>
+          <p class="text-[11px] text-amber-400">Portal Pengawas</p>
+        </div>
+      </div>
+
+      <nav class="flex-1 overflow-y-auto p-3 space-y-1 text-sm">
+        <button onclick="cmsNav('dashboard')" data-cms-page="dashboard" class="cms-nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/10 transition text-left"><i class="fa-solid fa-gauge w-5"></i> Dashboard</button>
+        <button onclick="cmsNav('profil')" data-cms-page="profil" class="cms-nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/10 transition text-left"><i class="fa-solid fa-id-card w-5"></i> Profil & Sambutan</button>
+        <button onclick="cmsNav('banner')" data-cms-page="banner" class="cms-nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/10 transition text-left"><i class="fa-solid fa-images w-5"></i> Hero Banner</button>
+        <button onclick="cmsNav('sekolah')" data-cms-page="sekolah" class="cms-nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/10 transition text-left"><i class="fa-solid fa-school w-5"></i> Sekolah Binaan</button>
+        <button onclick="cmsNav('supervisi')" data-cms-page="supervisi" class="cms-nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/10 transition text-left"><i class="fa-solid fa-clipboard-check w-5"></i> E-Supervisi</button>
+        <button onclick="cmsNav('agenda')" data-cms-page="agenda" class="cms-nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/10 transition text-left"><i class="fa-solid fa-calendar-days w-5"></i> Agenda Kerja</button>
+        <button onclick="cmsNav('dokumen')" data-cms-page="dokumen" class="cms-nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/10 transition text-left"><i class="fa-solid fa-folder-open w-5"></i> Dokumen & Instrumen</button>
+        <button onclick="cmsNav('password')" data-cms-page="password" class="cms-nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/10 transition text-left"><i class="fa-solid fa-key w-5"></i> Ganti Password</button>
+      </nav>
+
+      <div class="p-3 border-t border-white/10 space-y-1">
+        <p class="px-3 text-[11px] text-slate-300 truncate">Masuk sebagai <strong id="cmsUserName" class="text-white">-</strong></p>
+        <a href="#beranda" onclick="cmsClosePanel()" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/10 transition text-sm text-left"><i class="fa-solid fa-arrow-left w-5"></i> Lihat Website</a>
+        <button onclick="cmsLogout()" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-red-500/20 text-red-300 transition text-sm text-left"><i class="fa-solid fa-right-from-bracket w-5"></i> Keluar</button>
+      </div>
+    </aside>
+
+    <!-- Konten CMS -->
+    <main class="flex-1 overflow-y-auto">
+      <div class="lg:hidden bg-brand-900 text-white p-4 flex items-center justify-between">
+        <span class="font-bold text-sm">CMS Admin</span>
+        <button onclick="cmsClosePanel()" class="text-white/80"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <div id="cmsContent" class="p-4 sm:p-6 lg:p-8 max-w-5xl mx-auto"></div>
+    </main>
+  </div>
+
+  <!-- Modal generik untuk form Tambah/Edit di dalam CMS -->
+  <div id="cmsModal" class="hidden fixed inset-0 z-[70] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-lg p-6 sm:p-7 relative border border-slate-200 dark:border-slate-700 max-h-[90vh] overflow-y-auto">
+      <button onclick="cmsCloseModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"><i class="fa-solid fa-xmark text-lg"></i></button>
+      <h3 id="cmsModalTitle" class="text-lg font-bold text-slate-900 dark:text-white mb-4">-</h3>
+      <div id="cmsModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Toast notifikasi -->
+  <div id="cmsToast" class="hidden fixed top-4 right-4 z-[80] px-4 py-3 rounded-xl shadow-2xl text-sm font-semibold text-white"></div>
+
+  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <script>
+    // Dark Mode Toggle Logic
+    function toggleDarkMode() {
+      const html = document.documentElement;
+      const icon = document.getElementById('themeIcon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        icon.className = 'fa-solid fa-moon text-sm';
+      } else {
+        html.classList.add('dark');
+        icon.className = 'fa-solid fa-sun text-sm text-amber-400';
+      }
+    }
+
+    // Navigation Toggle Mobile
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+    }
+
+    // Modal Control: Login Portal
+    function openLoginModal() {
+      document.getElementById('loginModal').classList.remove('hidden');
+    }
+    function closeLoginModal() {
+      document.getElementById('loginModal').classList.add('hidden');
+    }
+
+    // Modal Control: Chatbot AI
+    function openChatbotModal() {
+      document.getElementById('chatbotModal').classList.remove('hidden');
+    }
+    function closeChatbotModal() {
+      document.getElementById('chatbotModal').classList.add('hidden');
+    }
+
+    // Toggle Quick Drawer
+    function toggleQuickDrawer() {
+      document.getElementById('quickDrawer').classList.toggle('hidden');
+    }
+
+    // Filter School Cards
+    function filterSchool(category) {
+      const cards = document.querySelectorAll('.school-card');
+      cards.forEach(card => {
+        if (category === 'semua' || card.dataset.jenjang === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
         }
+      });
+    }
 
-        function updateUrlBarFromNavState(data) {
-            const usp = new URLSearchParams();
-            if (data.page && data.page !== 'home') usp.set('page', data.page);
-            if (data.sub) usp.set('sub', data.sub);
-            if (data.berita_id) usp.set('berita_id', data.berita_id);
-            const query = usp.toString();
-            const newUrl = window.location.pathname + (query ? '?' + query : '');
+    // ============ SESI CMS ADMIN ============
+    let CMS_TOKEN = sessionStorage.getItem('cms_token') || null;
+    let CMS_NAMA = sessionStorage.getItem('cms_nama') || '';
 
-            if (_navPertamaKali) {
-                // Muat pertama kali (baik dari link yang dibagikan atau Beranda
-                // polos) -> jadi entri riwayat pertama, jangan ditambah dobel.
-                history.replaceState(data, '', newUrl);
-                _navPertamaKali = false;
-            } else if (!_samaNavState(_navStateSaatIni, data)) {
-                // Menu berubah -> tambah entri riwayat baru, supaya tombol
-                // Back/Forward browser bisa pindah antar menu (bukan langsung
-                // keluar dari website).
-                history.pushState(data, '', newUrl);
+    window.addEventListener('load', () => {
+      if (CMS_TOKEN) {
+        document.getElementById('cmsUserName').textContent = CMS_NAMA;
+      }
+    });
+
+    function toast(message, type) {
+      const el = document.getElementById('cmsToast');
+      el.textContent = message;
+      el.className = 'fixed top-4 right-4 z-[80] px-4 py-3 rounded-xl shadow-2xl text-sm font-semibold text-white ' + (type === 'error' ? 'bg-red-500' : 'bg-emerald-500');
+      el.classList.remove('hidden');
+      setTimeout(() => el.classList.add('hidden'), 3000);
+    }
+
+    // Handle Form Submit Login (terhubung ke Google Sheets via Apps Script)
+    function handleLoginSubmit(e) {
+      e.preventDefault();
+      const user = document.getElementById('loginUser').value.trim();
+      const pass = document.getElementById('loginPass').value;
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Memeriksa...';
+
+      google.script.run
+        .withSuccessHandler(res => {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Masuk Ke Dashboard';
+          if (res.success) {
+            CMS_TOKEN = res.token;
+            CMS_NAMA = res.nama;
+            sessionStorage.setItem('cms_token', res.token);
+            sessionStorage.setItem('cms_nama', res.nama);
+            document.getElementById('loginUser').value = '';
+            document.getElementById('loginPass').value = '';
+            closeLoginModal();
+            document.getElementById('cmsUserName').textContent = res.nama;
+            cmsOpenPanel();
+          } else {
+            toast(res.message, 'error');
+          }
+        })
+        .withFailureHandler(err => {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Masuk Ke Dashboard';
+          toast('Gagal terhubung ke server: ' + err.message, 'error');
+        })
+        .cmsLogin(user, pass);
+    }
+
+    // ============ BUKA / TUTUP PANEL CMS ADMIN ============
+    function cmsOpenPanel() {
+      document.getElementById('cmsAdminPanel').classList.remove('hidden');
+      cmsNav('dashboard');
+    }
+    function cmsClosePanel() {
+      document.getElementById('cmsAdminPanel').classList.add('hidden');
+    }
+    function cmsLogout() {
+      sessionStorage.removeItem('cms_token');
+      sessionStorage.removeItem('cms_nama');
+      CMS_TOKEN = null;
+      cmsClosePanel();
+      toast('Anda telah keluar dari CMS Admin');
+    }
+    function cmsOpenModal(title, bodyHtml) {
+      document.getElementById('cmsModalTitle').textContent = title;
+      document.getElementById('cmsModalBody').innerHTML = bodyHtml;
+      document.getElementById('cmsModal').classList.remove('hidden');
+    }
+    function cmsCloseModal() {
+      document.getElementById('cmsModal').classList.add('hidden');
+    }
+
+    // ============ ROUTER HALAMAN CMS ============
+    function cmsNav(page) {
+      document.querySelectorAll('.cms-nav-item').forEach(btn => {
+        btn.classList.toggle('bg-white/10', btn.dataset.cmsPage === page);
+      });
+      const content = document.getElementById('cmsContent');
+      content.innerHTML = '<p class="text-sm text-slate-400"><i class="fa-solid fa-spinner fa-spin"></i> Memuat data...</p>';
+
+      if (page === 'dashboard') cmsRenderDashboard();
+      else if (page === 'profil') cmsRenderProfil();
+      else if (page === 'banner') cmsRenderBanner();
+      else if (page === 'sekolah') cmsRenderSekolah();
+      else if (page === 'supervisi') cmsRenderSupervisi();
+      else if (page === 'agenda') cmsRenderAgenda();
+      else if (page === 'dokumen') cmsRenderDokumen();
+      else if (page === 'password') cmsRenderPassword();
+    }
+
+    // ---------- DASHBOARD ----------
+    function cmsRenderDashboard() {
+      document.getElementById('cmsContent').innerHTML = `
+        <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white mb-1">Selamat Datang, ${CMS_NAMA}</h2>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">Kelola konten Portal Pengawas dari satu tempat: Profil & Sambutan, Sekolah Binaan, E-Supervisi, Agenda Kerja, dan Dokumen.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <button onclick="cmsNav('profil')" class="text-left bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow hover:shadow-lg transition">
+            <i class="fa-solid fa-id-card text-amber-500 text-xl mb-2"></i>
+            <p class="font-bold text-sm text-slate-800 dark:text-white">Edit Profil & Sambutan</p>
+            <p class="text-xs text-slate-400 mt-1">Ganti foto besar, biodata, dan naskah sambutan yang tampil di Beranda.</p>
+          </button>
+          <button onclick="cmsNav('banner')" class="text-left bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow hover:shadow-lg transition">
+            <i class="fa-solid fa-images text-pink-500 text-xl mb-2"></i>
+            <p class="font-bold text-sm text-slate-800 dark:text-white">Kelola Hero Banner</p>
+            <p class="text-xs text-slate-400 mt-1">Unggah beberapa foto banner Beranda yang tampil bergantian (slide).</p>
+          </button>
+          <button onclick="cmsNav('sekolah')" class="text-left bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow hover:shadow-lg transition">
+            <i class="fa-solid fa-school text-blue-500 text-xl mb-2"></i>
+            <p class="font-bold text-sm text-slate-800 dark:text-white">Kelola Sekolah Binaan</p>
+            <p class="text-xs text-slate-400 mt-1">Tambah, ubah, atau hapus data sekolah dalam binaan Anda.</p>
+          </button>
+          <button onclick="cmsNav('supervisi')" class="text-left bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow hover:shadow-lg transition">
+            <i class="fa-solid fa-clipboard-check text-emerald-500 text-xl mb-2"></i>
+            <p class="font-bold text-sm text-slate-800 dark:text-white">Laporan E-Supervisi</p>
+            <p class="text-xs text-slate-400 mt-1">Catat hasil supervisi akademik & manajerial sekolah binaan.</p>
+          </button>
+          <button onclick="cmsNav('agenda')" class="text-left bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow hover:shadow-lg transition">
+            <i class="fa-solid fa-calendar-days text-purple-500 text-xl mb-2"></i>
+            <p class="font-bold text-sm text-slate-800 dark:text-white">Agenda Kerja</p>
+            <p class="text-xs text-slate-400 mt-1">Jadwalkan kegiatan pengawasan mendatang.</p>
+          </button>
+        </div>
+      `;
+    }
+
+    // Helper: tampilkan pesan error di #cmsContent supaya tidak macet di "Memuat data..."
+    function cmsShowError(err, page) {
+      const msg = (err && err.message) ? err.message : String(err);
+      document.getElementById('cmsContent').innerHTML = `
+        <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-300 rounded-2xl p-5 text-sm">
+          <p class="font-semibold mb-1"><i class="fa-solid fa-triangle-exclamation"></i> Gagal memuat data</p>
+          <p class="text-xs opacity-90">${msg}</p>
+          <button onclick="cmsNav('${page}')" class="mt-3 text-xs font-semibold underline">Coba Lagi</button>
+        </div>`;
+      toast('Gagal memuat data: ' + msg, 'error');
+    }
+
+    // ---------- PROFIL & SAMBUTAN ----------
+    function cmsRenderProfil() {
+      google.script.run.withSuccessHandler(res => {
+        const d = (res && res.data) || {};
+        document.getElementById('cmsContent').innerHTML = `
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-1">Profil & Sambutan Pengawas</h2>
+          <p class="text-xs text-slate-400 mb-6">Konten ini tampil langsung di halaman Beranda situs.</p>
+          <form id="cmsProfilForm" onsubmit="cmsSubmitProfil(event)" class="space-y-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 sm:p-6">
+            ${cmsFieldWithUpload('URL Foto Besar (Beranda)', 'fotoBesarUrl', d.FotoBesarURL, 'https://...')}
+            ${cmsFieldWithUpload('URL Pas Foto', 'pasFotoUrl', d.PasFotoURL, 'https://...')}
+            ${cmsField('Nama Lengkap & Gelar', 'nama', d.Nama)}
+            ${cmsField('Jabatan', 'jabatan', d.Jabatan)}
+            ${cmsField('NIP', 'nip', d.NIP)}
+            ${cmsField('Pangkat / Golongan', 'pangkatGolongan', d.PangkatGolongan)}
+            ${cmsField('Jenjang Binaan', 'jenjangBinaan', d.JenjangBinaan)}
+            ${cmsField('Wilayah Binaan', 'wilayahBinaan', d.WilayahBinaan)}
+            ${cmsField('Pendidikan Terakhir', 'pendidikanTerakhir', d.PendidikanTerakhir)}
+            ${cmsField('No. HP / WA', 'noHp', d.NoHP)}
+            <hr class="border-slate-200 dark:border-slate-700">
+            ${cmsField('Judul Sambutan', 'sambutanJudul', d.SambutanJudul)}
+            ${cmsTextarea('Paragraf Sambutan 1', 'sambutanParagraf1', d.SambutanParagraf1)}
+            ${cmsTextarea('Paragraf Sambutan 2', 'sambutanParagraf2', d.SambutanParagraf2)}
+            <button type="submit" class="w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-3 rounded-xl transition shadow text-sm"><i class="fa-solid fa-floppy-disk"></i> Simpan Profil & Sambutan</button>
+          </form>
+        `;
+      }).withFailureHandler(err => cmsShowError(err, 'profil')).cmsGetProfil();
+    }
+    function cmsSubmitProfil(e) {
+      e.preventDefault();
+      const f = e.target;
+      const data = {
+        fotoBesarUrl: f.fotoBesarUrl.value, pasFotoUrl: f.pasFotoUrl.value, nama: f.nama.value,
+        jabatan: f.jabatan.value, nip: f.nip.value, pangkatGolongan: f.pangkatGolongan.value,
+        jenjangBinaan: f.jenjangBinaan.value, wilayahBinaan: f.wilayahBinaan.value,
+        pendidikanTerakhir: f.pendidikanTerakhir.value, noHp: f.noHp.value,
+        sambutanJudul: f.sambutanJudul.value, sambutanParagraf1: f.sambutanParagraf1.value, sambutanParagraf2: f.sambutanParagraf2.value
+      };
+      google.script.run.withSuccessHandler(res => {
+        toast(res.message, res.success ? 'success' : 'error');
+        if (res.success) cmsApplyProfilToPublicPage(data);
+      }).withFailureHandler(err => toast(err.message, 'error')).cmsSaveProfil(CMS_TOKEN, data);
+    }
+    // Terapkan perubahan profil ke tampilan publik Beranda tanpa perlu reload halaman
+    function cmsApplyProfilToPublicPage(d) {
+      if (d.fotoBesarUrl) document.getElementById('pubFotoBesar').src = d.fotoBesarUrl;
+      if (d.pasFotoUrl) document.getElementById('pubPasFoto').src = d.pasFotoUrl;
+      document.getElementById('pubNamaHero').textContent = d.nama;
+      document.getElementById('pubNamaCard').textContent = d.nama;
+      document.getElementById('pubNamaSign').textContent = d.nama;
+      document.getElementById('pubJabatanCard').textContent = d.jabatan;
+      document.getElementById('pubJabatanSign').textContent = d.jabatan;
+      document.getElementById('pubJabatanBadge').innerHTML = '<i class="fa-solid fa-id-badge"></i> ' + d.jabatan;
+      document.getElementById('pubHeroSubtitle').textContent = 'NIP. ' + d.nip + ' \u00b7 Pengawas Jenjang ' + d.jenjangBinaan + ' \u00b7 Cabang Dinas Pendidikan Wilayah ' + d.wilayahBinaan;
+      document.getElementById('pubNipSign').textContent = 'NIP. ' + d.nip;
+      document.getElementById('pubSambutanJudul').textContent = d.sambutanJudul;
+      document.getElementById('pubSambutanP1').textContent = d.sambutanParagraf1;
+      document.getElementById('pubSambutanP2').textContent = d.sambutanParagraf2;
+    }
+
+    // Muat data Profil & Sambutan dari Google Sheets begitu halaman Beranda dibuka
+    function cmsLoadPublicProfil() {
+      google.script.run.withSuccessHandler(res => {
+        if (res && res.success && res.data && res.data.Nama) {
+          cmsApplyProfilToPublicPage({
+            fotoBesarUrl: res.data.FotoBesarURL, pasFotoUrl: res.data.PasFotoURL, nama: res.data.Nama,
+            jabatan: res.data.Jabatan, nip: res.data.NIP, pangkatGolongan: res.data.PangkatGolongan,
+            jenjangBinaan: res.data.JenjangBinaan, wilayahBinaan: res.data.WilayahBinaan,
+            pendidikanTerakhir: res.data.PendidikanTerakhir, noHp: res.data.NoHP,
+            sambutanJudul: res.data.SambutanJudul, sambutanParagraf1: res.data.SambutanParagraf1, sambutanParagraf2: res.data.SambutanParagraf2
+          });
+        }
+      }).withFailureHandler(err => console.error('Gagal memuat profil publik:', err)).cmsGetProfil();
+    }
+    window.addEventListener('load', cmsLoadPublicProfil);
+
+    // ============ HERO BANNER SLIDER (BERANDA) ============
+    // Data banner diambil dari CMS Admin > Hero Banner (bisa unggah beberapa foto).
+    // Ditampilkan sebagai 2 kartu berdampingan, otomatis bergeser (auto-slide),
+    // dan bisa dikendalikan manual lewat panah / titik indikator.
+    let HERO_SLIDES = [];
+    let HERO_INDEX = 0;
+    let HERO_TIMER = null;
+
+    // Data cadangan (dipakai jika belum ada banner di CMS / GAS belum terhubung)
+    const HERO_DEFAULT_SLIDES = [
+      {
+        gambar: 'https://placehold.co/1200x800/065f46/f59e0b?text=Supervisi+Akademik',
+        badge: 'Program Pembinaan Karakter 2026/2027',
+        badgeColor: 'emerald',
+        judul: 'Supervisi Akademik & ',
+        sorot: 'Penguatan Karakter',
+        deskripsi: 'Monitoring pelaksanaan Kurikulum Merdeka & Pendampingan Manajemen Mutu Sekolah Binaan secara periodik dan transparan.',
+        teksTombol: 'WhatsApp',
+        linkTombol: 'https://wa.me/6285735902504'
+      },
+      {
+        gambar: 'https://placehold.co/1200x800/1e3a5f/60a5fa?text=Penerimaan+Murid+Baru',
+        badge: 'Layanan Terpadu Pengawas',
+        badgeColor: 'blue',
+        judul: 'Penerimaan Murid Baru & ',
+        sorot: 'Penjaminan Mutu',
+        deskripsi: 'Tahun Pelajaran 2026/2027. Akses portal pelaporan instrumen supervisi manajerial dan administrasi guru secara online.',
+        teksTombol: 'Masuk Portal Pengawas',
+        linkTombol: '#login'
+      },
+      {
+        gambar: 'https://placehold.co/1200x800/78350f/fbbf24?text=Kunjungan+Sekolah+Binaan',
+        badge: 'Kunjungan Lapangan',
+        badgeColor: 'amber',
+        judul: 'Pendampingan Langsung ',
+        sorot: 'ke Sekolah Binaan',
+        deskripsi: 'Dokumentasi kegiatan kunjungan dan pembinaan rutin ke sekolah-sekolah binaan di seluruh wilayah kerja.',
+        teksTombol: 'Chatbot AI',
+        linkTombol: '#chatbot'
+      }
+    ];
+
+    function heroBadgeClass(color) {
+      const map = {
+        emerald: 'bg-emerald-950/80 border-emerald-500/40 text-emerald-300',
+        blue: 'bg-blue-950/80 border-blue-400/30 text-blue-300',
+        amber: 'bg-amber-950/80 border-amber-400/30 text-amber-300'
+      };
+      return map[color] || map.emerald;
+    }
+
+    // Aksi tombol tiap slide: bisa buka Chatbot / Modal Login / link biasa (WA, dsb)
+    function heroSlideAction(link) {
+      if (!link) return;
+      if (link === '#chatbot') { openChatbotModal(); return; }
+      if (link === '#login') { openLoginModal(); return; }
+      window.open(link, '_blank');
+    }
+
+    function buildHeroSlideHtml(slide) {
+      if (!slide) return '';
+      const img = slide.gambar || 'https://placehold.co/1200x800/1e3a5f/f59e0b?text=Hero+Banner';
+      const safeLink = (slide.linkTombol || '').toString().replace(/'/g, "\\'");
+      return `
+        <div class="absolute inset-0 overflow-hidden">
+          <img src="${img}" class="w-full h-full object-cover" alt="Banner Beranda" onerror="this.src='https://placehold.co/1200x800/1e3a5f/f59e0b?text=Hero+Banner'">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10"></div>
+        </div>
+        <div class="relative z-10 flex items-center justify-between">
+          <div class="flex items-center gap-2 backdrop-blur px-3 py-1.5 rounded-full border text-xs font-semibold ${heroBadgeClass(slide.badgeColor)}">
+            <i class="fa-solid fa-star text-amber-300"></i>
+            <span>${slide.badge || ''}</span>
+          </div>
+        </div>
+        <div class="relative z-10 my-4">
+          <h2 class="text-2xl sm:text-4xl font-extrabold leading-tight mb-2 tracking-tight text-white drop-shadow">
+            ${slide.judul || ''}<br><span class="text-amber-400">${slide.sorot || ''}</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-200 max-w-md line-clamp-2">${slide.deskripsi || ''}</p>
+        </div>
+        <div class="relative z-10 flex items-center justify-between pt-4 border-t border-white/20">
+          <div class="flex items-center gap-2 text-xs text-slate-200">
+            <i class="fa-solid fa-globe"></i>
+            <span class="font-mono">cabdin-pendidikan.go.id</span>
+          </div>
+          <button onclick="heroSlideAction('${safeLink}')" class="bg-amber-500 hover:bg-amber-400 text-brand-900 font-bold text-xs px-4 py-2 rounded-full shadow-lg transition flex items-center gap-2">
+            <span>${slide.teksTombol || 'Selengkapnya'}</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      `;
+    }
+
+    // Tampilkan sepasang slide (slot 1 & slot 2) sesuai HERO_INDEX saat ini, dengan efek fade
+    function renderHeroPair() {
+      const total = HERO_SLIDES.length;
+      const slot1 = document.getElementById('heroSlot1');
+      const slot2 = document.getElementById('heroSlot2');
+      if (!slot1 || !slot2 || total === 0) return;
+
+      const slideA = HERO_SLIDES[HERO_INDEX % total];
+      const slideB = total > 1 ? HERO_SLIDES[(HERO_INDEX + 1) % total] : slideA;
+
+      slot1.style.opacity = '0';
+      slot2.style.opacity = '0';
+      setTimeout(() => {
+        slot1.innerHTML = buildHeroSlideHtml(slideA);
+        slot2.innerHTML = buildHeroSlideHtml(slideB);
+        slot1.style.opacity = '1';
+        slot2.style.opacity = '1';
+      }, 250);
+
+      renderHeroDots();
+    }
+
+    function renderHeroDots() {
+      const dotsEl = document.getElementById('heroDots');
+      if (!dotsEl) return;
+      const total = HERO_SLIDES.length;
+      if (total <= 1) { dotsEl.innerHTML = ''; return; }
+      dotsEl.innerHTML = HERO_SLIDES.map((_, i) => `
+        <button onclick="heroGoTo(${i})" aria-label="Slide ${i + 1}" class="h-2 rounded-full transition-all ${i === (HERO_INDEX % total) ? 'bg-amber-500 w-6' : 'bg-slate-300 dark:bg-slate-600 w-2'}"></button>
+      `).join('');
+    }
+
+    function heroGoTo(i) {
+      HERO_INDEX = i;
+      renderHeroPair();
+      heroResetTimer();
+    }
+    function heroNext() {
+      if (HERO_SLIDES.length === 0) return;
+      HERO_INDEX = (HERO_INDEX + 1) % HERO_SLIDES.length;
+      renderHeroPair();
+      heroResetTimer();
+    }
+    function heroPrev() {
+      if (HERO_SLIDES.length === 0) return;
+      HERO_INDEX = (HERO_INDEX - 1 + HERO_SLIDES.length) % HERO_SLIDES.length;
+      renderHeroPair();
+      heroResetTimer();
+    }
+    function heroResetTimer() {
+      if (HERO_TIMER) clearInterval(HERO_TIMER);
+      if (HERO_SLIDES.length > 1) {
+        HERO_TIMER = setInterval(heroNext, 6000);
+      }
+    }
+
+    function initHeroSlider(slides) {
+      HERO_SLIDES = (slides && slides.length > 0) ? slides : HERO_DEFAULT_SLIDES;
+      HERO_INDEX = 0;
+      renderHeroPair();
+      heroResetTimer();
+    }
+
+    // Muat daftar banner aktif dari Google Sheets (lewat CMS) begitu Beranda dibuka
+    function cmsLoadPublicBanner() {
+      if (typeof google === 'undefined' || !google.script || !google.script.run) {
+        initHeroSlider(HERO_DEFAULT_SLIDES);
+        return;
+      }
+      google.script.run
+        .withSuccessHandler(res => {
+          if (res && res.success && res.data && res.data.length > 0) {
+            const mapped = res.data.map(b => ({
+              gambar: b.Gambar_URL,
+              badge: b.Badge_Text,
+              badgeColor: b.Badge_Warna,
+              judul: b.Judul,
+              sorot: b.Judul_Sorot,
+              deskripsi: b.Deskripsi,
+              teksTombol: b.Teks_Tombol,
+              linkTombol: b.Link_Tombol
+            }));
+            initHeroSlider(mapped);
+          } else {
+            initHeroSlider(HERO_DEFAULT_SLIDES);
+          }
+        })
+        .withFailureHandler(() => initHeroSlider(HERO_DEFAULT_SLIDES))
+        .getBannerAktif();
+    }
+    window.addEventListener('load', cmsLoadPublicBanner);
+
+    // ---------- HERO BANNER (CMS ADMIN) ----------
+    let CMS_BANNER_CACHE = [];
+    function cmsRenderBanner() {
+      google.script.run.withSuccessHandler(res => {
+        CMS_BANNER_CACHE = (res.data || []).slice().sort((a, b) => (parseInt(a.Urutan) || 0) - (parseInt(b.Urutan) || 0));
+        const rows = CMS_BANNER_CACHE.map(b => `
+          <tr class="border-b border-slate-100 dark:border-slate-700">
+            <td class="py-2 px-3"><img src="${b.Gambar_URL || 'https://placehold.co/80x50?text=No+Image'}" class="w-16 h-10 object-cover rounded-lg border border-slate-200 dark:border-slate-600" onerror="this.src='https://placehold.co/80x50?text=No+Image'"></td>
+            <td class="py-2 px-3">${b.Urutan}</td>
+            <td class="py-2 px-3">${b.Judul || ''} <span class="text-amber-500 font-semibold">${b.Judul_Sorot || ''}</span></td>
+            <td class="py-2 px-3">${b.Badge_Text || ''}</td>
+            <td class="py-2 px-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${String(b.Aktif).toUpperCase() === 'YA' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-500'}">${String(b.Aktif).toUpperCase() === 'YA' ? 'Aktif' : 'Nonaktif'}</span></td>
+            <td class="py-2 px-3 text-right whitespace-nowrap">
+              <button onclick="cmsFormBanner('${b.ID_Banner}')" class="text-blue-500 hover:text-blue-700 mr-2"><i class="fa-solid fa-pen"></i></button>
+              <button onclick="cmsDeleteBanner('${b.ID_Banner}')" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          </tr>`).join('');
+        document.getElementById('cmsContent').innerHTML = `
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+            <div>
+              <h2 class="text-xl font-bold text-slate-900 dark:text-white">Hero Banner Beranda</h2>
+              <p class="text-xs text-slate-400 mt-1">Unggah beberapa foto untuk ditampilkan bergantian (slide otomatis) pada 2 kartu banner di Beranda.</p>
+            </div>
+            <button onclick="cmsFormBanner()" class="bg-amber-500 hover:bg-amber-400 text-brand-900 font-bold text-xs px-4 py-2 rounded-full whitespace-nowrap shrink-0"><i class="fa-solid fa-plus"></i> Tambah Banner</button>
+          </div>
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-x-auto">
+            <table class="w-full text-xs text-left text-slate-600 dark:text-slate-300">
+              <thead class="bg-slate-50 dark:bg-slate-700/50 font-bold text-slate-700 dark:text-white"><tr><th class="py-2 px-3">Foto</th><th class="py-2 px-3">Urutan</th><th class="py-2 px-3">Judul</th><th class="py-2 px-3">Badge</th><th class="py-2 px-3">Status</th><th class="py-2 px-3"></th></tr></thead>
+              <tbody>${rows || '<tr><td colspan="6" class="py-4 px-3 text-center text-slate-400">Belum ada banner, silakan tambah</td></tr>'}</tbody>
+            </table>
+          </div>
+        `;
+      }).withFailureHandler(err => cmsShowError(err, 'banner')).cmsGetBanner();
+    }
+    function cmsFormBanner(id) {
+      const item = id ? (CMS_BANNER_CACHE.find(b => b.ID_Banner === id) || {}) : {};
+      cmsOpenModal(id ? 'Edit Hero Banner' : 'Tambah Hero Banner', `
+        <form onsubmit="cmsSubmitBanner(event, ${id ? `'${id}'` : 'null'})" class="space-y-3">
+          ${cmsFieldWithUpload('Foto Banner', 'gambarUrl', item.Gambar_URL, 'https://... atau unggah dari komputer')}
+          ${cmsField('Urutan Tampil', 'urutan', item.Urutan || (CMS_BANNER_CACHE.length + 1), 'Contoh: 1', 'number')}
+          ${cmsField('Teks Badge (pojok atas)', 'badgeText', item.Badge_Text, 'Contoh: Program Pembinaan Karakter')}
+          ${cmsSelect('Warna Badge', 'badgeWarna', ['emerald', 'blue', 'amber'], item.Badge_Warna)}
+          ${cmsField('Judul Utama', 'judul', item.Judul, 'Contoh: Supervisi Akademik & ')}
+          ${cmsField('Judul Sorot (warna kuning)', 'judulSorot', item.Judul_Sorot, 'Contoh: Penguatan Karakter')}
+          ${cmsTextarea('Deskripsi Singkat', 'deskripsi', item.Deskripsi)}
+          ${cmsField('Teks Tombol', 'teksTombol', item.Teks_Tombol, 'Contoh: WhatsApp')}
+          ${cmsField('Link Tombol', 'linkTombol', item.Link_Tombol, 'https://... atau isi #chatbot / #login')}
+          ${cmsSelect('Status', 'aktif', ['YA', 'TIDAK'], item.Aktif || 'YA')}
+          <p class="text-[11px] text-slate-400">Isi "Link Tombol" dengan <strong>#chatbot</strong> untuk membuka Chatbot AI, atau <strong>#login</strong> untuk membuka Portal Sistem CMS, atau alamat link biasa (https://...).</p>
+          <button type="submit" class="w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-2.5 rounded-xl text-sm">Simpan</button>
+        </form>
+      `);
+    }
+    function cmsSubmitBanner(e, id) {
+      e.preventDefault();
+      const f = e.target;
+      const data = {
+        gambarUrl: f.gambarUrl.value, urutan: f.urutan.value, badgeText: f.badgeText.value,
+        badgeWarna: f.badgeWarna.value, judul: f.judul.value, judulSorot: f.judulSorot.value,
+        deskripsi: f.deskripsi.value, teksTombol: f.teksTombol.value, linkTombol: f.linkTombol.value, aktif: f.aktif.value
+      };
+      const call = google.script.run.withSuccessHandler(res => {
+        toast(res.message, res.success ? 'success' : 'error');
+        if (res.success) { cmsCloseModal(); cmsRenderBanner(); cmsLoadPublicBanner(); }
+      }).withFailureHandler(err => toast(err.message, 'error'));
+      if (id) call.cmsUpdateBanner(CMS_TOKEN, id, data); else call.cmsAddBanner(CMS_TOKEN, data);
+    }
+    function cmsDeleteBanner(id) {
+      if (!confirm('Hapus banner ini?')) return;
+      google.script.run.withSuccessHandler(res => {
+        toast(res.message, res.success ? 'success' : 'error');
+        if (res.success) { cmsRenderBanner(); cmsLoadPublicBanner(); }
+      }).withFailureHandler(err => toast(err.message, 'error')).cmsDeleteBanner(CMS_TOKEN, id);
+    }
+
+    // ---------- SEKOLAH BINAAN ----------
+    let CMS_SEKOLAH_CACHE = [];
+    function cmsRenderSekolah() {
+      google.script.run.withSuccessHandler(res => {
+        CMS_SEKOLAH_CACHE = res.data || [];
+        const rows = CMS_SEKOLAH_CACHE.map(s => `
+          <tr class="border-b border-slate-100 dark:border-slate-700">
+            <td class="py-2 px-3">${s.Nama_Sekolah}</td>
+            <td class="py-2 px-3">${s.Jenjang}</td>
+            <td class="py-2 px-3">${s.Akreditasi}</td>
+            <td class="py-2 px-3">${s.Status_Supervisi}</td>
+            <td class="py-2 px-3 text-right whitespace-nowrap">
+              <button onclick="cmsFormSekolah('${s.ID_Sekolah}')" class="text-blue-500 hover:text-blue-700 mr-2"><i class="fa-solid fa-pen"></i></button>
+              <button onclick="cmsDeleteSekolah('${s.ID_Sekolah}')" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          </tr>`).join('');
+        document.getElementById('cmsContent').innerHTML = `
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white">Sekolah Binaan</h2>
+            <button onclick="cmsFormSekolah()" class="bg-amber-500 hover:bg-amber-400 text-brand-900 font-bold text-xs px-4 py-2 rounded-full"><i class="fa-solid fa-plus"></i> Tambah</button>
+          </div>
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-x-auto">
+            <table class="w-full text-xs text-left text-slate-600 dark:text-slate-300">
+              <thead class="bg-slate-50 dark:bg-slate-700/50 font-bold text-slate-700 dark:text-white"><tr><th class="py-2 px-3">Nama Sekolah</th><th class="py-2 px-3">Jenjang</th><th class="py-2 px-3">Akreditasi</th><th class="py-2 px-3">Status Supervisi</th><th class="py-2 px-3"></th></tr></thead>
+              <tbody>${rows || '<tr><td colspan="5" class="py-4 px-3 text-center text-slate-400">Belum ada data</td></tr>'}</tbody>
+            </table>
+          </div>
+        `;
+      }).withFailureHandler(err => cmsShowError(err, 'sekolah')).cmsGetSekolah();
+    }
+    function cmsFormSekolah(id) {
+      const item = id ? CMS_SEKOLAH_CACHE.find(s => s.ID_Sekolah === id) : {};
+      cmsOpenModal(id ? 'Edit Sekolah Binaan' : 'Tambah Sekolah Binaan', `
+        <form onsubmit="cmsSubmitSekolah(event, ${id ? `'${id}'` : 'null'})" class="space-y-3">
+          ${cmsField('Nama Sekolah', 'namaSekolah', item.Nama_Sekolah)}
+          ${cmsField('NPSN', 'npsn', item.NPSN)}
+          ${cmsSelect('Jenjang', 'jenjang', ['SD','SMP','SMA','SMK','SLB'], item.Jenjang)}
+          ${cmsField('Alamat', 'alamat', item.Alamat)}
+          ${cmsField('Kepala Sekolah', 'kepalaSekolah', item.Kepala_Sekolah)}
+          ${cmsSelect('Akreditasi', 'akreditasi', ['A','B','C'], item.Akreditasi)}
+          ${cmsField('Status Supervisi', 'statusSupervisi', item.Status_Supervisi, 'Contoh: Selesai (2026) / Dijadwalkan Mei')}
+          <button type="submit" class="w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-2.5 rounded-xl text-sm">Simpan</button>
+        </form>
+      `);
+    }
+    function cmsSubmitSekolah(e, id) {
+      e.preventDefault();
+      const f = e.target;
+      const data = { namaSekolah: f.namaSekolah.value, npsn: f.npsn.value, jenjang: f.jenjang.value, alamat: f.alamat.value, kepalaSekolah: f.kepalaSekolah.value, akreditasi: f.akreditasi.value, statusSupervisi: f.statusSupervisi.value };
+      const call = google.script.run.withSuccessHandler(res => {
+        toast(res.message, res.success ? 'success' : 'error');
+        if (res.success) { cmsCloseModal(); cmsRenderSekolah(); }
+      }).withFailureHandler(err => toast(err.message, 'error'));
+      if (id) call.cmsUpdateSekolah(CMS_TOKEN, id, data); else call.cmsAddSekolah(CMS_TOKEN, data);
+    }
+    function cmsDeleteSekolah(id) {
+      if (!confirm('Hapus data sekolah ini?')) return;
+      google.script.run.withSuccessHandler(res => { toast(res.message, res.success ? 'success' : 'error'); if (res.success) cmsRenderSekolah(); }).withFailureHandler(err => toast(err.message, 'error')).cmsDeleteSekolah(CMS_TOKEN, id);
+    }
+
+    // ---------- E-SUPERVISI ----------
+    let CMS_SUPERVISI_CACHE = [];
+    function cmsRenderSupervisi() {
+      google.script.run.withSuccessHandler(res => {
+        CMS_SUPERVISI_CACHE = res.data || [];
+        const rows = CMS_SUPERVISI_CACHE.map(s => `
+          <tr class="border-b border-slate-100 dark:border-slate-700">
+            <td class="py-2 px-3">${s.Nama_Sekolah}</td>
+            <td class="py-2 px-3">${s.Tanggal}</td>
+            <td class="py-2 px-3">${s.Nilai_Akhir}</td>
+            <td class="py-2 px-3">${s.Predikat}</td>
+            <td class="py-2 px-3 text-right"><button onclick="cmsDeleteSupervisi('${s.ID_Supervisi}')" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash"></i></button></td>
+          </tr>`).join('');
+        document.getElementById('cmsContent').innerHTML = `
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white">Laporan E-Supervisi</h2>
+            <button onclick="cmsFormSupervisi()" class="bg-amber-500 hover:bg-amber-400 text-brand-900 font-bold text-xs px-4 py-2 rounded-full"><i class="fa-solid fa-plus"></i> Tambah Laporan</button>
+          </div>
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-x-auto">
+            <table class="w-full text-xs text-left text-slate-600 dark:text-slate-300">
+              <thead class="bg-slate-50 dark:bg-slate-700/50 font-bold text-slate-700 dark:text-white"><tr><th class="py-2 px-3">Sekolah</th><th class="py-2 px-3">Tanggal</th><th class="py-2 px-3">Nilai</th><th class="py-2 px-3">Predikat</th><th class="py-2 px-3"></th></tr></thead>
+              <tbody>${rows || '<tr><td colspan="5" class="py-4 px-3 text-center text-slate-400">Belum ada laporan</td></tr>'}</tbody>
+            </table>
+          </div>
+        `;
+      }).withFailureHandler(err => cmsShowError(err, 'supervisi')).cmsGetSupervisi();
+    }
+    function cmsFormSupervisi() {
+      const opts = CMS_SEKOLAH_CACHE.length ? CMS_SEKOLAH_CACHE.map(s => `<option value="${s.NPSN}" data-nama="${s.Nama_Sekolah}">${s.Nama_Sekolah}</option>`).join('') : '';
+      cmsOpenModal('Tambah Laporan E-Supervisi', `
+        <form onsubmit="cmsSubmitSupervisi(event)" class="space-y-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Sekolah</label>
+            <select name="npsn" onchange="this.dataset.nama = this.selectedOptions[0].dataset.nama" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-sm">${opts || '<option value="">Belum ada data sekolah, buka menu Sekolah Binaan dulu</option>'}</select>
+          </div>
+          ${cmsField('Tanggal', 'tanggal', '', '', 'date')}
+          ${cmsSelect('Jenis Supervisi', 'jenisSupervisi', ['Supervisi Akademik','Supervisi Manajerial','Supervisi Akademik & Manajerial'], '')}
+          ${cmsField('Skor Akademik (0-100)', 'skorAkademik', '', '', 'number')}
+          ${cmsField('Skor Manajerial (0-100)', 'skorManajerial', '', '', 'number')}
+          ${cmsTextarea('Catatan / Rekomendasi', 'catatan', '')}
+          <button type="submit" class="w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-2.5 rounded-xl text-sm">Simpan Laporan</button>
+        </form>
+      `);
+    }
+    function cmsSubmitSupervisi(e) {
+      e.preventDefault();
+      const f = e.target;
+      const selectedOpt = f.npsn.selectedOptions[0];
+      const data = { npsn: f.npsn.value, namaSekolah: selectedOpt ? selectedOpt.dataset.nama : '', tanggal: f.tanggal.value, jenisSupervisi: f.jenisSupervisi.value, skorAkademik: f.skorAkademik.value, skorManajerial: f.skorManajerial.value, catatan: f.catatan.value };
+      google.script.run.withSuccessHandler(res => {
+        toast(res.message, res.success ? 'success' : 'error');
+        if (res.success) { cmsCloseModal(); cmsRenderSupervisi(); }
+      }).withFailureHandler(err => toast(err.message, 'error')).cmsAddSupervisi(CMS_TOKEN, data);
+    }
+    function cmsDeleteSupervisi(id) {
+      if (!confirm('Hapus laporan supervisi ini?')) return;
+      google.script.run.withSuccessHandler(res => { toast(res.message, res.success ? 'success' : 'error'); if (res.success) cmsRenderSupervisi(); }).withFailureHandler(err => toast(err.message, 'error')).cmsDeleteSupervisi(CMS_TOKEN, id);
+    }
+
+    // ---------- AGENDA KERJA ----------
+    let CMS_AGENDA_CACHE = [];
+    function cmsRenderAgenda() {
+      google.script.run.withSuccessHandler(res => {
+        CMS_AGENDA_CACHE = res.data || [];
+        const rows = CMS_AGENDA_CACHE.map(a => `
+          <tr class="border-b border-slate-100 dark:border-slate-700">
+            <td class="py-2 px-3">${a.Kegiatan}</td>
+            <td class="py-2 px-3">${a.Tanggal}</td>
+            <td class="py-2 px-3">${a.Lokasi}</td>
+            <td class="py-2 px-3">${a.Status}</td>
+            <td class="py-2 px-3 text-right whitespace-nowrap">
+              <button onclick="cmsFormAgenda('${a.ID_Agenda}')" class="text-blue-500 hover:text-blue-700 mr-2"><i class="fa-solid fa-pen"></i></button>
+              <button onclick="cmsDeleteAgenda('${a.ID_Agenda}')" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          </tr>`).join('');
+        document.getElementById('cmsContent').innerHTML = `
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white">Agenda Kerja</h2>
+            <button onclick="cmsFormAgenda()" class="bg-amber-500 hover:bg-amber-400 text-brand-900 font-bold text-xs px-4 py-2 rounded-full"><i class="fa-solid fa-plus"></i> Tambah</button>
+          </div>
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-x-auto">
+            <table class="w-full text-xs text-left text-slate-600 dark:text-slate-300">
+              <thead class="bg-slate-50 dark:bg-slate-700/50 font-bold text-slate-700 dark:text-white"><tr><th class="py-2 px-3">Kegiatan</th><th class="py-2 px-3">Tanggal</th><th class="py-2 px-3">Lokasi</th><th class="py-2 px-3">Status</th><th class="py-2 px-3"></th></tr></thead>
+              <tbody>${rows || '<tr><td colspan="5" class="py-4 px-3 text-center text-slate-400">Belum ada agenda</td></tr>'}</tbody>
+            </table>
+          </div>
+        `;
+      }).withFailureHandler(err => cmsShowError(err, 'agenda')).cmsGetAgenda();
+    }
+    function cmsFormAgenda(id) {
+      const item = id ? CMS_AGENDA_CACHE.find(a => a.ID_Agenda === id) : {};
+      cmsOpenModal(id ? 'Edit Agenda' : 'Tambah Agenda', `
+        <form onsubmit="cmsSubmitAgenda(event, ${id ? `'${id}'` : 'null'})" class="space-y-3">
+          ${cmsField('Kegiatan', 'kegiatan', item.Kegiatan)}
+          ${cmsField('Tanggal', 'tanggal', item.Tanggal, '', 'date')}
+          ${cmsField('Waktu', 'waktu', item.Waktu, 'Contoh: 08:00 - 12:00')}
+          ${cmsField('Lokasi', 'lokasi', item.Lokasi)}
+          ${cmsSelect('Status', 'status', ['Mendatang','Berlangsung','Selesai'], item.Status)}
+          ${cmsTextarea('Keterangan', 'keterangan', item.Keterangan)}
+          <button type="submit" class="w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-2.5 rounded-xl text-sm">Simpan</button>
+        </form>
+      `);
+    }
+    function cmsSubmitAgenda(e, id) {
+      e.preventDefault();
+      const f = e.target;
+      const data = { kegiatan: f.kegiatan.value, tanggal: f.tanggal.value, waktu: f.waktu.value, lokasi: f.lokasi.value, status: f.status.value, keterangan: f.keterangan.value };
+      const call = google.script.run.withSuccessHandler(res => {
+        toast(res.message, res.success ? 'success' : 'error');
+        if (res.success) { cmsCloseModal(); cmsRenderAgenda(); }
+      }).withFailureHandler(err => toast(err.message, 'error'));
+      if (id) call.cmsUpdateAgenda(CMS_TOKEN, id, data); else call.cmsAddAgenda(CMS_TOKEN, data);
+    }
+    function cmsDeleteAgenda(id) {
+      if (!confirm('Hapus agenda ini?')) return;
+      google.script.run.withSuccessHandler(res => { toast(res.message, res.success ? 'success' : 'error'); if (res.success) cmsRenderAgenda(); }).withFailureHandler(err => toast(err.message, 'error')).cmsDeleteAgenda(CMS_TOKEN, id);
+    }
+
+    // ---------- DOKUMEN & INSTRUMEN ----------
+    let CMS_DOKUMEN_CACHE = [];
+    function cmsRenderDokumen() {
+      google.script.run.withSuccessHandler(res => {
+        CMS_DOKUMEN_CACHE = res.data || [];
+        const rows = CMS_DOKUMEN_CACHE.map(dok => `
+          <tr class="border-b border-slate-100 dark:border-slate-700">
+            <td class="py-2 px-3">${dok.Judul_Dokumen}</td>
+            <td class="py-2 px-3">${dok.Kategori}</td>
+            <td class="py-2 px-3">${dok.Tipe_File}</td>
+            <td class="py-2 px-3 text-right whitespace-nowrap">
+              <button onclick="cmsFormDokumen('${dok.ID_Dok}')" class="text-blue-500 hover:text-blue-700 mr-2"><i class="fa-solid fa-pen"></i></button>
+              <button onclick="cmsDeleteDokumen('${dok.ID_Dok}')" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          </tr>`).join('');
+        document.getElementById('cmsContent').innerHTML = `
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white">Dokumen & Instrumen</h2>
+            <button onclick="cmsFormDokumen()" class="bg-amber-500 hover:bg-amber-400 text-brand-900 font-bold text-xs px-4 py-2 rounded-full"><i class="fa-solid fa-plus"></i> Tambah</button>
+          </div>
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-x-auto">
+            <table class="w-full text-xs text-left text-slate-600 dark:text-slate-300">
+              <thead class="bg-slate-50 dark:bg-slate-700/50 font-bold text-slate-700 dark:text-white"><tr><th class="py-2 px-3">Judul</th><th class="py-2 px-3">Kategori</th><th class="py-2 px-3">Tipe</th><th class="py-2 px-3"></th></tr></thead>
+              <tbody>${rows || '<tr><td colspan="4" class="py-4 px-3 text-center text-slate-400">Belum ada dokumen</td></tr>'}</tbody>
+            </table>
+          </div>
+        `;
+      }).withFailureHandler(err => cmsShowError(err, 'dokumen')).cmsGetDokumenAdmin();
+    }
+    function cmsFormDokumen(id) {
+      const item = id ? CMS_DOKUMEN_CACHE.find(d => d.ID_Dok === id) : {};
+      cmsOpenModal(id ? 'Edit Dokumen' : 'Tambah Dokumen', `
+        <form onsubmit="cmsSubmitDokumen(event, ${id ? `'${id}'` : 'null'})" class="space-y-3">
+          ${cmsField('Judul Dokumen', 'judul', item.Judul_Dokumen)}
+          ${cmsSelect('Kategori', 'kategori', ['Instrumen','Format','Regulasi'], item.Kategori)}
+          ${cmsSelect('Tipe File', 'tipeFile', ['PDF','DOCX','XLSX'], item.Tipe_File)}
+          ${cmsField('Ukuran', 'ukuran', item.Ukuran, 'Contoh: 1.2 MB')}
+          ${cmsField('URL Unduhan (Google Drive)', 'urlDownload', item.URL_Download, 'https://drive.google.com/...')}
+          <button type="submit" class="w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-2.5 rounded-xl text-sm">Simpan</button>
+        </form>
+      `);
+    }
+    function cmsSubmitDokumen(e, id) {
+      e.preventDefault();
+      const f = e.target;
+      const data = { judul: f.judul.value, kategori: f.kategori.value, tipeFile: f.tipeFile.value, ukuran: f.ukuran.value, urlDownload: f.urlDownload.value };
+      const call = google.script.run.withSuccessHandler(res => {
+        toast(res.message, res.success ? 'success' : 'error');
+        if (res.success) { cmsCloseModal(); cmsRenderDokumen(); }
+      }).withFailureHandler(err => toast(err.message, 'error'));
+      if (id) call.cmsUpdateDokumen(CMS_TOKEN, id, data); else call.cmsAddDokumen(CMS_TOKEN, data);
+    }
+    function cmsDeleteDokumen(id) {
+      if (!confirm('Hapus dokumen ini?')) return;
+      google.script.run.withSuccessHandler(res => { toast(res.message, res.success ? 'success' : 'error'); if (res.success) cmsRenderDokumen(); }).withFailureHandler(err => toast(err.message, 'error')).cmsDeleteDokumen(CMS_TOKEN, id);
+    }
+
+    // ---------- GANTI PASSWORD ----------
+    function cmsRenderPassword() {
+      document.getElementById('cmsContent').innerHTML = `
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Ganti Password</h2>
+        <form onsubmit="cmsSubmitPassword(event)" class="space-y-3 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 sm:p-6 max-w-md">
+          ${cmsField('Password Lama', 'oldPassword', '', '', 'password')}
+          ${cmsField('Password Baru', 'newPassword', '', '', 'password')}
+          <button type="submit" class="w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-2.5 rounded-xl text-sm">Simpan Password Baru</button>
+        </form>
+      `;
+    }
+    function cmsSubmitPassword(e) {
+      e.preventDefault();
+      const f = e.target;
+      google.script.run.withSuccessHandler(res => {
+        toast(res.message, res.success ? 'success' : 'error');
+        if (res.success) f.reset();
+      }).withFailureHandler(err => toast(err.message, 'error')).cmsChangePassword(CMS_TOKEN, f.oldPassword.value, f.newPassword.value);
+    }
+
+    // ---------- HELPER PEMBUAT FIELD FORM ----------
+    function cmsField(label, name, value, placeholder, type) {
+      return `<div><label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">${label}</label>
+        <input type="${type || 'text'}" name="${name}" value="${(value || '').toString().replace(/"/g,'&quot;')}" placeholder="${placeholder || ''}" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"></div>`;
+    }
+    function cmsTextarea(label, name, value) {
+      return `<div><label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">${label}</label>
+        <textarea name="${name}" rows="3" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">${value || ''}</textarea></div>`;
+    }
+    function cmsSelect(label, name, options, selected) {
+      const opts = options.map(o => `<option value="${o}" ${o === selected ? 'selected' : ''}>${o}</option>`).join('');
+      return `<div><label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">${label}</label>
+        <select name="${name}" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">${opts}</select></div>`;
+    }
+    // Helper Field Khusus Foto: input URL manual + tombol Upload dari Komputer + preview
+    function cmsFieldWithUpload(label, name, value, placeholder) {
+      const safeValue = (value || '').toString().replace(/"/g, '&quot;');
+      return `<div>
+        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">${label}</label>
+        <div class="flex flex-col sm:flex-row gap-2">
+          <input type="text" name="${name}" id="${name}Input" value="${safeValue}" placeholder="${placeholder || ''}"
+            oninput="cmsSyncFieldPreview('${name}')"
+            class="flex-1 px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+          <label class="cursor-pointer inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-100 dark:bg-slate-600 hover:bg-slate-200 dark:hover:bg-slate-500 transition text-xs font-semibold text-slate-700 dark:text-slate-100 whitespace-nowrap">
+            <i class="fa-solid fa-upload"></i>
+            <span id="${name}UploadLabel">Upload dari Komputer</span>
+            <input type="file" accept="image/*" class="hidden" onchange="cmsHandleImageUpload(event, '${name}')">
+          </label>
+        </div>
+        <div class="mt-2 flex items-center gap-2">
+          <img id="${name}Preview" src="${safeValue}" class="h-16 w-16 object-cover rounded-lg border border-slate-200 dark:border-slate-600 ${safeValue ? '' : 'hidden'}" onerror="this.classList.add('hidden')" onload="this.classList.remove('hidden')">
+          <span id="${name}Status" class="text-[11px] text-slate-400"></span>
+        </div>
+      </div>`;
+    }
+    // Update preview kecil saat URL diketik manual
+    function cmsSyncFieldPreview(fieldName) {
+      const inputEl = document.getElementById(fieldName + 'Input');
+      const previewEl = document.getElementById(fieldName + 'Preview');
+      if (!inputEl || !previewEl) return;
+      if (inputEl.value) {
+        previewEl.src = inputEl.value;
+        previewEl.classList.remove('hidden');
+      } else {
+        previewEl.classList.add('hidden');
+      }
+    }
+    // Proses file gambar yang dipilih dari komputer: validasi, ubah ke Base64, kirim ke backend
+    function cmsHandleImageUpload(event, fieldName) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        toast('File harus berupa gambar (JPG, PNG, dll)', 'error');
+        event.target.value = '';
+        return;
+      }
+      const maxSizeMb = 5;
+      if (file.size > maxSizeMb * 1024 * 1024) {
+        toast('Ukuran gambar maksimal ' + maxSizeMb + ' MB', 'error');
+        event.target.value = '';
+        return;
+      }
+
+      const statusEl = document.getElementById(fieldName + 'Status');
+      const uploadLabelEl = document.getElementById(fieldName + 'UploadLabel');
+      if (statusEl) statusEl.textContent = 'Mengunggah, mohon tunggu...';
+      if (uploadLabelEl) uploadLabelEl.textContent = 'Mengunggah...';
+
+      const reader = new FileReader();
+      reader.onload = function () {
+        const base64Data = reader.result.split(',')[1];
+        google.script.run
+          .withSuccessHandler(res => {
+            if (uploadLabelEl) uploadLabelEl.textContent = 'Upload dari Komputer';
+            if (res && res.success) {
+              const inputEl = document.getElementById(fieldName + 'Input');
+              const previewEl = document.getElementById(fieldName + 'Preview');
+              if (inputEl) inputEl.value = res.url;
+              if (previewEl) { previewEl.src = res.url; previewEl.classList.remove('hidden'); }
+              if (statusEl) statusEl.textContent = 'Berhasil diunggah \u2713';
+              toast('Gambar berhasil diunggah', 'success');
             } else {
-                history.replaceState(data, '', newUrl);
+              if (statusEl) statusEl.textContent = '';
+              toast((res && res.message) || 'Gagal mengunggah gambar', 'error');
             }
-            _navStateSaatIni = data;
-        }
+          })
+          .withFailureHandler(err => {
+            if (uploadLabelEl) uploadLabelEl.textContent = 'Upload dari Komputer';
+            if (statusEl) statusEl.textContent = '';
+            toast(err.message || 'Gagal mengunggah gambar', 'error');
+          })
+          .cmsUploadImage(CMS_TOKEN, base64Data, file.name, file.type);
+      };
+      reader.onerror = function () {
+        if (statusEl) statusEl.textContent = '';
+        if (uploadLabelEl) uploadLabelEl.textContent = 'Upload dari Komputer';
+        toast('Gagal membaca file gambar', 'error');
+      };
+      reader.readAsDataURL(file);
+    }
 
-        // Apps Script (mode sandbox IFRAME) sebenarnya membungkus konten kita
-        // di dalam 1-2 lapis iframe INTERNAL milik Google sendiri
-        // (script.googleusercontent.com), di dalam <iframe id="app-frame">
-        // yang kita buat. Jadi frame.contentWindow BELUM TENTU window tempat
-        // kode aplikasi kita benar-benar jalan -> kirim pesan ke beberapa
-        // lapis sekaligus supaya pasti nyampai ke lapisan manapun kode kita
-        // berada. Membaca properti .frames dari window beda origin itu aman
-        // (diizinkan browser), jadi tidak akan kena error cross-origin.
-        function _kirimKeSemuaLapisIframe_(payload) {
-            const frame = document.getElementById('app-frame');
-            if (!frame || !frame.contentWindow) return;
+    // Chatbot AI Interactive Mock Simulation
+    function sendChatMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
 
-            const targets = [frame.contentWindow];
-            try {
-                if (frame.contentWindow.frames && frame.contentWindow.frames[0]) {
-                    targets.push(frame.contentWindow.frames[0]);
-                    if (frame.contentWindow.frames[0].frames && frame.contentWindow.frames[0].frames[0]) {
-                        targets.push(frame.contentWindow.frames[0].frames[0]);
-                    }
-                }
-            } catch (e) { /* abaikan diam-diam kalau struktur framenya beda dari dugaan */ }
+      const container = document.getElementById('chatMessages');
 
-            targets.forEach(function (t) {
-                try { t.postMessage(payload, '*'); } catch (e) { /* abaikan */ }
-            });
-        }
+      // User Message Bubble
+      const userDiv = document.createElement('div');
+      userDiv.className = 'flex items-start justify-end gap-2';
+      userDiv.innerHTML = `
+        <div class="bg-brand-900 text-white p-3 rounded-2xl rounded-tr-none text-xs max-w-[80%]">
+          ${text}
+        </div>
+      `;
+      container.appendChild(userDiv);
+      input.value = '';
+      container.scrollTop = container.scrollHeight;
 
-        // Tombol Back/Forward browser ditekan: beri tahu iframe (aplikasi SMP)
-        // untuk pindah ke menu sesuai state riwayat ini, supaya kontennya ikut
-        // berubah tanpa perlu me-reload ulang seluruh iframe.
-        window.addEventListener('popstate', function (e) {
-            const state = e.state || {};
-            _navStateSaatIni = state;
-            _kirimKeSemuaLapisIframe_({
-                type: 'NAV_GOTO',
-                page: state.page || 'home',
-                sub: state.sub || '',
-                berita_id: state.berita_id || ''
-            });
-        });
+      // AI Response Mock
+      setTimeout(() => {
+        const aiDiv = document.createElement('div');
+        aiDiv.className = 'flex items-start gap-2';
+        aiDiv.innerHTML = `
+          <div class="w-7 h-7 rounded-full bg-brand-900 text-amber-400 flex items-center justify-center font-bold shrink-0">
+            <i class="fa-solid fa-robot text-xs"></i>
+          </div>
+          <div class="bg-white dark:bg-slate-800 p-3 rounded-2xl rounded-tl-none shadow border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 max-w-[80%]">
+            Terima kasih! Pertanyaan Anda tentang "<strong>${text}</strong>" telah dicatat. Silakan unduh dokumen pendukung di menu Instrumen atau hubungi hotline WhatsApp untuk respons cepat.
+          </div>
+        `;
+        container.appendChild(aiDiv);
+        container.scrollTop = container.scrollHeight;
+      }, 700);
+    }
 
-        window.addEventListener('message', function (e) {
-            const data = e.data || {};
+    // Mock Download Action
+    function downloadMock(filename) {
+      alert('Mengunduh berkas: ' + filename + '.pdf');
+    }
+  </script>
 
-            if (data.type === 'NAV_STATE') {
-                updateUrlBarFromNavState(data);
-                return;
-            }
-
-            console.log('[GEO] Halaman GitHub menerima pesan:', e.data, 'dari origin:', e.origin);
-            if (data.type !== 'REQUEST_GEO_LOCATION') return;
-
-            const target = e.source;
-            if (!target) {
-                console.log('[GEO] e.source kosong, tidak bisa membalas.');
-                return;
-            }
-
-            if (!navigator.geolocation) {
-                target.postMessage(
-                    { type: 'GEO_LOCATION_RESULT', error: 'Geolocation tidak didukung browser ini.' },
-                    '*'
-                );
-                return;
-            }
-
-            console.log('[GEO] Meminta getCurrentPosition ke browser...');
-            navigator.geolocation.getCurrentPosition(
-                function (pos) {
-                    console.log('[GEO] Sukses, mengirim balik ke pengirim...');
-                    target.postMessage({
-                        type: 'GEO_LOCATION_RESULT',
-                        lat: pos.coords.latitude,
-                        lng: pos.coords.longitude
-                    }, '*');
-                },
-                function (err) {
-                    console.log('[GEO] getCurrentPosition error:', err.code, err.message);
-                    target.postMessage(
-                        { type: 'GEO_LOCATION_RESULT', error: err.message },
-                        '*'
-                    );
-                }
-            );
-        });
-    </script>
 </body>
 </html>
