@@ -4,12 +4,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal Resmi Pengawas Cabang Dinas Pendidikan</title>
+
+  <!-- ===== JEMBATAN GAS (pengganti google.script.run saat di-hosting di GitHub Pages / domain custom) =====
+       Ganti GAS_URL dengan URL Web App Anda (Deploy > Manage deployments > Web app URL, berakhiran /exec). -->
+  <script>
+  (function () {
+    var GAS_URL = 'PASTE_URL_EXEC_DI_SINI';
+    // Kalau halaman dibuka langsung dari Google Apps Script, google.script.run asli sudah ada -> tidak perlu shim.
+    if (window.google && window.google.script && window.google.script.run) return;
+    function runner(ok, fail) {
+      return new Proxy({}, { get: function (_, name) {
+        if (typeof name !== 'string') return undefined;
+        if (name === 'withSuccessHandler') return function (fn) { return runner(fn, fail); };
+        if (name === 'withFailureHandler') return function (fn) { return runner(ok, fn); };
+        if (name === 'withUserObject') return function () { return runner(ok, fail); };
+        return function () {
+          var args = Array.prototype.slice.call(arguments);
+          if (GAS_URL.indexOf('PASTE_') === 0) {
+            var e0 = new Error('GAS_URL belum diisi di index.html');
+            if (fail) fail(e0); else console.error(e0);
+            return;
+          }
+          fetch(GAS_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'rpc', fn: name, args: args })
+          })
+          .then(function (r) { return r.json(); })
+          .then(function (r) {
+            if (r && r.__rpcError) throw new Error(r.__rpcError);
+            if (ok) ok(r ? r.result : null);
+          })
+          .catch(function (err) { if (fail) fail(err); else console.error(err); });
+        };
+      }});
+    }
+    window.google = { script: { run: runner(null, null) } };
+  })();
+  </script>
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <!-- Google Fonts: Plus Jakarta Sans -->
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Bricolage+Grotesque:wght@600;700;800&display=swap" rel="stylesheet">
   
   <script>
     tailwind.config = {
@@ -18,11 +57,11 @@
         extend: {
           colors: {
             brand: {
-              50: '#f0f5ff',
-              100: '#e0ebff',
-              500: '#2563eb',
-              800: '#1e3a5f',
-              900: '#101f42',
+              50: '#fff3d6',
+              100: '#fff3d6',
+              500: '#d97706',
+              800: '#1c2733',
+              900: '#0f1720',
               accent: '#f59e0b',
             }
           },
@@ -67,6 +106,205 @@
       transform: scale(1.08);
     }
 
+
+    /* ===== TAMPILAN BARU: lebih tenang, hangat, tidak "template" ===== */
+    body { background-color: #ffffff; }
+    .dark body, body.dark { background-color: #0f172a; }
+    header h1, section h2, section h3, section h4 { font-family: 'Bricolage Grotesque', 'Plus Jakarta Sans', sans-serif; }
+    section h2 { font-weight: 700; letter-spacing: -0.01em; }
+    header h1 { text-transform: none !important; letter-spacing: 0 !important; font-weight: 700; }
+
+    /* label kecil di atas judul: tidak kapital semua */
+    .uppercase.tracking-wider.text-amber-500, .uppercase.tracking-widest.text-amber-400 {
+      text-transform: none; letter-spacing: 0; font-size: 0.8rem; color: #d97706;
+    }
+
+    /* kurangi gradasi & bayangan berlebihan */
+    section .bg-gradient-to-br, header .bg-gradient-to-br { background-image: none !important; }
+    section .bg-gradient-to-br.from-brand-900 { background-color: #0f1720; }
+    header .bg-gradient-to-br { background-color: #e8a33d; }
+    section .shadow-xl, section .shadow-2xl, section .shadow-md { box-shadow: 0 1px 2px rgba(15,23,32,.06), 0 4px 14px rgba(15,23,32,.06) !important; }
+    section .rounded-3xl { border-radius: 20px; }
+    section .rounded-2xl { border-radius: 14px; }
+    .hero-slide-card:hover img { transform: scale(1.03); }
+
+    /* ikon sosial seragam, titik status tidak berkedip */
+    .bg-brand-900 a.w-6.h-6 { background: rgba(255,255,255,.14) !important; background-image: none !important; }
+    .bg-brand-900 a.w-6.h-6:hover { background: rgba(255,255,255,.28) !important; }
+    .animate-ping { animation: none !important; }
+
+    /* statistik: satu warna, tanpa kotak warna-warni */
+    #statsBar { background: #fff; box-shadow: none !important; border: 1px solid #0f1720; }
+    .dark #statsBar { background: #1e293b; border-color: #334155; }
+    #statsBar > div > div:first-child { background: #fff3d6 !important; color: #b45309 !important; border-radius: 12px; }
+    #statsBar p.text-2xl { font-family: 'Bricolage Grotesque', 'Plus Jakarta Sans', sans-serif; font-weight: 700; }
+
+    /* kartu sekolah */
+    .school-card { box-shadow: none !important; border-color: #0f1720 !important; border-radius: 16px !important; }
+    .school-card:hover { border-color: #d97706 !important; transform: translateY(-2px); }
+    .dark .school-card { border-color: #334155 !important; }
+
+
+    /* ===== GELOMBANG (batas antar bagian) ===== */
+    .hero-band { position: relative; background: linear-gradient(160deg, #0f1720 0%, #0f1720 60%, #1c2733 100%); padding-bottom: 84px; }
+    .hero-band .wave { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 84px; display: block; }
+    .wave-page { fill: #ffffff; }
+    .dark .wave-page { fill: #0f172a; }
+    .wave-soft { fill: rgba(250,247,242,.35); }
+    .dark .wave-soft { fill: rgba(15,23,42,.35); }
+    .wave-foot-wrap { background: #ffffff; line-height: 0; }
+    .dark .wave-foot-wrap { background: #0f172a; }
+    .wave-foot { fill: #0f1720; width: 100%; height: 70px; display: block; }
+    /* garis gelombang kecil di bawah judul bagian */
+    section h2.font-extrabold::after {
+      content: ''; display: block; width: 64px; height: 10px; margin-top: 10px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 10'%3E%3Cpath d='M0 5 Q8 -1 16 5 T32 5 T48 5 T64 5' fill='none' stroke='%23e8a33d' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat;
+    }
+    .text-center > h2.font-extrabold::after { margin-left: auto; margin-right: auto; }
+    @media (max-width: 640px) { .hero-band { padding-bottom: 56px; } .hero-band .wave { height: 52px; } .wave-foot { height: 44px; } }
+
+
+
+    /* ===== GAYA BARU: bersih, datar, tanpa garis tepi ===== */
+    body { background-color: #ffffff; }
+    header { border-bottom: 0 !important; box-shadow: none !important; }
+    section [class*="border-slate"], .school-card { border-color: transparent !important; }
+    section h2.font-extrabold::after { display: none; }
+    section h2 { font-weight: 800; letter-spacing: -0.02em; }
+
+    /* HERO: gelap polos, judul besar di tengah, lengkung putih di bawah */
+    .hero-band { background: #0f1720 !important; background-image: none !important; padding-bottom: 90px; overflow: hidden; }
+    .hero-band .wave { display: none; }
+    .hero-band::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 72px; background: #ffffff;
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0; }
+    .dark .hero-band::after { background: #0f172a; }
+    .hero-title { font-family: 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif; font-weight: 800; color: #fff;
+      font-size: clamp(2rem, 5.2vw, 3.7rem); line-height: 1.08; letter-spacing: -0.02em; }
+    .hero-cta { display: inline-block; background: #ffc233; color: #0f1720; font-weight: 700; padding: .75rem 1.7rem; border-radius: 999px; transition: background .2s, transform .2s; }
+    .hero-cta:hover { background: #ffd166; transform: translateY(-2px); }
+    .hero-band .hero-slide-card { border: 0 !important; box-shadow: none !important; border-radius: 28px !important; }
+
+    /* STATISTIK & KARTU: datar, warna lembut, tanpa garis */
+    #statsBar { background: #f3f5f9 !important; border: 0 !important; box-shadow: none !important; border-radius: 28px !important; }
+    .dark #statsBar { background: #1a2430 !important; }
+    #statsBar > div > div:first-child { background: #fff3d6 !important; color: #b45309 !important; border-radius: 50% !important; }
+    section .rounded-3xl:not(.hero-slide-card), section .rounded-2xl { box-shadow: none !important; border: 0 !important; }
+    section .rounded-3xl:not(.hero-slide-card) { border-radius: 32px !important; }
+    #supervisi .rounded-3xl { background-image: none !important; background-color: #0f1720 !important; }
+
+    .school-card { background: #f3f5f9 !important; border: 0 !important; box-shadow: none !important; border-radius: 26px !important; transition: transform .2s, background .2s, box-shadow .2s; }
+    .dark .school-card { background: #1a2430 !important; }
+    .school-card:hover { background: #fff !important; transform: translateY(-4px); box-shadow: 0 14px 34px rgba(15,23,32,.10) !important; }
+    .dark .school-card:hover { background: #223040 !important; }
+    .school-card > div:first-child > div:first-child { border-radius: 50% !important; }
+    .school-card a.mt-4 { border-radius: 999px; background: #0f1720 !important; color: #fff !important; border: 0; }
+    .school-card a.mt-4:hover { background: #ffc233 !important; color: #0f1720 !important; }
+    #schoolFilters button { border: 0 !important; border-radius: 999px !important; font-weight: 700; padding: .5rem 1.1rem; }
+    #schoolFilters button:not(.bg-brand-800) { background: #eef1f6 !important; color: #475569 !important; }
+    header .bg-amber-500, .hero-band .bg-amber-500 { border: 0; border-radius: 999px; }
+
+
+    /* ===== KARTU SAMBUTAN ===== */
+    .sambutan-card { display: grid; grid-template-columns: 1fr; background: #fff; border-radius: 28px; overflow: hidden; box-shadow: 0 12px 40px rgba(15,23,32,.09); }
+    .dark .sambutan-card { background: #1a2430; box-shadow: none; }
+    @media (min-width: 900px) { .sambutan-card { grid-template-columns: 340px 1fr; } }
+    .sambutan-photo { position: relative; min-height: 420px; background: #0f1720; }
+    .sambutan-photo > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .sambutan-photo-shade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,23,32,.92) 0%, rgba(15,23,32,0) 48%); }
+    .sambutan-photo-text { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.5rem 1.25rem; text-align: center; color: #fff; }
+    .sambutan-photo-text h3 { font-family: 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif; font-size: 1.3rem; font-weight: 800; line-height: 1.2; margin-bottom: .7rem; }
+    #pubJabatanBadge { display: inline-block; background: #ffc233; color: #0f1720; font-size: .68rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: .35rem .9rem; border-radius: 999px; }
+    .sambutan-content { position: relative; padding: 2rem 1.5rem; }
+    @media (min-width: 900px) { .sambutan-content { padding: 2.4rem 2.6rem; } }
+    .sambutan-quote { position: absolute; top: 1.6rem; right: 2rem; font-size: 3.6rem; color: #eef1f6; }
+    .dark .sambutan-quote { color: #2a3748; }
+    .sambutan-label { font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #b45309; margin-bottom: .5rem; }
+    .sambutan-label i { margin-right: .4rem; }
+    .sambutan-title { font-family: 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif; font-size: 1.6rem; font-weight: 800; color: #0f1720; margin-bottom: 1rem; position: relative; }
+    .dark .sambutan-title { color: #fff; }
+    .sambutan-body { position: relative; max-height: 9.6rem; overflow: hidden; color: #475569; font-size: .92rem; line-height: 1.75; transition: max-height .35s ease; }
+    .dark .sambutan-body { color: #cbd5e1; }
+    .sambutan-body p + p { margin-top: .75rem; }
+    .sambutan-body:not(.open)::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3.2rem; background: linear-gradient(to top, #fff, rgba(255,255,255,0)); }
+    .dark .sambutan-body:not(.open)::after { background: linear-gradient(to top, #1a2430, rgba(26,36,48,0)); }
+    .sambutan-body.open { max-height: 120rem; }
+    .sambutan-more { margin-top: 1rem; background: #0f1720; color: #fff; font-size: .75rem; font-weight: 700; padding: .65rem 1.3rem; border-radius: 999px; transition: background .2s, color .2s; }
+    .sambutan-more:hover { background: #ffc233; color: #0f1720; }
+    .sambutan-sign { display: flex; align-items: center; gap: .9rem; margin-top: 1.6rem; padding-top: 1.3rem; border-top: 1px solid #eef1f6; }
+    .dark .sambutan-sign { border-color: #2a3748; }
+    .sambutan-sign img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; }
+    .sambutan-info { display: grid; grid-template-columns: 1fr; gap: .8rem; margin-top: 1.4rem; }
+    @media (min-width: 640px) { .sambutan-info { grid-template-columns: 1fr 1fr; } }
+    .info-box { background: #f3f5f9; border-radius: 18px; padding: .9rem 1.1rem; }
+    .dark .info-box { background: #223040; }
+    .info-box p { font-size: .68rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #94a3b8; margin-bottom: .25rem; }
+    .info-box p i { color: #d97706; margin-right: .35rem; }
+    .info-box strong { font-size: .9rem; color: #0f1720; }
+    .dark .info-box strong { color: #fff; }
+
+
+    /* ===== SEKOLAH BINAAN: satu baris, geser ke samping ===== */
+    #schoolGrid { display: flex !important; flex-wrap: nowrap; gap: 1.1rem; overflow-x: auto; overflow-y: hidden;
+      scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 8px 4px 22px; margin: 0 -4px;
+      scrollbar-width: thin; scrollbar-color: #cbd5e1 transparent; -webkit-overflow-scrolling: touch; }
+    #schoolGrid::-webkit-scrollbar { height: 6px; }
+    #schoolGrid::-webkit-scrollbar-track { background: transparent; }
+    #schoolGrid::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+    #schoolGrid > .school-card { flex: 0 0 310px; scroll-snap-align: start; }
+    #schoolGrid > p { width: 100%; }
+    @media (max-width: 640px) { #schoolGrid > .school-card { flex-basis: 84%; } }
+    .school-nav-btn { width: 40px; height: 40px; border-radius: 50%; background: #0f1720; color: #fff; display: inline-flex; align-items: center; justify-content: center; transition: background .2s, color .2s; }
+    .school-nav-btn:hover { background: #ffc233; color: #0f1720; }
+
+
+    /* ===== AGENDA TIMELINE ===== */
+    .agenda-tabs { display: inline-flex; background: #eef1f6; border-radius: 999px; padding: 5px; gap: 4px; }
+    .dark .agenda-tabs { background: #223040; }
+    .agenda-tab { padding: .55rem 1.3rem; border-radius: 999px; font-size: .8rem; font-weight: 700; color: #64748b; transition: background .2s, color .2s; }
+    .agenda-tab.on { background: #0f1720; color: #fff; }
+    .dark .agenda-tab.on { background: #ffc233; color: #0f1720; }
+    .timeline { position: relative; max-width: 920px; margin: 2.2rem auto 0; padding: .5rem 0; }
+    .timeline::before { content: ''; position: absolute; left: 23px; top: 0; bottom: 0; width: 3px; border-radius: 3px;
+      background: linear-gradient(to bottom, #ffc233, #e2e8f0 60%); }
+    .dark .timeline::before { background: linear-gradient(to bottom, #ffc233, #334155 60%); }
+    .tl-item { position: relative; padding-left: 68px; margin-bottom: 1.5rem; opacity: 0; animation: tlIn .6s ease forwards; }
+    @keyframes tlIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+    .tl-dot { position: absolute; left: 0; top: .3rem; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; box-shadow: 0 0 0 6px #fff; }
+    .dark .tl-dot { box-shadow: 0 0 0 6px #0f172a; }
+    .tl-mendatang .tl-dot { background: #ffc233; color: #0f1720; }
+    .tl-berlangsung .tl-dot { background: #0f1720; color: #ffc233; box-shadow: 0 0 0 6px #fff, 0 0 0 11px rgba(255,194,51,.4); }
+    .dark .tl-berlangsung .tl-dot { box-shadow: 0 0 0 6px #0f172a, 0 0 0 11px rgba(255,194,51,.4); }
+    .tl-selesai .tl-dot { background: #cbd5e1; color: #fff; }
+    .tl-card { display: flex; gap: 1.1rem; background: #f3f5f9; border-radius: 22px; padding: 1.1rem 1.3rem; transition: background .2s, transform .2s, box-shadow .2s; }
+    .dark .tl-card { background: #1a2430; }
+    .tl-card:hover { background: #fff; transform: translateY(-3px); box-shadow: 0 14px 34px rgba(15,23,32,.10); }
+    .dark .tl-card:hover { background: #223040; }
+    .tl-date { flex: 0 0 62px; height: 68px; border-radius: 16px; background: #0f1720; color: #fff; text-align: center; display: flex; flex-direction: column; justify-content: center; }
+    .tl-mendatang .tl-date, .tl-berlangsung .tl-date { background: #ffc233; color: #0f1720; }
+    .tl-selesai .tl-date { background: #94a3b8; }
+    .tl-date b { font-family: 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif; font-size: 1.6rem; line-height: 1; font-weight: 800; }
+    .tl-date span { font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-top: 3px; }
+    .tl-title { font-family: 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif; font-size: 1.05rem; font-weight: 800; color: #0f1720; line-height: 1.3; }
+    .dark .tl-title { color: #fff; }
+    .tl-meta { display: flex; flex-wrap: wrap; gap: .3rem 1rem; margin-top: .4rem; font-size: .76rem; color: #64748b; }
+    .dark .tl-meta { color: #94a3b8; }
+    .tl-meta i { color: #d97706; margin-right: .3rem; }
+    .tl-note { margin-top: .55rem; font-size: .8rem; color: #475569; line-height: 1.6; }
+    .dark .tl-note { color: #cbd5e1; }
+    .tl-pill { display: inline-block; margin-top: .65rem; font-size: .66rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: .22rem .7rem; border-radius: 999px; }
+    .tl-mendatang .tl-pill { background: #fff3d6; color: #b45309; }
+    .tl-berlangsung .tl-pill { background: #0f1720; color: #ffc233; }
+    .tl-selesai .tl-pill { background: #e2e8f0; color: #64748b; }
+    @media (min-width: 768px) {
+      .timeline::before { left: 50%; transform: translateX(-50%); }
+      .tl-item { width: 50%; padding-left: 0; padding-right: 54px; }
+      .tl-item:nth-child(even) { margin-left: 50%; padding-right: 0; padding-left: 54px; }
+      .tl-item .tl-dot { left: auto; right: -24px; }
+      .tl-item:nth-child(even) .tl-dot { right: auto; left: -24px; }
+    }
+    @media (max-width: 420px) { .tl-card { flex-direction: column; } .tl-date { flex-basis: auto; height: auto; flex-direction: row; gap: .5rem; align-items: baseline; justify-content: center; padding: .5rem; } }
+
     /* Floating Dock Animation */
     .floating-dock {
       transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
@@ -87,9 +325,9 @@
           <i class="fa-solid fa-phone text-amber-400"></i>
           <span>(0354) 771234 / 0857-3590-2504</span>
         </a>
-        <a href="mailto:cabdin.pengawas@kemdikbud.go.id" class="flex items-center gap-2 hover:text-amber-400 transition">
+        <a href="mailto:lukmanhakim.net" class="flex items-center gap-2 hover:text-amber-400 transition">
           <i class="fa-solid fa-envelope text-amber-400"></i>
-          <span>cabdin.pengawas@kemdikbud.go.id</span>
+          <span>lukman@sitepgri.com</span>
         </a>
         <span class="flex items-center gap-1.5 text-emerald-400 font-medium">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
@@ -150,16 +388,16 @@
 
         <!-- Header Right Actions -->
         <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-          <button onclick="openLoginModal()" class="hidden md:flex bg-amber-500 hover:bg-amber-400 text-brand-900 font-bold text-xs xl:text-sm px-3 xl:px-4 py-2.5 rounded-full transition shadow-lg items-center gap-2 transform active:scale-95 whitespace-nowrap">
+          <button onclick="CMS_LOGIN_REDIRECT='dashboard'; CMS_RESTRICT_MODE=false; sessionStorage.removeItem('cms_restrict'); openLoginModal();" class="hidden md:flex bg-amber-500 hover:bg-amber-400 text-brand-900 font-bold text-xs xl:text-sm px-3 xl:px-4 py-2.5 rounded-full transition shadow-lg items-center gap-2 transform active:scale-95 whitespace-nowrap">
             <i class="fa-solid fa-right-to-bracket"></i>
             <span>Portal Sistem CMS</span>
           </button>
 
-          <button onclick="openLoginModal()" class="md:hidden w-10 h-10 rounded-full bg-amber-500 hover:bg-amber-400 flex items-center justify-center text-brand-900 transition shrink-0" title="Portal Sistem CMS">
+          <button onclick="CMS_LOGIN_REDIRECT='dashboard'; CMS_RESTRICT_MODE=false; sessionStorage.removeItem('cms_restrict'); openLoginModal();" class="md:hidden w-10 h-10 rounded-full bg-amber-500 hover:bg-amber-400 flex items-center justify-center text-brand-900 transition shrink-0" title="Portal Sistem CMS">
             <i class="fa-solid fa-right-to-bracket text-sm"></i>
           </button>
 
-          <button onclick="openLoginModal()" class="hidden sm:flex w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 items-center justify-center text-white transition shrink-0" title="Login Pengawas">
+          <button onclick="CMS_LOGIN_REDIRECT='dashboard'; CMS_RESTRICT_MODE=false; sessionStorage.removeItem('cms_restrict'); openLoginModal();" class="hidden sm:flex w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 items-center justify-center text-white transition shrink-0" title="Login Pengawas">
             <i class="fa-solid fa-user-gear text-sm"></i>
           </button>
 
@@ -186,6 +424,15 @@
   </header>
 
   <!-- ==================== HERO BANNER SLIDER (2 KARTU, BISA SLIDE, FOTO DARI CMS) ==================== -->
+  <div class="hero-band">
+  <div class="max-w-4xl mx-auto px-4 pt-14 pb-4 text-center relative z-10">
+    <p class="text-sm font-semibold text-amber-400 mb-3">Portal Resmi Pengawas Sekolah</p>
+    <div class="hero-title">Pengawas Sekolah Berdaya &amp; Berkontribusi</div>
+    <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+      <a href="#sekolah" class="hero-cta">Lihat Sekolah Binaan</a>
+      <a href="#sambutan" class="text-white/80 hover:text-white text-sm font-semibold px-3 py-2">Sambutan Pengawas</a>
+    </div>
+  </div>
   <section id="beranda" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <!-- Slot Banner 1 -->
@@ -209,51 +456,46 @@
       </button>
     </div>
   </section>
+  <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+    <path class="wave-soft" d="M0,60 C240,115 480,5 720,40 C960,75 1200,112 1440,48 L1440,120 L0,120 Z"/>
+    <path class="wave-page" d="M0,82 C300,22 600,112 900,72 C1100,46 1300,62 1440,88 L1440,120 L0,120 Z"/>
+  </svg>
+  </div>
 
   <!-- ==================== QUICK STATS SUMMARY ==================== -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl border border-slate-200/80 dark:border-slate-700 grid grid-cols-2 lg:grid-cols-4 gap-6">
-      
+    <div id="statsBar" class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-xl border border-slate-200/80 dark:border-slate-700 grid grid-cols-1 sm:grid-cols-3 gap-6">
       <div class="flex items-center gap-4">
-        <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-300 flex items-center justify-center text-xl font-bold">
+        <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl font-bold">
           <i class="fa-solid fa-school"></i>
         </div>
         <div>
-          <p class="text-2xl font-black text-slate-800 dark:text-white">28</p>
+          <p class="stat-num text-2xl sm:text-3xl font-black text-slate-800 dark:text-white" data-key="sekolah" data-decimals="0">0</p>
           <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Sekolah Binaan</p>
         </div>
       </div>
 
       <div class="flex items-center gap-4">
-        <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-300 flex items-center justify-center text-xl font-bold">
+        <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl font-bold">
           <i class="fa-solid fa-clipboard-check"></i>
         </div>
         <div>
-          <p class="text-2xl font-black text-slate-800 dark:text-white">142</p>
+          <p class="stat-num text-2xl sm:text-3xl font-black text-slate-800 dark:text-white" data-key="laporan" data-decimals="0">0</p>
           <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Laporan Supervisi</p>
         </div>
       </div>
 
       <div class="flex items-center gap-4">
-        <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-300 flex items-center justify-center text-xl font-bold">
-          <i class="fa-solid fa-chalkboard-user"></i>
-        </div>
-        <div>
-          <p class="text-2xl font-black text-slate-800 dark:text-white">650+</p>
-          <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Guru Terpinta</p>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-4">
-        <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 flex items-center justify-center text-xl font-bold">
+        <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl font-bold">
           <i class="fa-solid fa-award"></i>
         </div>
         <div>
-          <p class="text-2xl font-black text-slate-800 dark:text-white">94.8%</p>
+          <p class="stat-num text-2xl sm:text-3xl font-black text-slate-800 dark:text-white" data-key="indeks" data-decimals="1" data-suffix="%">0</p>
           <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Indeks Mutu Binaan</p>
         </div>
       </div>
 
+    </div>
   </section>
 
   <!-- ==================== PROFIL & SAMBUTAN PENGAWAS ====================
@@ -270,63 +512,48 @@
       <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Cabang Dinas Pendidikan Wilayah</p>
     </div>
 
-    <!-- Foto Besar Pengawas (Hero Full Photo) -->
-    <div class="relative rounded-3xl overflow-hidden shadow-2xl mb-8 min-h-[360px] sm:min-h-[480px]">
-      <img id="pubFotoBesar" src="https://placehold.co/1600x900/1e3a5f/f59e0b?text=Foto+Pengawas+Sekolah"
-           alt="Foto Pengawas Sekolah"
-           class="absolute inset-0 w-full h-full object-cover object-top">
-      <div class="absolute inset-0 bg-gradient-to-t from-brand-900 via-brand-900/50 to-transparent"></div>
+    <!-- Kartu Sambutan: foto di kiri, naskah di kanan (semua id dipakai CMS, jangan dihapus) -->
+    <div id="sambutan" class="sambutan-card">
 
-      <div class="absolute bottom-0 left-0 p-6 sm:p-10 text-white">
-        <span id="pubJabatanBadge" class="inline-flex items-center gap-2 bg-amber-500 text-brand-900 text-xs font-bold px-3 py-1 rounded-full mb-3">
-          <i class="fa-solid fa-id-badge"></i> Pengawas Sekolah Pembina
-        </span>
-        <h3 id="pubNamaHero" class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">— Nama Pengawas, S.Pd., M.Pd. —</h3>
-        <p id="pubHeroSubtitle" class="text-sm sm:text-base text-slate-200 mt-2 max-w-xl">
-          NIP. — isi NIP — &middot; Pengawas Jenjang — isi (SD/SMP/SMA/SMK) — &middot; Cabang Dinas Pendidikan Wilayah — isi —
-        </p>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-      <!-- Kartu Profil Ringkas / Biodata -->
-      <div class="lg:col-span-1 bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl overflow-hidden flex flex-col">
-        <div class="w-full aspect-square">
-          <img id="pubPasFoto" src="https://placehold.co/300x300/1e3a5f/f59e0b?text=Pas+Foto" alt="Pas Foto Pengawas" class="w-full h-full object-cover">
-        </div>
-        <div class="flex flex-col items-center text-center p-6">
-          <h4 id="pubNamaCard" class="font-bold text-lg text-slate-900 dark:text-white">— Nama Pengawas, S.Pd., M.Pd. —</h4>
-          <p id="pubJabatanCard" class="text-xs text-amber-500 font-semibold uppercase tracking-wide">Pengawas Sekolah Pembina</p>
+      <div class="sambutan-photo">
+        <img id="pubFotoBesar" src="https://placehold.co/800x1000/0f1720/ffc233?text=Foto+Pengawas" alt="Foto Pengawas Sekolah">
+        <div class="sambutan-photo-shade"></div>
+        <div class="sambutan-photo-text">
+          <h3 id="pubNamaHero">— Nama Pengawas, S.Pd., M.Pd. —</h3>
+          <span id="pubJabatanBadge"><i class="fa-solid fa-id-badge"></i> Pengawas Sekolah Pembina</span>
         </div>
       </div>
 
-      <!-- Sambutan Pengawas -->
-      <div id="sambutan" class="lg:col-span-2 bg-gradient-to-br from-brand-900 to-brand-800 text-white rounded-3xl shadow-2xl p-8 sm:p-10 relative overflow-hidden">
-        <i class="fa-solid fa-quote-left text-6xl text-amber-400/20 absolute top-6 right-8"></i>
+      <div class="sambutan-content">
+        <i class="fa-solid fa-quote-right sambutan-quote"></i>
+        <p class="sambutan-label"><i class="fa-solid fa-microphone-lines"></i> Sambutan Pengawas</p>
+        <h4 id="pubSambutanJudul" class="sambutan-title">Selamat Datang di Portal Pengawas Sekolah</h4>
 
-        <span class="text-xs font-bold uppercase tracking-widest text-amber-400 relative z-10">Sambutan</span>
-        <h4 id="pubSambutanJudul" class="text-2xl sm:text-3xl font-extrabold mt-2 mb-4 relative z-10">Selamat Datang di Portal Pengawas Sekolah</h4>
-
-        <div class="text-sm sm:text-[15px] text-slate-200 leading-relaxed space-y-3 relative z-10">
-          <p id="pubSambutanP1">
-            — Tulis paragraf pertama sambutan di sini. Contoh isi: ucapan syukur, latar belakang tugas pengawasan sekolah, serta tujuan dibangunnya portal ini bagi sekolah binaan. —
-          </p>
-          <p id="pubSambutanP2">
-            — Tulis paragraf kedua sambutan di sini (opsional). Contoh isi: harapan terhadap kepala sekolah, guru, dan tenaga kependidikan agar bersama-sama mendukung program supervisi dan peningkatan mutu pendidikan. —
-          </p>
+        <div id="sambutanBody" class="sambutan-body">
+          <p id="pubSambutanP1">— Tulis paragraf pertama sambutan di sini. —</p>
+          <p id="pubSambutanP2">— Tulis paragraf kedua sambutan di sini (opsional). —</p>
         </div>
+        <button type="button" id="sambutanToggle" onclick="toggleSambutan()" class="sambutan-more">Baca selengkapnya <i class="fa-solid fa-arrow-right"></i></button>
 
-        <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between relative z-10">
+        <div class="sambutan-sign">
+          <img id="pubPasFoto" src="https://placehold.co/120x120/0f1720/ffc233?text=Foto" alt="Pas Foto Pengawas">
           <div>
-            <p id="pubNamaSign" class="font-bold text-sm">— Nama Pengawas, S.Pd., M.Pd. —</p>
-            <p id="pubJabatanSign" class="text-xs text-amber-400">Pengawas Sekolah Pembina</p>
+            <p id="pubNamaSign" class="font-bold text-sm text-slate-900 dark:text-white">— Nama Pengawas, S.Pd., M.Pd. —</p>
+            <p id="pubJabatanSign" class="text-xs text-amber-600">Pengawas Sekolah Pembina</p>
+            <p id="pubNipSign" class="text-[11px] text-slate-400 font-mono">NIP. — isi —</p>
           </div>
-          <p id="pubNipSign" class="text-xs text-slate-400 font-mono">NIP. — isi —</p>
+        </div>
+
+        <div class="sambutan-info">
+          <div class="info-box"><p><i class="fa-solid fa-layer-group"></i> Jenjang Binaan</p><strong id="pubJenjangBox">-</strong></div>
+          <div class="info-box"><p><i class="fa-solid fa-location-dot"></i> Wilayah Binaan</p><strong id="pubWilayahBox">-</strong></div>
         </div>
       </div>
 
+      <!-- id lama dipertahankan agar CMS tetap jalan -->
+      <div class="hidden"><h4 id="pubNamaCard"></h4><p id="pubJabatanCard"></p><p id="pubHeroSubtitle"></p></div>
     </div>
+
   </section>
   <section id="sekolah" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
@@ -337,7 +564,7 @@
       </div>
       
       <!-- Filter Chips -->
-      <div class="mt-4 md:mt-0 flex flex-wrap gap-2">
+      <div id="schoolFilters" class="mt-4 md:mt-0 flex flex-wrap gap-2">
         <button onclick="filterSchool('semua')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-brand-800 text-white shadow">Semua</button>
         <button onclick="filterSchool('SMA')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100">SMA</button>
         <button onclick="filterSchool('SMK')" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100">SMK</button>
@@ -345,60 +572,14 @@
       </div>
     </div>
 
-    <!-- School Cards Grid -->
+    <!-- School Cards Grid (diisi otomatis dari Spreadsheet lewat loadPublicSekolah()) -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="schoolGrid">
-      
-      <!-- Card 1 -->
-      <div class="school-card bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 shadow-md hover:shadow-xl transition group" data-jenjang="SMA">
-        <div class="flex items-start justify-between mb-3">
-          <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-950 text-blue-600 flex items-center justify-center font-bold">
-            <i class="fa-solid fa-school"></i>
-          </div>
-          <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">Akreditasi A</span>
-        </div>
-        <h3 class="font-bold text-base text-slate-800 dark:text-white group-hover:text-brand-500 transition">SMKN 1 KOTA</h3>
-        <p class="text-xs text-slate-400 mb-4"><i class="fa-solid fa-location-dot mr-1"></i> Jl. Veteran No. 12, Kec. Kota</p>
-        <div class="text-xs text-slate-600 dark:text-slate-300 space-y-1.5 pt-3 border-t border-slate-100 dark:border-slate-700">
-          <div class="flex justify-between"><span>Kepala Sekolah:</span> <strong class="text-slate-800 dark:text-white">Drs. Ahmad Dahlan, M.Pd</strong></div>
-          <div class="flex justify-between"><span>NPSN:</span> <span class="font-mono">20512345</span></div>
-          <div class="flex justify-between"><span>Status Supervisi:</span> <span class="text-emerald-600 font-semibold"><i class="fa-solid fa-circle-check"></i> Selesai (2026)</span></div>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="school-card bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 shadow-md hover:shadow-xl transition group" data-jenjang="SMA">
-        <div class="flex items-start justify-between mb-3">
-          <div class="w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-950 text-indigo-600 flex items-center justify-center font-bold">
-            <i class="fa-solid fa-graduation-cap"></i>
-          </div>
-          <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">Akreditasi A</span>
-        </div>
-        <h3 class="font-bold text-base text-slate-800 dark:text-white group-hover:text-brand-500 transition">SMAN 2 KEDIRI</h3>
-        <p class="text-xs text-slate-400 mb-4"><i class="fa-solid fa-location-dot mr-1"></i> Jl. Veteran No. 1, Kec. Mojoroto</p>
-        <div class="text-xs text-slate-600 dark:text-slate-300 space-y-1.5 pt-3 border-t border-slate-100 dark:border-slate-700">
-          <div class="flex justify-between"><span>Kepala Sekolah:</span> <strong class="text-slate-800 dark:text-white">Siti Nurjanah, S.Pd, M.Si</strong></div>
-          <div class="flex justify-between"><span>NPSN:</span> <span class="font-mono">20554321</span></div>
-          <div class="flex justify-between"><span>Status Supervisi:</span> <span class="text-amber-600 font-semibold"><i class="fa-solid fa-clock"></i> Dijadwalkan Mei</span></div>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="school-card bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 shadow-md hover:shadow-xl transition group" data-jenjang="SMK">
-        <div class="flex items-start justify-between mb-3">
-          <div class="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-950 text-purple-600 flex items-center justify-center font-bold">
-            <i class="fa-solid fa-gear"></i>
-          </div>
-          <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-100 text-blue-700">Akreditasi B</span>
-        </div>
-        <h3 class="font-bold text-base text-slate-800 dark:text-white group-hover:text-brand-500 transition">SMK PGRI 1 BINAAN</h3>
-        <p class="text-xs text-slate-400 mb-4"><i class="fa-solid fa-location-dot mr-1"></i> Jl. KH. Ahmad Dahlan No. 45</p>
-        <div class="text-xs text-slate-600 dark:text-slate-300 space-y-1.5 pt-3 border-t border-slate-100 dark:border-slate-700">
-          <div class="flex justify-between"><span>Kepala Sekolah:</span> <strong class="text-slate-800 dark:text-white">Budi Santoso, ST, MT</strong></div>
-          <div class="flex justify-between"><span>NPSN:</span> <span class="font-mono">20599887</span></div>
-          <div class="flex justify-between"><span>Status Supervisi:</span> <span class="text-emerald-600 font-semibold"><i class="fa-solid fa-circle-check"></i> Selesai (2026)</span></div>
-        </div>
-      </div>
-
+      <p class="col-span-full text-center text-sm text-slate-400 py-6"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Memuat data sekolah binaan...</p>
+    </div>
+    <div class="flex items-center justify-center gap-3 mt-1">
+      <button type="button" onclick="scrollSchool(-1)" class="school-nav-btn" aria-label="Geser ke kiri"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+      <span class="text-xs text-slate-400">Geser untuk melihat sekolah lainnya</span>
+      <button type="button" onclick="scrollSchool(1)" class="school-nav-btn" aria-label="Geser ke kanan"><i class="fa-solid fa-chevron-right text-xs"></i></button>
     </div>
   </section>
 
@@ -431,7 +612,7 @@
           </div>
 
           <div class="mt-8 flex flex-wrap gap-3">
-            <button onclick="openLoginModal()" class="bg-amber-500 hover:bg-amber-400 text-brand-900 font-bold text-sm px-6 py-3 rounded-xl transition shadow-lg flex items-center gap-2">
+            <button onclick="CMS_LOGIN_REDIRECT='supervisi'; CMS_RESTRICT_MODE=true; sessionStorage.setItem('cms_restrict','1'); openLoginModal();" class="bg-amber-500 hover:bg-amber-400 text-brand-900 font-bold text-sm px-6 py-3 rounded-xl transition shadow-lg flex items-center gap-2">
               <i class="fa-solid fa-clipboard-list"></i> Buka Aplikasi Admin
             </button>
             <a href="#dokumen" class="bg-white/10 hover:bg-white/20 text-white font-medium text-sm px-5 py-3 rounded-xl border border-white/20 transition">
@@ -453,17 +634,17 @@
           <div class="space-y-3">
             <div class="bg-black/30 p-3 rounded-xl flex justify-between items-center text-xs">
               <div>
-                <p class="font-bold text-amber-300">Supervisi Akademik SMAN 2</p>
+                <p class="font-bold text-amber-300">Supervisi Akademik</p>
                 <p class="text-slate-400">Aspek: Proses Pembelajaran Kurikulum Merdeka</p>
               </div>
-              <span class="px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded font-bold">Skor: 92.5</span>
+              <span class="px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded font-bold">Proses</span>
             </div>
             <div class="bg-black/30 p-3 rounded-xl flex justify-between items-center text-xs">
               <div>
-                <p class="font-bold text-amber-300">Supervisi Manajerial SMKN 1</p>
+                <p class="font-bold text-amber-300">Supervisi Manajerial</p>
                 <p class="text-slate-400">Aspek: Pengelolaan RKT & RKAS 2026</p>
               </div>
-              <span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded font-bold">Skor: 88.0</span>
+              <span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded font-bold">Proses</span>
             </div>
             <div class="bg-black/30 p-3 rounded-xl flex justify-between items-center text-xs">
               <div>
@@ -476,6 +657,22 @@
         </div>
 
       </div>
+    </div>
+  </section>
+
+  <!-- ==================== AGENDA KERJA (TIMELINE, DATA DARI CMS) ==================== -->
+  <section id="agenda" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="text-center">
+      <span class="text-xs font-bold uppercase tracking-wider text-amber-500">Jadwal Kegiatan</span>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Agenda Kerja Pengawas</h2>
+      <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 mb-5">Jadwal supervisi, pendampingan, dan kegiatan kepengawasan</p>
+      <div class="agenda-tabs">
+        <button type="button" id="agendaTabMendatang" class="agenda-tab on" onclick="setAgendaTab('mendatang')">Akan Datang</button>
+        <button type="button" id="agendaTabSelesai" class="agenda-tab" onclick="setAgendaTab('selesai')">Sudah Selesai</button>
+      </div>
+    </div>
+    <div id="agendaTimeline" class="timeline">
+      <p class="text-center text-sm text-slate-400 py-6"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Memuat agenda...</p>
     </div>
   </section>
 
@@ -522,6 +719,12 @@
     </div>
   </section>
 
+  <!-- Gelombang pembuka footer -->
+  <div class="wave-foot-wrap">
+    <svg class="wave-foot" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,50 C240,100 520,0 800,40 C1060,78 1260,90 1440,30 L1440,100 L0,100 Z"/>
+    </svg>
+  </div>
   <!-- ==================== FOOTER ==================== -->
   <footer class="bg-brand-900 text-white pt-12 pb-24 border-t border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
@@ -557,7 +760,7 @@
           <i class="fa-solid fa-phone text-amber-400 mr-2"></i> (0354) 771234
         </p>
         <p class="text-xs text-slate-300 mt-1">
-          <i class="fa-solid fa-envelope text-amber-400 mr-2"></i> cabdin.pengawas@kemdikbud.go.id
+          <i class="fa-solid fa-envelope text-amber-400 mr-2"></i> lukman@sitepgri.com
         </p>
       </div>
     </div>
@@ -639,7 +842,7 @@
       </form>
 
       <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700 text-center">
-        <p class="text-[11px] text-slate-400">Default Login Admin: <strong class="text-slate-600 dark:text-slate-300">admin / pengawas123</strong></p>
+        <p class="text-[11px] text-slate-400">Login Admin: <strong class="text-slate-600 dark:text-slate-300"></strong></p>
       </div>
     </div>
   </div>
@@ -722,8 +925,8 @@
       <div class="flex items-center gap-3 p-5 border-b border-white/10">
         <div class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-brand-900 font-bold text-lg"><i class="fa-solid fa-user-shield"></i></div>
         <div>
-          <p class="font-bold text-sm leading-tight">CMS Admin</p>
-          <p class="text-[11px] text-amber-400">Portal Pengawas</p>
+          <p id="cmsSidebarTitle" class="font-bold text-sm leading-tight">CMS Admin</p>
+          <p id="cmsSidebarSubtitle" class="text-[11px] text-amber-400">Portal Pengawas</p>
         </div>
       </div>
 
@@ -740,7 +943,7 @@
 
       <div class="p-3 border-t border-white/10 space-y-1">
         <p class="px-3 text-[11px] text-slate-300 truncate">Masuk sebagai <strong id="cmsUserName" class="text-white">-</strong></p>
-        <a href="#beranda" onclick="cmsClosePanel()" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/10 transition text-sm text-left"><i class="fa-solid fa-arrow-left w-5"></i> Lihat Website</a>
+        <a id="cmsBackToWebsite" href="#beranda" onclick="cmsClosePanel()" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-white/10 transition text-sm text-left"><i class="fa-solid fa-arrow-left w-5"></i> Lihat Website</a>
         <button onclick="cmsLogout()" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-red-500/20 text-red-300 transition text-sm text-left"><i class="fa-solid fa-right-from-bracket w-5"></i> Keluar</button>
       </div>
     </aside>
@@ -810,11 +1013,193 @@
     }
 
     // Filter School Cards
+    // ============ SEKOLAH BINAAN (Beranda) — diisi otomatis dari Spreadsheet ============
+    const SCHOOL_ICONS = ['fa-school'];
+    const SCHOOL_COLORS = ['emerald'];
+
+    function schoolAkreditasiBadge(akreditasi) {
+      const a = String(akreditasi || '-').toUpperCase();
+      const map = { 'A': 'bg-emerald-100 text-emerald-700', 'B': 'bg-blue-100 text-blue-700', 'C': 'bg-amber-100 text-amber-700' };
+      const cls = map[a] || 'bg-slate-100 text-slate-600';
+      return `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${cls}">Akreditasi ${a}</span>`;
+    }
+
+    function schoolStatusBadge(status) {
+      const s = String(status || '-');
+      if (/selesai/i.test(s)) return `<span class="text-emerald-600 font-semibold"><i class="fa-solid fa-circle-check"></i> ${s}</span>`;
+      if (/proses/i.test(s)) return `<span class="text-blue-600 font-semibold"><i class="fa-solid fa-rotate"></i> ${s}</span>`;
+      if (/dijadwalkan|jadwal/i.test(s)) return `<span class="text-amber-600 font-semibold"><i class="fa-solid fa-clock"></i> ${s}</span>`;
+      return `<span class="text-slate-500 font-semibold"><i class="fa-solid fa-minus"></i> ${s}</span>`;
+    }
+
+    // Normalisasi link website sekolah (hanya http/https yang diizinkan)
+    function schoolWebsiteUrl(raw) {
+      let u = String(raw || '').trim();
+      if (!u) return '';
+      if (!/^https?:\/\//i.test(u)) u = 'https://' + u;
+      return /^https?:\/\/[^\s"'<>]+$/i.test(u) ? u : '';
+    }
+
+    function schoolWebsiteButton(raw) {
+      const url = schoolWebsiteUrl(raw);
+      if (!url) {
+        return `<span class="mt-4 w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-400 text-xs font-bold cursor-not-allowed"><i class="fa-solid fa-link-slash"></i> Website belum tersedia</span>`;
+      }
+      return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="mt-4 w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-brand-900 hover:bg-brand-800 text-white text-xs font-bold transition"><i class="fa-solid fa-globe"></i> Kunjungi Website Sekolah <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>`;
+    }
+
+    function loadPublicSekolah() {
+      const grid = document.getElementById('schoolGrid');
+      google.script.run.withSuccessHandler(res => {
+        if (!res.success || !res.data || !res.data.length) {
+          grid.innerHTML = `<p class="col-span-full text-center text-sm text-slate-400 py-6">Belum ada data sekolah binaan.</p>`;
+          return;
+        }
+        grid.innerHTML = res.data.map((s, i) => {
+          const icon = SCHOOL_ICONS[i % SCHOOL_ICONS.length];
+          const color = SCHOOL_COLORS[i % SCHOOL_COLORS.length];
+          return `
+            <div class="school-card bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 shadow-md hover:shadow-xl transition group" data-jenjang="${s.Jenjang || ''}">
+              <div class="flex items-start justify-between mb-3">
+                <div class="w-10 h-10 rounded-lg bg-${color}-100 dark:bg-${color}-950 text-${color}-600 flex items-center justify-center font-bold">
+                  <i class="fa-solid ${icon}"></i>
+                </div>
+                ${schoolAkreditasiBadge(s.Akreditasi)}
+              </div>
+              <h3 class="font-bold text-base text-slate-800 dark:text-white group-hover:text-brand-500 transition">${s.Nama_Sekolah || '-'}</h3>
+              <p class="text-xs text-slate-400 mb-4"><i class="fa-solid fa-location-dot mr-1"></i> ${s.Alamat || '-'}</p>
+              <div class="text-xs text-slate-600 dark:text-slate-300 space-y-1.5 pt-3 border-t border-slate-100 dark:border-slate-700">
+                <div class="flex justify-between"><span>Kepala Sekolah:</span> <strong class="text-slate-800 dark:text-white">${s.Kepala_Sekolah || '-'}</strong></div>
+                <div class="flex justify-between"><span>NPSN:</span> <span class="font-mono">${s.NPSN || '-'}</span></div>
+                <div class="flex justify-between"><span>Status Supervisi:</span> ${schoolStatusBadge(s.Status_Supervisi)}</div>
+              </div>
+              ${schoolWebsiteButton(s.Website_URL)}
+            </div>`;
+        }).join('');
+      }).withFailureHandler(err => {
+        grid.innerHTML = `<p class="col-span-full text-center text-sm text-red-500 py-6">Gagal memuat data sekolah: ${(err && err.message) || err}</p>`;
+      }).getPublicSekolahList();
+    }
+    window.addEventListener('load', loadPublicSekolah);
+
+    // ============ STATISTIK BERANDA: data dari Spreadsheet + animasi hitung naik ============
+    let STAT_DATA = null, STAT_VISIBLE = false, STAT_DONE = false;
+    function formatStat(v, dec) {
+      return v.toLocaleString('id-ID', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+    }
+    function runStatCount() {
+      if (STAT_DONE || !STAT_DATA || !STAT_VISIBLE) return;
+      STAT_DONE = true;
+      document.querySelectorAll('.stat-num').forEach(el => {
+        const target = Number(STAT_DATA[el.dataset.key]) || 0;
+        const dec = parseInt(el.dataset.decimals || '0', 10);
+        const suffix = el.dataset.suffix || '';
+        const dur = 1800, t0 = performance.now();
+        (function tick(now) {
+          const p = Math.min((now - t0) / dur, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = formatStat(target * eased, dec) + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        })(t0);
+      });
+    }
+    window.addEventListener('load', () => {
+      const bar = document.getElementById('statsBar');
+      if (bar && 'IntersectionObserver' in window) {
+        new IntersectionObserver((entries, obs) => {
+          if (entries[0].isIntersecting) { STAT_VISIBLE = true; obs.disconnect(); runStatCount(); }
+        }, { threshold: 0.35 }).observe(bar);
+      } else { STAT_VISIBLE = true; }
+      google.script.run.withSuccessHandler(res => {
+        if (res && res.success) { STAT_DATA = res.data; runStatCount(); }
+      }).getPublicStatistik();
+    });
+
+    // ============ AGENDA TIMELINE (data dari sheet Agenda_Kerja / CMS) ============
+    let AGENDA_ALL = [], AGENDA_TAB = 'mendatang';
+    const AG_BULAN = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+    const AG_HARI = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    function agEsc(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+    function agDate(a) { const d = new Date(String(a.Tanggal).slice(0, 10) + 'T00:00:00'); return isNaN(d) ? null : d; }
+    function agStatus(a) {
+      const s = String(a.Status || '').toLowerCase();
+      if (s.includes('selesai')) return 'selesai';
+      if (s.includes('berlangsung')) return 'berlangsung';
+      if (s.includes('mendatang')) return 'mendatang';
+      const d = agDate(a), t = new Date(); t.setHours(0, 0, 0, 0);
+      if (!d) return 'mendatang';
+      return d < t ? 'selesai' : (d.getTime() === t.getTime() ? 'berlangsung' : 'mendatang');
+    }
+    function setAgendaTab(tab) {
+      AGENDA_TAB = tab;
+      document.getElementById('agendaTabMendatang').classList.toggle('on', tab === 'mendatang');
+      document.getElementById('agendaTabSelesai').classList.toggle('on', tab === 'selesai');
+      renderAgenda();
+    }
+    function renderAgenda() {
+      const box = document.getElementById('agendaTimeline');
+      const selesai = AGENDA_TAB === 'selesai';
+      const list = AGENDA_ALL.filter(a => (agStatus(a) === 'selesai') === selesai)
+        .sort((x, y) => ((agDate(x) || 0) - (agDate(y) || 0)) * (selesai ? -1 : 1));
+      if (!list.length) {
+        box.innerHTML = `<p class="text-center text-sm text-slate-400 py-10"><i class="fa-regular fa-calendar mr-1"></i> ${selesai ? 'Belum ada agenda yang selesai.' : 'Belum ada agenda mendatang. Silakan cek kembali nanti.'}</p>`;
+        return;
+      }
+      const icon = { mendatang: 'fa-calendar-day', berlangsung: 'fa-person-walking', selesai: 'fa-check' };
+      const label = { mendatang: 'Akan datang', berlangsung: 'Sedang berlangsung', selesai: 'Selesai' };
+      box.innerHTML = list.map((a, i) => {
+        const st = agStatus(a), d = agDate(a);
+        const day = d ? d.getDate() : '-', mon = d ? AG_BULAN[d.getMonth()] : '', hari = d ? AG_HARI[d.getDay()] + ', ' : '';
+        return `
+          <div class="tl-item tl-${st}" style="animation-delay:${Math.min(i, 8) * 90}ms">
+            <div class="tl-dot"><i class="fa-solid ${icon[st]}"></i></div>
+            <div class="tl-card">
+              <div class="tl-date"><b>${day}</b><span>${mon}</span></div>
+              <div class="min-w-0">
+                <h3 class="tl-title">${agEsc(a.Kegiatan)}</h3>
+                <div class="tl-meta">
+                  <span><i class="fa-regular fa-clock"></i>${agEsc(hari)}${agEsc(a.Waktu || 'Waktu menyusul')}</span>
+                  ${a.Lokasi ? `<span><i class="fa-solid fa-location-dot"></i>${agEsc(a.Lokasi)}</span>` : ''}
+                </div>
+                ${a.Keterangan ? `<p class="tl-note">${agEsc(a.Keterangan)}</p>` : ''}
+                <span class="tl-pill">${label[st]}</span>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+    function loadPublicAgenda() {
+      google.script.run.withSuccessHandler(res => {
+        AGENDA_ALL = ((res && res.data) || []).filter(a => a.Kegiatan);
+        renderAgenda();
+      }).withFailureHandler(err => {
+        document.getElementById('agendaTimeline').innerHTML = `<p class="text-center text-sm text-red-500 py-8">Gagal memuat agenda: ${agEsc((err && err.message) || err)}</p>`;
+      }).getPublicAgenda();
+    }
+    window.addEventListener('load', loadPublicAgenda);
+
+    function scrollSchool(dir) {
+      const g = document.getElementById('schoolGrid');
+      g.scrollBy({ left: dir * Math.max(320, g.clientWidth * 0.8), behavior: 'smooth' });
+    }
+
+    function toggleSambutan() {
+      const body = document.getElementById('sambutanBody');
+      const btn = document.getElementById('sambutanToggle');
+      const open = body.classList.toggle('open');
+      btn.innerHTML = open ? 'Tutup <i class="fa-solid fa-arrow-up"></i>' : 'Baca selengkapnya <i class="fa-solid fa-arrow-right"></i>';
+    }
+
     function filterSchool(category) {
+      document.querySelectorAll('#schoolFilters button').forEach(b => {
+        const on = b.getAttribute('onclick').includes("'" + category + "'");
+        b.classList.toggle('bg-brand-800', on); b.classList.toggle('text-white', on);
+        b.classList.toggle('bg-white', !on); b.classList.toggle('text-slate-600', !on);
+      });
       const cards = document.querySelectorAll('.school-card');
       cards.forEach(card => {
         if (category === 'semua' || card.dataset.jenjang === category) {
-          card.style.display = 'block';
+          card.style.display = '';
         } else {
           card.style.display = 'none';
         }
@@ -824,6 +1209,215 @@
     // ============ SESI CMS ADMIN ============
     let CMS_TOKEN = sessionStorage.getItem('cms_token') || null;
     let CMS_NAMA = sessionStorage.getItem('cms_nama') || '';
+
+    // ============ REDIRECT SETELAH LOGIN ============
+    // Tombol "Buka Aplikasi Admin" di bagian E-Supervisi menandai ini jadi 'supervisi'
+    // sebelum membuka modal login, supaya begitu login berhasil langsung diarahkan
+    // ke halaman E-Supervisi (bukan Dashboard) — siap untuk isi/tambah data.
+    let CMS_LOGIN_REDIRECT = 'dashboard';
+
+    // Saat login lewat "Buka Aplikasi Admin", sidebar CMS dibatasi hanya
+    // menampilkan menu E-Supervisi (mode ini disimpan di sessionStorage supaya
+    // tetap terbatas walau halaman di-refresh, sampai user Keluar).
+    let CMS_RESTRICT_MODE = sessionStorage.getItem('cms_restrict') === '1';
+
+    // ============ KLASIFIKASI PREDIKAT (dipakai semua instrumen digital) ============
+    function cmsKlasifikasiPredikat(nilai) {
+      if (nilai >= 91) return 'Sangat Baik';
+      if (nilai >= 81) return 'Baik';
+      if (nilai >= 71) return 'Cukup';
+      return 'Kurang';
+    }
+
+    // ============ DATA INSTRUMEN DIGITAL (mengikuti struktur berkas asli) ============
+    const INSTRUMEN_TYPES = {
+      pasca: {
+        label: 'Pasca-Supervisi Akademik',
+        subtitle: 'Integrasi 3M – BBM – Asesmen Formatif & Sumatif',
+        sections: [
+          { title: 'A. Observasi Pengalaman Belajar 3M', kolomKategori: 'Pengalaman Belajar', items: [
+            {no:1, kategori:'Memahami', indikator:'Murid mengetahui tujuan pembelajaran'},
+            {no:2, kategori:'Memahami', indikator:'Murid menghubungkan pengetahuan awal dengan materi'},
+            {no:3, kategori:'Memahami', indikator:'Murid memperoleh kesempatan mengeksplorasi konsep'},
+            {no:4, kategori:'Memahami', indikator:'Murid melakukan pengecekan pemahaman'},
+            {no:5, kategori:'Mengaplikasi', indikator:'Murid menerapkan pengetahuan/keterampilan'},
+            {no:6, kategori:'Mengaplikasi', indikator:'Murid menyelesaikan masalah/kasus'},
+            {no:7, kategori:'Mengaplikasi', indikator:'Murid melakukan praktik/unjuk kerja'},
+            {no:8, kategori:'Mengaplikasi', indikator:'Murid menghasilkan karya/produk/solusi'},
+            {no:9, kategori:'Merefleksi', indikator:'Murid merefleksikan proses belajarnya'},
+            {no:10, kategori:'Merefleksi', indikator:'Murid mengidentifikasi kesulitan yang dialami'},
+            {no:11, kategori:'Merefleksi', indikator:'Murid menentukan hal yang perlu diperbaiki'},
+            {no:12, kategori:'Merefleksi', indikator:'Guru menggunakan hasil refleksi untuk tindak lanjut'}
+          ]},
+          { title: 'B. Observasi Prinsip Pembelajaran Mendalam (BBM)', kolomKategori: 'Prinsip BBM', items: [
+            {no:13, kategori:'Berkesadaran', indikator:'Murid mengetahui tujuan pembelajaran'},
+            {no:14, kategori:'Berkesadaran', indikator:'Murid memahami kriteria keberhasilan'},
+            {no:15, kategori:'Berkesadaran', indikator:'Murid mengetahui perkembangan belajarnya'},
+            {no:16, kategori:'Berkesadaran', indikator:'Murid melakukan refleksi'},
+            {no:17, kategori:'Bermakna', indikator:'Materi dikaitkan dengan kehidupan nyata'},
+            {no:18, kategori:'Bermakna', indikator:'Materi dikaitkan dengan pengalaman murid'},
+            {no:19, kategori:'Bermakna', indikator:'Materi dikaitkan dengan dunia kerja'},
+            {no:20, kategori:'Bermakna', indikator:'Murid memecahkan masalah nyata'},
+            {no:21, kategori:'Menggembirakan', indikator:'Suasana pembelajaran aman dan nyaman'},
+            {no:22, kategori:'Menggembirakan', indikator:'Murid aktif dan antusias'},
+            {no:23, kategori:'Menggembirakan', indikator:'Guru memberikan apresiasi'},
+            {no:24, kategori:'Menggembirakan', indikator:'Interaksi guru-murid positif'}
+          ]},
+          { title: 'C. Asesmen Formatif — Informasi untuk Perbaikan Proses', kolomKategori: '', items: [
+            {no:25, kategori:'', indikator:'Guru melakukan asesmen selama proses pembelajaran'},
+            {no:26, kategori:'', indikator:'Asesmen menghasilkan informasi perkembangan belajar murid'},
+            {no:27, kategori:'', indikator:'Guru mengidentifikasi kesulitan/miskonsepsi'},
+            {no:28, kategori:'', indikator:'Guru menganalisis informasi hasil asesmen'},
+            {no:29, kategori:'', indikator:'Guru menyesuaikan pembelajaran berdasarkan informasi'},
+            {no:30, kategori:'', indikator:'Guru memberikan bantuan kepada murid yang membutuhkan'},
+            {no:31, kategori:'', indikator:'Guru memberikan pengayaan/tantangan kepada murid yang sudah menguasai'},
+            {no:32, kategori:'', indikator:'Guru melakukan pengecekan kembali setelah perbaikan'}
+          ]},
+          { title: 'D. Asesmen Sumatif — Bukti Capaian dan Nilai Setiap TP', kolomKategori: '', items: [
+            {no:33, kategori:'', indikator:'TP dirumuskan dengan jelas'},
+            {no:34, kategori:'', indikator:'Instrumen sumatif sesuai dengan karakteristik TP'},
+            {no:35, kategori:'', indikator:'Instrumen mengukur kompetensi yang ditargetkan'},
+            {no:36, kategori:'', indikator:'Tersedia bukti capaian belajar murid'},
+            {no:37, kategori:'', indikator:'Hasil sumatif dianalisis'},
+            {no:38, kategori:'', indikator:'Capaian setiap TP dapat ditentukan'},
+            {no:39, kategori:'', indikator:'Nilai setiap TP ditetapkan berdasarkan bukti capaian'}
+          ]}
+        ]
+      },
+      pemantauan: {
+        label: 'Pemantauan/Supervisi Pembelajaran Mendalam',
+        subtitle: 'Terintegrasi Penguatan Literasi dan Numerasi',
+        sections: [
+          { title: 'A. Kegiatan Awal', kolomKategori: 'Dimensi', items: [
+            {no:1, kategori:'Berkesadaran', indikator:'Guru membangun suasana belajar yang aman, nyaman, menghargai murid, dan menyiapkan murid secara mental untuk belajar.'},
+            {no:2, kategori:'Bermakna', indikator:'Guru mengaitkan tujuan/materi dengan pengalaman, kebutuhan, lingkungan, budaya, dunia kerja, atau fenomena nyata.'},
+            {no:3, kategori:'Menggembirakan', indikator:'Guru membangun rasa ingin tahu melalui apersepsi, pertanyaan pemantik, demonstrasi, atau aktivitas yang menarik.'},
+            {no:4, kategori:'Tujuan belajar', indikator:'Guru menyampaikan tujuan dan kriteria keberhasilan yang dipahami murid.'},
+            {no:5, kategori:'Literasi', indikator:'Tujuan/aktivitas belajar memuat kegiatan menemukan informasi, mengintegrasi/menginterpretasi, atau mengevaluasi/merefleksi informasi.'},
+            {no:6, kategori:'Numerasi', indikator:'Tujuan/aktivitas belajar memuat aktivitas numerasi sesuai konteks: memahami, menerapkan, menalar/menyelesaikan masalah, atau mengambil keputusan berbasis data.'}
+          ]},
+          { title: 'B. Kegiatan Inti — Memahami', kolomKategori: 'Dimensi', items: [
+            {no:7, kategori:'Memahami', indikator:'Guru memfasilitasi murid membangun pemahaman konsep secara aktif dari berbagai sumber.'},
+            {no:8, kategori:'Berkesadaran', indikator:'Murid terlibat aktif: berpikir, bertanya, berdiskusi, mendengarkan, dan memantau pemahamannya.'},
+            {no:9, kategori:'Bermakna', indikator:'Materi dikaitkan dengan pengalaman, lingkungan, budaya, kebutuhan, atau dunia kerja.'},
+            {no:10, kategori:'Menggembirakan', indikator:'Metode/media/sumber belajar mendorong antusiasme, rasa ingin tahu, dan partisipasi murid.'},
+            {no:11, kategori:'Literasi', indikator:'Murid membaca/menelaah berbagai sumber (teks, artikel, infografik, grafik, media digital) sebagai dasar belajar.'},
+            {no:12, kategori:'Literasi', indikator:'Guru memfasilitasi murid menemukan informasi penting dan membedakan informasi yang relevan/tidak relevan.'},
+            {no:13, kategori:'Literasi', indikator:'Murid mengintegrasi dan menginterpretasi informasi dari satu atau lebih sumber untuk membangun pemahaman.'},
+            {no:14, kategori:'Numerasi', indikator:'Guru menggunakan data/angka/tabel/diagram/bagan/grafik atau representasi lain yang relevan dengan materi.'},
+            {no:15, kategori:'Numerasi', indikator:'Murid memahami makna angka, besaran, pola, satuan, data, atau representasi matematika dalam konteks pembelajaran.'},
+            {no:16, kategori:'Numerasi', indikator:'Murid membandingkan, mengelompokkan, memperkirakan, atau menafsirkan data/informasi kuantitatif.'}
+          ]},
+          { title: 'C. Kegiatan Inti — Mengaplikasi', kolomKategori: 'Dimensi', items: [
+            {no:17, kategori:'Mengaplikasi', indikator:'Murid menerapkan konsep pada penyelesaian masalah nyata, kontekstual, atau terkait dunia kerja.'},
+            {no:18, kategori:'Berkesadaran', indikator:'Murid bekerja mandiri/kolaboratif dengan tanggung jawab, mengelola strategi, waktu, dan sumber belajar.'},
+            {no:19, kategori:'Bermakna', indikator:'Aktivitas menghasilkan solusi, produk, layanan, keputusan, atau karya yang bermanfaat.'},
+            {no:20, kategori:'Menggembirakan', indikator:'Guru memberikan tantangan/interaksi yang memotivasi murid mencoba, mengeksplorasi, dan memperbaiki solusi.'},
+            {no:21, kategori:'Literasi', indikator:'Murid menggunakan informasi dari teks/sumber untuk menentukan strategi penyelesaian masalah.'},
+            {no:22, kategori:'Literasi', indikator:'Murid menganalisis, mengevaluasi kredibilitas/relevansi informasi, dan menghubungkan informasi dengan konteks masalah.'},
+            {no:23, kategori:'Numerasi', indikator:'Terdapat pemecahan masalah kontekstual yang melibatkan menghitung, mengukur, membandingkan, memperkirakan, menafsirkan, atau mengambil keputusan.'},
+            {no:24, kategori:'Numerasi', indikator:'Murid menggunakan data, tabel, grafik, diagram, rumus, alat ukur, atau representasi matematika yang sesuai.'},
+            {no:25, kategori:'Numerasi', indikator:'Murid menjelaskan strategi/langkah penyelesaian dan alasan pemilihan strategi.'},
+            {no:26, kategori:'Numerasi', indikator:'Murid menggunakan alat bantu digital/non-digital secara tepat untuk mengolah informasi numerik.'}
+          ]},
+          { title: 'D. Kegiatan Inti — Merefleksi', kolomKategori: 'Dimensi', items: [
+            {no:27, kategori:'Merefleksi', indikator:'Guru memfasilitasi murid merefleksi proses dan hasil belajar.'},
+            {no:28, kategori:'Berkesadaran', indikator:'Murid mengenali kekuatan, kesulitan, kesalahan, dan strategi perbaikan belajarnya.'},
+            {no:29, kategori:'Bermakna', indikator:'Murid menjelaskan manfaat hasil belajar bagi diri, masyarakat, lingkungan, atau dunia kerja.'},
+            {no:30, kategori:'Menggembirakan', indikator:'Umpan balik guru membangun motivasi, rasa percaya diri, dan kemauan untuk memperbaiki diri.'},
+            {no:31, kategori:'Literasi', indikator:'Murid menuliskan/mengomunikasikan kembali informasi atau hasil belajar dalam bentuk rangkuman, laporan, jurnal, peta konsep, atau refleksi.'},
+            {no:32, kategori:'Literasi', indikator:'Murid mengevaluasi dan merefleksi informasi/argumen serta menyampaikan alasan atau bukti pendukung.'},
+            {no:33, kategori:'Numerasi', indikator:'Murid memeriksa kewajaran hasil, menafsirkan makna hasil, dan merefleksi strategi numerasi yang digunakan.'},
+            {no:34, kategori:'Numerasi', indikator:'Murid mengomunikasikan hasil analisis data/perhitungan secara lisan, tulisan, visual, atau digital.'}
+          ]},
+          { title: 'E. Kegiatan Penutup', kolomKategori: 'Dimensi', items: [
+            {no:35, kategori:'Penguatan', indikator:'Guru dan murid menyimpulkan pembelajaran berdasarkan bukti hasil belajar.'},
+            {no:36, kategori:'Umpan balik', indikator:'Guru memberikan penguatan terhadap pencapaian murid dan umpan balik yang spesifik.'},
+            {no:37, kategori:'Tindak lanjut', indikator:'Guru memberikan tindak lanjut kontekstual untuk memperdalam atau memperbaiki pembelajaran.'},
+            {no:38, kategori:'Suasana positif', indikator:'Guru menutup pembelajaran secara positif, apresiatif, dan memotivasi.'},
+            {no:39, kategori:'Literasi & Numerasi', indikator:'Asesmen/tindak lanjut memuat kesempatan memperkuat literasi dan/atau numerasi sesuai kebutuhan murid.'}
+          ]},
+          { title: 'F. Asesmen Terintegrasi', kolomKategori: 'Dimensi', items: [
+            {no:40, kategori:'Literasi', indikator:'Guru melakukan asesmen yang mengukur menemukan informasi; mengintegrasi/menginterpretasi; serta mengevaluasi/merefleksi.'},
+            {no:41, kategori:'Numerasi', indikator:'Guru melakukan asesmen yang mengukur memahami; menerapkan; menalar/memecahkan masalah; serta merefleksi.'},
+            {no:42, kategori:'Autentik', indikator:'Asesmen menggunakan teks, data, grafik, tabel, situasi nyata, produk, kinerja, atau masalah kontekstual yang relevan.'},
+            {no:43, kategori:'Umpan balik', indikator:'Guru memberikan umpan balik berdasarkan hasil asesmen dan memanfaatkannya untuk memperbaiki strategi penguatan literasi/numerasi.'},
+            {no:44, kategori:'Tindak lanjut', indikator:'Guru merancang tindak lanjut/remedial/pengayaan berdasarkan kebutuhan literasi dan numerasi murid.'}
+          ]}
+        ]
+      },
+      praobs: {
+        label: 'Pra-Observasi / Telaah RPP-RPM',
+        subtitle: 'Pembelajaran Mendalam Terintegrasi Penguatan Literasi dan Numerasi',
+        sections: [
+          { title: 'A. Identitas, CP, dan Tujuan Pembelajaran', kolomKategori: 'Keterkaitan', items: [
+            {no:1, kategori:'Kesiapan & konteks bermakna', indikator:'Identitas pembelajaran, fase/kelas, alokasi waktu, dan konteks pembelajaran ditulis jelas dan konsisten.'},
+            {no:2, kategori:'Keselarasan CP–TP', indikator:'CP/kompetensi yang menjadi acuan pembelajaran tercantum dan relevan dengan materi.'},
+            {no:3, kategori:'Arah pengalaman belajar mendalam', indikator:'Tujuan pembelajaran dirumuskan spesifik, terukur, relevan, dan berorientasi pada kemampuan murid.'},
+            {no:4, kategori:'Literasi', indikator:'Tujuan pembelajaran memuat tuntutan literasi yang relevan: menemukan informasi, mengintegrasi/menginterpretasi, mengevaluasi/merefleksi.'},
+            {no:5, kategori:'Numerasi', indikator:'Tujuan pembelajaran memuat tuntutan numerasi yang relevan: memahami, menerapkan, menalar/memecahkan masalah, atau mengambil keputusan.'}
+          ]},
+          { title: 'B. Perancangan Pembelajaran Mendalam', kolomKategori: 'Keterkaitan', items: [
+            {no:6, kategori:'BBM – Berkesadaran', indikator:'RPP/RPM menunjukkan prinsip Berkesadaran: tujuan, kriteria keberhasilan, kesiapan belajar, pilihan/agensi murid, dan kesadaran terhadap proses belajar.'},
+            {no:7, kategori:'BBM – Bermakna', indikator:'RPP/RPM menunjukkan prinsip Bermakna: materi/aktivitas dikaitkan dengan pengalaman, kehidupan nyata, lingkungan, budaya, atau dunia kerja.'},
+            {no:8, kategori:'BBM – Menggembirakan', indikator:'RPP/RPM menunjukkan prinsip Menggembirakan: aktivitas menantang, interaktif, aman, positif, dan memotivasi murid.'},
+            {no:9, kategori:'3M', indikator:'Alur kegiatan dirancang melalui pengalaman belajar Memahami → Mengaplikasi → Merefleksi.'},
+            {no:10, kategori:'Berpusat pada murid', indikator:'Aktivitas murid lebih dominan daripada aktivitas guru dan memberi ruang berpikir, bertanya, berdiskusi, mencoba, serta berkarya.'}
+          ]},
+          { title: 'C. Tahap Memahami', kolomKategori: 'Keterkaitan', items: [
+            {no:11, kategori:'3M–Memahami + Literasi', indikator:'Kegiatan awal/inti memberi kesempatan murid mengakses berbagai sumber informasi dan membangun pemahaman konsep.'},
+            {no:12, kategori:'Literasi', indikator:'Tersedia aktivitas membaca/menelaah teks, gambar, infografik, grafik, tabel, data, video, atau sumber digital yang relevan.'},
+            {no:13, kategori:'Literasi kritis', indikator:'Pertanyaan/tugas mendorong murid menemukan informasi penting, menghubungkan informasi, dan menafsirkan makna.'},
+            {no:14, kategori:'Numerasi', indikator:'Tersedia data/angka/tabel/diagram/pola atau konteks kuantitatif yang relevan dengan materi.'},
+            {no:15, kategori:'Numerasi – Memahami', indikator:'Aktivitas mendorong murid memahami informasi kuantitatif sebelum melakukan perhitungan/pemecahan masalah.'}
+          ]},
+          { title: 'D. Tahap Mengaplikasi', kolomKategori: 'Keterkaitan', items: [
+            {no:16, kategori:'3M–Mengaplikasi + Bermakna', indikator:'Murid menerapkan konsep pada masalah nyata, kontekstual, autentik, atau situasi dunia kerja.'},
+            {no:17, kategori:'Literasi', indikator:'Murid menggunakan informasi dari berbagai sumber untuk menyelesaikan tugas/masalah.'},
+            {no:18, kategori:'Literasi', indikator:'Murid mengolah, membandingkan, menafsirkan, atau mengevaluasi informasi sebelum mengambil kesimpulan/keputusan.'},
+            {no:19, kategori:'Numerasi', indikator:'Murid menggunakan perhitungan, estimasi, pengukuran, data, tabel, grafik, diagram, pola, atau representasi matematis sesuai kebutuhan.'},
+            {no:20, kategori:'Numerasi – Menalar', indikator:'Murid menjelaskan strategi penyelesaian masalah dan alasan atas jawaban/keputusan yang dibuat.'},
+            {no:21, kategori:'Berkesadaran + Kolaborasi', indikator:'RPP/RPM menyediakan aktivitas mandiri dan/atau kolaboratif dengan pembagian peran dan tanggung jawab yang jelas.'}
+          ]},
+          { title: 'E. Tahap Merefleksi', kolomKategori: 'Keterkaitan', items: [
+            {no:22, kategori:'3M – Merefleksi', indikator:'Murid merefleksikan proses, strategi, hasil, kesulitan, dan rencana perbaikan belajar.'},
+            {no:23, kategori:'Literasi – Evaluasi/Refleksi', indikator:'Refleksi mengajak murid menilai kualitas informasi/sumber yang digunakan dan manfaat hasil belajar.'},
+            {no:24, kategori:'Numerasi – Refleksi', indikator:'Refleksi dapat meminta murid menafsirkan hasil perhitungan/data dan menilai kewajaran hasil atau keputusan.'},
+            {no:25, kategori:'Bermakna', indikator:'Tersedia pertanyaan reflektif yang menghubungkan pembelajaran dengan kehidupan nyata/dunia kerja.'}
+          ]},
+          { title: 'F. Strategi Penguatan Literasi', kolomKategori: 'Keterkaitan', items: [
+            {no:26, kategori:'Literasi', indikator:'Sumber belajar mencakup teks/media yang beragam, relevan, kredibel, dan sesuai tingkat kemampuan murid.'},
+            {no:27, kategori:'Literasi', indikator:'Ada kegiatan membaca/menelaah sebelum diskusi atau pemecahan masalah.'},
+            {no:28, kategori:'Literasi', indikator:'Murid mengolah informasi dalam bentuk catatan, rangkuman, peta konsep, laporan, presentasi, atau produk komunikasi.'},
+            {no:29, kategori:'Literasi', indikator:'Murid mengomunikasikan pemahaman/hasil analisis secara lisan, tulisan, visual, atau digital.'}
+          ]},
+          { title: 'G. Strategi Penguatan Numerasi', kolomKategori: 'Keterkaitan', items: [
+            {no:30, kategori:'Numerasi', indikator:'Sumber belajar memuat data atau informasi kuantitatif yang autentik sesuai konteks pembelajaran.'},
+            {no:31, kategori:'Numerasi', indikator:'Ada masalah kontekstual yang menuntut murid menggunakan konsep numerasi untuk memecahkan masalah.'},
+            {no:32, kategori:'Numerasi', indikator:'Murid menggunakan alat bantu digital/non-digital yang sesuai untuk mengolah atau menyajikan data/informasi.'},
+            {no:33, kategori:'Numerasi', indikator:'Murid menyajikan atau mengomunikasikan hasil pengolahan data/perhitungan dengan alasan yang logis.'}
+          ]},
+          { title: 'H. Asesmen', kolomKategori: 'Keterkaitan', items: [
+            {no:34, kategori:'Asesmen selaras', indikator:'Asesmen selaras dengan CP/TP dan mengukur kompetensi yang benar-benar ditargetkan.'},
+            {no:35, kategori:'Asesmen untuk pembelajaran', indikator:'Asesmen formatif dirancang untuk memperoleh informasi proses belajar dan memberi umpan balik.'},
+            {no:36, kategori:'Asesmen Literasi', indikator:'Asesmen memuat bukti kemampuan literasi yang relevan dengan tujuan pembelajaran.'},
+            {no:37, kategori:'Asesmen Numerasi', indikator:'Asesmen memuat bukti kemampuan numerasi yang relevan dengan tujuan pembelajaran.'},
+            {no:38, kategori:'Asesmen autentik', indikator:'Kriteria/rubrik keberhasilan jelas dan memungkinkan penilaian autentik terhadap proses dan produk/kinerja.'},
+            {no:39, kategori:'Tindak lanjut', indikator:'Hasil asesmen dirancang untuk menjadi dasar tindak lanjut, remedial, pengayaan, atau perbaikan strategi pembelajaran.'}
+          ]},
+          { title: 'I. Diferensiasi, Media, dan Lingkungan Belajar', kolomKategori: 'Keterkaitan', items: [
+            {no:40, kategori:'Pembelajaran adaptif', indikator:'RPP/RPM mempertimbangkan kesiapan, kebutuhan, minat, atau karakteristik murid.'},
+            {no:41, kategori:'Literasi-Numerasi', indikator:'Media/LKM/LKPD mendukung murid memahami, mengolah, dan mengomunikasikan informasi serta data.'},
+            {no:42, kategori:'Berkesadaran + Menggembirakan', indikator:'Lingkungan belajar dirancang aman, inklusif, kolaboratif, dan memberi ruang bagi murid untuk aktif.'}
+          ]},
+          { title: 'J. Kesinambungan dan Kesiapan Observasi', kolomKategori: 'Keterkaitan', items: [
+            {no:43, kategori:'Keterlaksanaan 3M', indikator:'Alokasi waktu realistis untuk menjalankan Memahami, Mengaplikasi, dan Merefleksi.'},
+            {no:44, kategori:'Koherensi perencanaan', indikator:'Langkah pembelajaran, asesmen, media, dan sumber belajar konsisten satu sama lain.'},
+            {no:45, kategori:'Hakikat Pembelajaran Mendalam', indikator:'Terdapat bukti bahwa pembelajaran dirancang untuk menghasilkan pengalaman belajar yang mendalam, bukan sekadar penyampaian materi.'}
+          ]}
+        ]
+      }
+    };
 
     window.addEventListener('load', () => {
       if (CMS_TOKEN) {
@@ -877,7 +1471,17 @@
     // ============ BUKA / TUTUP PANEL CMS ADMIN ============
     function cmsOpenPanel() {
       document.getElementById('cmsAdminPanel').classList.remove('hidden');
-      cmsNav('dashboard');
+
+      // Mode terbatas: kalau login lewat "Buka Aplikasi Admin", sidebar hanya
+      // menampilkan menu E-Supervisi.
+      document.querySelectorAll('.cms-nav-item').forEach(btn => {
+        btn.classList.toggle('hidden', CMS_RESTRICT_MODE && btn.dataset.cmsPage !== 'supervisi');
+      });
+      document.getElementById('cmsSidebarTitle').textContent = CMS_RESTRICT_MODE ? 'Aplikasi E-Supervisi' : 'CMS Admin';
+      document.getElementById('cmsSidebarSubtitle').textContent = CMS_RESTRICT_MODE ? 'Khusus Pengawas Sekolah' : 'Portal Pengawas';
+
+      cmsNav(CMS_LOGIN_REDIRECT || 'dashboard');
+      CMS_LOGIN_REDIRECT = 'dashboard'; // reset supaya login berikutnya (kalau ganti mode) balik normal
     }
     function cmsClosePanel() {
       document.getElementById('cmsAdminPanel').classList.add('hidden');
@@ -885,7 +1489,9 @@
     function cmsLogout() {
       sessionStorage.removeItem('cms_token');
       sessionStorage.removeItem('cms_nama');
+      sessionStorage.removeItem('cms_restrict');
       CMS_TOKEN = null;
+      CMS_RESTRICT_MODE = false;
       cmsClosePanel();
       toast('Anda telah keluar dari CMS Admin');
     }
@@ -1017,6 +1623,8 @@
       document.getElementById('pubJabatanBadge').innerHTML = '<i class="fa-solid fa-id-badge"></i> ' + d.jabatan;
       document.getElementById('pubHeroSubtitle').textContent = 'NIP. ' + d.nip + ' \u00b7 Pengawas Jenjang ' + d.jenjangBinaan + ' \u00b7 Cabang Dinas Pendidikan Wilayah ' + d.wilayahBinaan;
       document.getElementById('pubNipSign').textContent = 'NIP. ' + d.nip;
+      document.getElementById('pubJenjangBox').textContent = d.jenjangBinaan || '-';
+      document.getElementById('pubWilayahBox').textContent = d.wilayahBinaan || '-';
       document.getElementById('pubSambutanJudul').textContent = d.sambutanJudul;
       document.getElementById('pubSambutanP1').textContent = d.sambutanParagraf1;
       document.getElementById('pubSambutanP2').textContent = d.sambutanParagraf2;
@@ -1121,7 +1729,7 @@
         <div class="relative z-10 flex items-center justify-between pt-4 border-t border-white/20">
           <div class="flex items-center gap-2 text-xs text-slate-200">
             <i class="fa-solid fa-globe"></i>
-            <span class="font-mono">cabdin-pendidikan.go.id</span>
+            <span class="font-mono">lukmanhakim.net</span>
           </div>
           <button onclick="heroSlideAction('${safeLink}')" class="bg-amber-500 hover:bg-amber-400 text-brand-900 font-bold text-xs px-4 py-2 rounded-full shadow-lg transition flex items-center gap-2">
             <span>${slide.teksTombol || 'Selengkapnya'}</span>
@@ -1300,6 +1908,7 @@
 
     // ---------- SEKOLAH BINAAN ----------
     let CMS_SEKOLAH_CACHE = [];
+    let CMS_GURU_CACHE = [];
     function cmsRenderSekolah() {
       google.script.run.withSuccessHandler(res => {
         CMS_SEKOLAH_CACHE = res.data || [];
@@ -1339,6 +1948,7 @@
           ${cmsField('Kepala Sekolah', 'kepalaSekolah', item.Kepala_Sekolah)}
           ${cmsSelect('Akreditasi', 'akreditasi', ['A','B','C'], item.Akreditasi)}
           ${cmsField('Status Supervisi', 'statusSupervisi', item.Status_Supervisi, 'Contoh: Selesai (2026) / Dijadwalkan Mei')}
+          ${cmsField('Link Website Sekolah', 'websiteUrl', item.Website_URL, 'Contoh: https://smkn1kota.sch.id')}
           <button type="submit" class="w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-2.5 rounded-xl text-sm">Simpan</button>
         </form>
       `);
@@ -1346,7 +1956,7 @@
     function cmsSubmitSekolah(e, id) {
       e.preventDefault();
       const f = e.target;
-      const data = { namaSekolah: f.namaSekolah.value, npsn: f.npsn.value, jenjang: f.jenjang.value, alamat: f.alamat.value, kepalaSekolah: f.kepalaSekolah.value, akreditasi: f.akreditasi.value, statusSupervisi: f.statusSupervisi.value };
+      const data = { namaSekolah: f.namaSekolah.value, npsn: f.npsn.value, jenjang: f.jenjang.value, alamat: f.alamat.value, kepalaSekolah: f.kepalaSekolah.value, akreditasi: f.akreditasi.value, statusSupervisi: f.statusSupervisi.value, websiteUrl: f.websiteUrl.value.trim() };
       const call = google.script.run.withSuccessHandler(res => {
         toast(res.message, res.success ? 'success' : 'error');
         if (res.success) { cmsCloseModal(); cmsRenderSekolah(); }
@@ -1360,31 +1970,464 @@
 
     // ---------- E-SUPERVISI ----------
     let CMS_SUPERVISI_CACHE = [];
+    let CMS_HASIL_CACHE = [];
+    function cmsPredikatBadge(predikat) {
+      const map = {
+        'Amat Baik': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400',
+        'Baik': 'bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400',
+        'Cukup': 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400',
+        'Perlu Bimbingan': 'bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-400'
+      };
+      const cls = map[predikat] || 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300';
+      return `<span class="inline-block text-[11px] font-bold px-2.5 py-1 rounded-full ${cls}">${predikat || '-'}</span>`;
+    }
+
     function cmsRenderSupervisi() {
       google.script.run.withSuccessHandler(res => {
         CMS_SUPERVISI_CACHE = res.data || [];
+
+        const total = CMS_SUPERVISI_CACHE.length;
+        const sekolahUnik = new Set(CMS_SUPERVISI_CACHE.map(s => s.Nama_Sekolah)).size;
+        const rataRata = total ? (CMS_SUPERVISI_CACHE.reduce((sum, s) => sum + (parseFloat(s.Nilai_Akhir) || 0), 0) / total).toFixed(1) : '-';
+        const bulanIni = CMS_SUPERVISI_CACHE.filter(s => {
+          const d = new Date(s.Tanggal);
+          const now = new Date();
+          return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+        }).length;
+
         const rows = CMS_SUPERVISI_CACHE.map(s => `
-          <tr class="border-b border-slate-100 dark:border-slate-700">
-            <td class="py-2 px-3">${s.Nama_Sekolah}</td>
-            <td class="py-2 px-3">${s.Tanggal}</td>
-            <td class="py-2 px-3">${s.Nilai_Akhir}</td>
-            <td class="py-2 px-3">${s.Predikat}</td>
-            <td class="py-2 px-3 text-right"><button onclick="cmsDeleteSupervisi('${s.ID_Supervisi}')" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash"></i></button></td>
+          <tr class="border-b border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/40 transition">
+            <td class="py-3 px-4">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-brand-900/10 dark:bg-amber-400/10 text-brand-900 dark:text-amber-400 flex items-center justify-center shrink-0"><i class="fa-solid fa-school text-xs"></i></div>
+                <div>
+                  <p class="font-semibold text-slate-800 dark:text-white">${s.Nama_Sekolah}</p>
+                  <p class="text-[11px] text-slate-400">${s.Jenis_Supervisi || 'Supervisi Akademik & Manajerial'}</p>
+                </div>
+              </div>
+            </td>
+            <td class="py-3 px-4 text-slate-500 dark:text-slate-400"><i class="fa-regular fa-calendar mr-1.5 text-slate-300"></i>${s.Tanggal}</td>
+            <td class="py-3 px-4 font-bold text-slate-800 dark:text-white">${s.Nilai_Akhir}</td>
+            <td class="py-3 px-4">${cmsPredikatBadge(s.Predikat)}</td>
+            <td class="py-3 px-4 text-right"><button onclick="cmsDeleteSupervisi('${s.ID_Supervisi}')" class="w-8 h-8 rounded-lg hover:bg-red-50 dark:hover:bg-red-500/10 text-red-400 hover:text-red-600 transition"><i class="fa-solid fa-trash text-xs"></i></button></td>
           </tr>`).join('');
+
         document.getElementById('cmsContent').innerHTML = `
-          <div class="flex items-center justify-between mb-4">
-            <h2 class="text-xl font-bold text-slate-900 dark:text-white">Laporan E-Supervisi</h2>
-            <button onclick="cmsFormSupervisi()" class="bg-amber-500 hover:bg-amber-400 text-brand-900 font-bold text-xs px-4 py-2 rounded-full"><i class="fa-solid fa-plus"></i> Tambah Laporan</button>
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-2xl bg-brand-900 text-amber-400 flex items-center justify-center shadow-lg"><i class="fa-solid fa-clipboard-check"></i></div>
+              <div>
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">E-Supervisi</h2>
+                <p class="text-xs text-slate-400">Rekap nilai & instrumen digital supervisi sekolah binaan</p>
+              </div>
+            </div>
+            <button onclick="cmsFormSupervisi()" class="bg-amber-500 hover:bg-amber-400 text-brand-900 font-bold text-xs px-4 py-2.5 rounded-xl shadow-md transition"><i class="fa-solid fa-plus mr-1"></i> Tambah Ringkasan Nilai</button>
           </div>
-          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-x-auto">
-            <table class="w-full text-xs text-left text-slate-600 dark:text-slate-300">
-              <thead class="bg-slate-50 dark:bg-slate-700/50 font-bold text-slate-700 dark:text-white"><tr><th class="py-2 px-3">Sekolah</th><th class="py-2 px-3">Tanggal</th><th class="py-2 px-3">Nilai</th><th class="py-2 px-3">Predikat</th><th class="py-2 px-3"></th></tr></thead>
-              <tbody>${rows || '<tr><td colspan="5" class="py-4 px-3 text-center text-slate-400">Belum ada laporan</td></tr>'}</tbody>
+
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4">
+              <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide mb-1">Total Laporan</p>
+              <p class="text-2xl font-bold text-slate-800 dark:text-white">${total}</p>
+            </div>
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4">
+              <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide mb-1">Sekolah Tersupervisi</p>
+              <p class="text-2xl font-bold text-slate-800 dark:text-white">${sekolahUnik}</p>
+            </div>
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4">
+              <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide mb-1">Rata-rata Nilai</p>
+              <p class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">${rataRata}</p>
+            </div>
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4">
+              <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wide mb-1">Bulan Ini</p>
+              <p class="text-2xl font-bold text-slate-800 dark:text-white">${bulanIni}</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 mb-3">
+            <i class="fa-solid fa-chart-simple text-amber-500 text-xs"></i>
+            <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Ringkasan Nilai (Akademik & Manajerial)</p>
+          </div>
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-x-auto mb-8 shadow-sm">
+            <table class="w-full text-xs text-left">
+              <thead class="bg-slate-50 dark:bg-slate-700/50 font-bold text-slate-600 dark:text-white">
+                <tr><th class="py-3 px-4">Sekolah</th><th class="py-3 px-4">Tanggal</th><th class="py-3 px-4">Nilai</th><th class="py-3 px-4">Predikat</th><th class="py-3 px-4"></th></tr>
+              </thead>
+              <tbody>${rows || `<tr><td colspan="5" class="py-10 text-center text-slate-400"><i class="fa-regular fa-folder-open text-2xl mb-2 block text-slate-300"></i>Belum ada laporan supervisi</td></tr>`}</tbody>
             </table>
           </div>
+
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-file-signature text-amber-500 text-xs"></i>
+              <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Instrumen Digital Supervisi</p>
+            </div>
+            <button onclick="cmsPickInstrumen()" class="bg-brand-900 hover:bg-brand-800 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-md transition"><i class="fa-solid fa-clipboard-list mr-1"></i> Isi Instrumen Baru</button>
+          </div>
+          <div id="cmsHasilInstrumenList" class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-x-auto shadow-sm">
+            <p class="p-6 text-xs text-slate-400 text-center"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Memuat instrumen...</p>
+          </div>
         `;
+        cmsRenderHasilInstrumenList();
       }).withFailureHandler(err => cmsShowError(err, 'supervisi')).cmsGetSupervisi();
     }
+
+    function cmsRenderHasilInstrumenList() {
+      google.script.run.withSuccessHandler(res => {
+        CMS_HASIL_CACHE = res.data || [];
+        const box = document.getElementById('cmsHasilInstrumenList');
+        if (!box) return; // halaman sudah dipindah
+        const rows = CMS_HASIL_CACHE.map(h => `
+          <tr class="border-b border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/40 transition">
+            <td class="py-3 px-4"><span class="inline-block text-[11px] font-bold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">${h.Jenis_Instrumen}</span></td>
+            <td class="py-3 px-4 font-medium text-slate-700 dark:text-slate-200">${h.Nama_Sekolah}</td>
+            <td class="py-3 px-4 text-slate-500 dark:text-slate-400">${h.Nama_Guru}</td>
+            <td class="py-3 px-4 text-slate-500 dark:text-slate-400">${h.Tanggal}</td>
+            <td class="py-3 px-4 font-bold text-slate-800 dark:text-white">${h.Nilai_Akhir}</td>
+            <td class="py-3 px-4">${cmsPredikatBadge(h.Predikat)}</td>
+            <td class="py-3 px-4 text-right"><button onclick="cmsDeleteHasil('${h.ID_Hasil}')" class="w-8 h-8 rounded-lg hover:bg-red-50 dark:hover:bg-red-500/10 text-red-400 hover:text-red-600 transition"><i class="fa-solid fa-trash text-xs"></i></button></td>
+          </tr>`).join('');
+        box.innerHTML = `
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-50 dark:bg-slate-700/50 font-bold text-slate-600 dark:text-white">
+              <tr><th class="py-3 px-4">Jenis Instrumen</th><th class="py-3 px-4">Sekolah</th><th class="py-3 px-4">Guru</th><th class="py-3 px-4">Tanggal</th><th class="py-3 px-4">Nilai</th><th class="py-3 px-4">Predikat</th><th class="py-3 px-4"></th></tr>
+            </thead>
+            <tbody>${rows || `<tr><td colspan="7" class="py-10 text-center text-slate-400"><i class="fa-regular fa-folder-open text-2xl mb-2 block text-slate-300"></i>Belum ada hasil instrumen</td></tr>`}</tbody>
+          </table>`;
+      }).withFailureHandler(err => {
+        const box = document.getElementById('cmsHasilInstrumenList');
+        if (box) box.innerHTML = `<p class="p-4 text-xs text-red-500">Gagal memuat: ${(err && err.message) || err}</p>`;
+      }).cmsGetHasilInstrumen();
+    }
+
+    function cmsDeleteHasil(id) {
+      if (!confirm('Hapus hasil instrumen ini?')) return;
+      google.script.run.withSuccessHandler(res => { toast(res.message, res.success ? 'success' : 'error'); if (res.success) cmsRenderHasilInstrumenList(); }).withFailureHandler(err => toast(err.message, 'error')).cmsDeleteHasilInstrumen(CMS_TOKEN, id);
+    }
+
+    // ---------- STEP 1: PILIH SEKOLAH, GURU & MAPEL (sebelum Jenis Instrumen) ----------
+    let CMS_INSTRUMEN_CONTEXT = {};
+
+    function cmsPickInstrumen() {
+      // Pastikan data Sekolah & Guru sudah tersedia dulu sebelum step ini dibuka
+      // (di mode "Buka Aplikasi Admin", cache ini belum tentu ter-muat karena
+      // halaman Sekolah Binaan tidak pernah dibuka).
+      const afterData = () => cmsStepSekolahGuruModal();
+
+      const loadGuru = () => {
+        if (CMS_GURU_CACHE.length) { afterData(); return; }
+        google.script.run
+          .withSuccessHandler(r => { CMS_GURU_CACHE = r.data || []; afterData(); })
+          .withFailureHandler(() => afterData()) // data guru opsional, tetap lanjut walau gagal
+          .cmsGetGuruList();
+      };
+
+      if (CMS_SEKOLAH_CACHE.length) {
+        loadGuru();
+      } else {
+        cmsOpenModal('Memuat Data', '<p class="p-4 text-xs text-slate-400"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Memuat data sekolah & guru...</p>');
+        google.script.run
+          .withSuccessHandler(r => { CMS_SEKOLAH_CACHE = r.data || []; loadGuru(); })
+          .withFailureHandler(err => { toast('Gagal memuat data sekolah: ' + err.message, 'error'); cmsCloseModal(); })
+          .cmsGetSekolah();
+      }
+    }
+
+    function cmsOnSekolahChangeStep(sel) {
+      sel.dataset.nama = sel.selectedOptions[0] ? sel.selectedOptions[0].dataset.nama : '';
+      document.getElementById('stepGuruSelect').innerHTML = cmsGuruOptionsForSekolah(sel.value);
+      document.getElementById('stepMapelSelect').innerHTML = cmsMapelOptionsForSekolah(sel.value);
+    }
+
+    function cmsStepSekolahGuruModal() {
+      const sekolahOpts = CMS_SEKOLAH_CACHE.length ? CMS_SEKOLAH_CACHE.map(s => `<option value="${s.NPSN}" data-nama="${s.Nama_Sekolah}" ${s.NPSN === CMS_INSTRUMEN_CONTEXT.npsn ? 'selected' : ''}>${s.Nama_Sekolah}</option>`).join('') : '<option value="">Belum ada data sekolah, buka menu Sekolah Binaan dulu</option>';
+      const firstNpsn = CMS_INSTRUMEN_CONTEXT.npsn || (CMS_SEKOLAH_CACHE.length ? CMS_SEKOLAH_CACHE[0].NPSN : '');
+      cmsOpenModal('Data Supervisi: Sekolah, Guru & Mapel', `
+        <form onsubmit="cmsSubmitStepSekolahGuru(event)" class="space-y-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Sekolah</label>
+            <select name="npsn" id="stepSekolahSelect" onchange="cmsOnSekolahChangeStep(this)" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-sm">${sekolahOpts}</select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Nama Guru</label>
+            <select name="namaGuru" id="stepGuruSelect" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-sm">${cmsGuruOptionsForSekolah(firstNpsn)}</select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300 mb-1">Mata Pelajaran</label>
+            <select name="mapel" id="stepMapelSelect" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-sm">${cmsMapelOptionsForSekolah(firstNpsn)}</select>
+          </div>
+          ${cmsField('Kelas / Fase', 'kelasFase', CMS_INSTRUMEN_CONTEXT.kelasFase || '')}
+          ${cmsField('Topik / Materi Pembelajaran', 'materiTopik', CMS_INSTRUMEN_CONTEXT.materiTopik || '')}
+          ${cmsField('Tanggal', 'tanggal', CMS_INSTRUMEN_CONTEXT.tanggal || '', '', 'date')}
+          ${cmsField('Observer / Pengawas', 'observer', CMS_INSTRUMEN_CONTEXT.observer || CMS_NAMA)}
+          <button type="submit" class="w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-2.5 rounded-xl text-sm">Lanjutkan Pilih Jenis Instrumen <i class="fa-solid fa-arrow-right ml-1"></i></button>
+        </form>
+      `);
+    }
+
+    function cmsSubmitStepSekolahGuru(e) {
+      e.preventDefault();
+      const f = e.target;
+      const selectedOpt = f.npsn.selectedOptions[0];
+      CMS_INSTRUMEN_CONTEXT = {
+        npsn: f.npsn.value,
+        namaSekolah: selectedOpt ? selectedOpt.dataset.nama : '',
+        namaGuru: f.namaGuru.value,
+        mapel: f.mapel.value,
+        kelasFase: f.kelasFase.value,
+        materiTopik: f.materiTopik.value,
+        tanggal: f.tanggal.value,
+        observer: f.observer.value
+      };
+      cmsCloseModal();
+      cmsPickInstrumenJenis();
+    }
+
+    // ---------- STEP 2: PILIH JENIS INSTRUMEN ----------
+    function cmsPickInstrumenJenis() {
+      const metaMap = {
+        pasca:      { icon: 'fa-solid fa-chart-line',            ring: 'emerald' },
+        pemantauan: { icon: 'fa-solid fa-magnifying-glass-chart', ring: 'sky'     },
+        praobs:     { icon: 'fa-solid fa-file-lines',             ring: 'amber'   }
+      };
+      const ringClasses = {
+        emerald: { bg: 'bg-emerald-50 dark:bg-emerald-500/10', text: 'text-emerald-600 dark:text-emerald-400', hoverBorder: 'group-hover:border-emerald-300 dark:group-hover:border-emerald-500/50', badge: 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' },
+        sky:     { bg: 'bg-sky-50 dark:bg-sky-500/10',         text: 'text-sky-600 dark:text-sky-400',         hoverBorder: 'group-hover:border-sky-300 dark:group-hover:border-sky-500/50',         badge: 'bg-sky-50 dark:bg-sky-500/10 text-sky-600 dark:text-sky-400' },
+        amber:   { bg: 'bg-amber-50 dark:bg-amber-500/10',   text: 'text-amber-600 dark:text-amber-400',   hoverBorder: 'group-hover:border-amber-300 dark:group-hover:border-amber-500/50',   badge: 'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400' }
+      };
+
+      const cards = Object.keys(INSTRUMEN_TYPES).map(key => {
+        const t = INSTRUMEN_TYPES[key];
+        const meta = metaMap[key] || metaMap.pasca;
+        const c = ringClasses[meta.ring];
+        const totalItems = t.sections.reduce((sum, s) => sum + s.items.length, 0);
+        return `
+          <button onclick="cmsCloseModal(); cmsOpenInstrumenForm('${key}')" class="group w-full flex items-center gap-4 text-left bg-white dark:bg-slate-700/60 hover:shadow-md border border-slate-200 dark:border-slate-600 ${c.hoverBorder} rounded-2xl p-4 transition-all duration-150">
+            <div class="w-11 h-11 shrink-0 rounded-xl ${c.bg} ${c.text} flex items-center justify-center text-base">
+              <i class="${meta.icon}"></i>
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="font-bold text-sm text-slate-800 dark:text-white truncate">${t.label}</p>
+              <p class="text-[11px] text-slate-500 dark:text-slate-300 mt-0.5 leading-snug">${t.subtitle}</p>
+              <span class="inline-block text-[10px] font-bold ${c.badge} px-2 py-0.5 rounded-full mt-2">${totalItems} indikator &middot; skor 1-4</span>
+            </div>
+            <i class="fa-solid fa-chevron-right text-slate-300 dark:text-slate-500 group-hover:text-slate-400 group-hover:translate-x-0.5 transition-transform text-xs shrink-0"></i>
+          </button>`;
+      }).join('');
+
+      const ctx = CMS_INSTRUMEN_CONTEXT || {};
+      cmsOpenModal('Pilih Jenis Instrumen', `
+        <p class="text-xs text-slate-400 mb-4 -mt-1">Pilih instrumen yang sesuai dengan tahapan supervisi untuk data di bawah ini.</p>
+        <div class="flex items-center gap-3 mb-5 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-700/60 border border-slate-200 dark:border-slate-600">
+          <div class="w-10 h-10 shrink-0 rounded-xl bg-brand-900 text-amber-400 flex items-center justify-center">
+            <i class="fa-solid fa-school text-sm"></i>
+          </div>
+          <div class="min-w-0 flex-1">
+            <p class="text-sm font-bold text-slate-800 dark:text-white truncate">${ctx.namaSekolah || '-'}</p>
+            <p class="text-[11px] text-slate-500 dark:text-slate-300 truncate">${ctx.namaGuru || '-'} &middot; ${ctx.mapel || '-'}</p>
+          </div>
+          <button type="button" onclick="cmsCloseModal(); cmsStepSekolahGuruModal();" class="shrink-0 text-[11px] font-bold text-brand-900 dark:text-amber-400 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 hover:border-amber-300 px-3 py-1.5 rounded-lg transition">Ubah</button>
+        </div>
+        <div class="space-y-2.5">${cards}</div>`);
+    }
+
+    // ---------- FORM INSTRUMEN DIGITAL (halaman penuh, bukan modal) ----------
+    function cmsInstrumenItemRow(no, kategori, indikator) {
+      return `
+        <div class="cms-item-card rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-3.5 sm:p-4 transition-colors" data-item-no="${no}">
+          <div class="flex items-start gap-3">
+            <span class="shrink-0 w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300 text-[11px] font-bold flex items-center justify-center mt-0.5">${no}</span>
+            <div class="min-w-0 flex-1">
+              ${kategori !== undefined && kategori ? `<span class="inline-block text-[10px] font-bold text-brand-900 dark:text-amber-400 bg-amber-50 dark:bg-amber-500/10 px-2 py-0.5 rounded-full mb-1.5">${kategori}</span>` : ''}
+              <p class="text-sm text-slate-700 dark:text-slate-200 leading-snug">${indikator}</p>
+
+              <div class="flex flex-col sm:flex-row sm:items-center gap-2.5 mt-3">
+                <div class="cms-skor-group flex items-center gap-1.5 shrink-0">
+                  <span class="text-[10px] font-bold uppercase tracking-wide text-slate-400 mr-0.5">Skor</span>
+                  <input type="hidden" name="skor_${no}" value="0">
+                  ${[1,2,3,4].map(v => `<button type="button" onclick="cmsSetSkor(${v}, this)" class="cms-skor-btn w-9 h-9 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-500 dark:text-slate-300 text-sm font-bold hover:border-amber-400 hover:text-amber-500 dark:hover:border-amber-400 transition">${v}</button>`).join('')}
+                </div>
+                <input type="text" name="bukti_${no}" placeholder="Bukti / catatan (opsional)" class="flex-1 min-w-0 px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-amber-400/60 focus:border-amber-400">
+              </div>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    // Menandai skor terpilih pada satu indikator dengan highlight tombol + update warna kartu
+    function cmsSetSkor(val, btn) {
+      const group = btn.closest('.cms-skor-group');
+      const card = btn.closest('.cms-item-card');
+      const hidden = group.querySelector('input[type="hidden"]');
+      if (hidden) hidden.value = val;
+
+      group.querySelectorAll('.cms-skor-btn').forEach(b => {
+        b.classList.remove('bg-brand-900', 'border-brand-900', 'text-white', 'dark:bg-amber-500', 'dark:border-amber-500', 'dark:text-brand-900');
+        b.classList.add('border-slate-300', 'dark:border-slate-600', 'text-slate-500', 'dark:text-slate-300');
+      });
+      btn.classList.remove('border-slate-300', 'dark:border-slate-600', 'text-slate-500', 'dark:text-slate-300');
+      btn.classList.add('bg-brand-900', 'border-brand-900', 'text-white', 'dark:bg-amber-500', 'dark:border-amber-500', 'dark:text-brand-900');
+
+      if (card) {
+        card.classList.remove('border-slate-200', 'dark:border-slate-700');
+        card.classList.add('border-emerald-200', 'dark:border-emerald-500/40');
+      }
+      cmsUpdateInstrumenProgress();
+    }
+
+    // Menghitung & menampilkan progres pengisian (berapa indikator sudah diberi skor)
+    function cmsUpdateInstrumenProgress() {
+      const bar = document.getElementById('cmsInstrumenProgressBar');
+      const label = document.getElementById('cmsInstrumenProgressLabel');
+      if (!bar || !label) return;
+      const hiddens = document.querySelectorAll('#cmsInstrumenForm input[type="hidden"][name^="skor_"]');
+      const total = hiddens.length;
+      const filled = Array.from(hiddens).filter(h => h.value !== '0' && h.value !== '').length;
+      const pct = total ? Math.round((filled / total) * 100) : 0;
+      bar.style.width = pct + '%';
+      label.textContent = `${filled} / ${total} indikator terisi (${pct}%)`;
+    }
+
+    function cmsOpenInstrumenForm(key) {
+      // Data Sekolah, Guru & Mapel sudah dipilih di step sebelumnya (cmsStepSekolahGuruModal),
+      // jadi di sini langsung render form indikator tanpa perlu memuat ulang.
+      if (!CMS_INSTRUMEN_CONTEXT || !CMS_INSTRUMEN_CONTEXT.npsn) {
+        toast('Silakan pilih Sekolah, Guru & Mapel terlebih dahulu', 'error');
+        cmsPickInstrumen();
+        return;
+      }
+      cmsRenderInstrumenForm(key);
+    }
+
+    // ---------- Dropdown Guru (terfilter per Sekolah) & Mapel (terfilter per Sekolah, bebas dari Guru) ----------
+    function cmsGuruOptionsForSekolah(npsn) {
+      const gurus = [...new Set(CMS_GURU_CACHE.filter(g => String(g.NPSN) === String(npsn) && g.Nama_Guru).map(g => g.Nama_Guru))];
+      return gurus.length ? gurus.map(n => `<option value="${n}">${n}</option>`).join('') : '<option value="">— belum ada data guru —</option>';
+    }
+    function cmsMapelOptionsForSekolah(npsn) {
+      const mapels = [...new Set(CMS_GURU_CACHE.filter(g => String(g.NPSN) === String(npsn) && g.Mata_Pelajaran).map(g => g.Mata_Pelajaran))];
+      return mapels.length ? mapels.map(m => `<option value="${m}">${m}</option>`).join('') : '<option value="">— belum ada data mapel —</option>';
+    }
+    function cmsRenderInstrumenForm(key) {
+      const t = INSTRUMEN_TYPES[key];
+      const ctx = CMS_INSTRUMEN_CONTEXT || {};
+
+      const sectionsHtml = t.sections.map((sec, secIdx) => {
+        const hasKategori = sec.items.some(it => it.kategori);
+        const rows = sec.items.map(it => cmsInstrumenItemRow(it.no, hasKategori ? it.kategori : undefined, it.indikator)).join('');
+        return `
+          <div class="mb-6">
+            <div class="flex items-center gap-2.5 mb-3">
+              <span class="shrink-0 w-6 h-6 rounded-lg bg-brand-900 dark:bg-amber-500 text-white dark:text-brand-900 text-[11px] font-black flex items-center justify-center">${secIdx + 1}</span>
+              <p class="text-xs font-bold text-slate-700 dark:text-white uppercase tracking-wide">${sec.title}</p>
+              <span class="text-[10px] text-slate-400 ml-auto shrink-0">${sec.items.length} indikator</span>
+            </div>
+            <div class="space-y-2.5">${rows}</div>
+          </div>`;
+      }).join('');
+
+      document.getElementById('cmsContent').innerHTML = `
+        <button onclick="cmsNav('supervisi')" class="text-xs font-semibold text-slate-500 hover:text-brand-900 dark:hover:text-white mb-4"><i class="fa-solid fa-arrow-left"></i> Kembali ke E-Supervisi</button>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-1">${t.label}</h2>
+        <p class="text-xs text-slate-400 mb-4">${t.subtitle} &middot; ${t.sections.reduce((s,x)=>s+x.items.length,0)} indikator, skor 1–4</p>
+
+        <div class="sticky top-0 z-10 -mx-1 px-1 py-2.5 mb-5 bg-slate-50/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-700">
+          <div class="flex items-center justify-between mb-1.5">
+            <p id="cmsInstrumenProgressLabel" class="text-[11px] font-bold text-slate-500 dark:text-slate-300">0 / 0 indikator terisi (0%)</p>
+          </div>
+          <div class="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+            <div id="cmsInstrumenProgressBar" class="h-full bg-emerald-500 rounded-full transition-all duration-300" style="width:0%"></div>
+          </div>
+        </div>
+
+        <form id="cmsInstrumenForm" onsubmit="cmsSubmitInstrumenForm(event, '${key}')" class="space-y-6">
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5">
+            <div class="flex items-center justify-between mb-3">
+              <p class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Data Supervisi</p>
+              <button type="button" onclick="cmsStepSekolahGuruModal()" class="text-[11px] font-semibold text-brand-900 dark:text-amber-400 underline">Ubah</button>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+              <div><p class="text-slate-400">Sekolah</p><p class="font-semibold text-slate-800 dark:text-white">${ctx.namaSekolah || '-'}</p></div>
+              <div><p class="text-slate-400">Guru</p><p class="font-semibold text-slate-800 dark:text-white">${ctx.namaGuru || '-'}</p></div>
+              <div><p class="text-slate-400">Mapel</p><p class="font-semibold text-slate-800 dark:text-white">${ctx.mapel || '-'}</p></div>
+              <div><p class="text-slate-400">Kelas / Fase</p><p class="font-semibold text-slate-800 dark:text-white">${ctx.kelasFase || '-'}</p></div>
+              <div><p class="text-slate-400">Topik / Materi</p><p class="font-semibold text-slate-800 dark:text-white">${ctx.materiTopik || '-'}</p></div>
+              <div><p class="text-slate-400">Tanggal</p><p class="font-semibold text-slate-800 dark:text-white">${ctx.tanggal || '-'}</p></div>
+              <div><p class="text-slate-400">Observer</p><p class="font-semibold text-slate-800 dark:text-white">${ctx.observer || '-'}</p></div>
+            </div>
+            <input type="hidden" name="npsn" value="${(ctx.npsn || '').toString().replace(/"/g,'&quot;')}">
+            <input type="hidden" name="namaGuru" value="${(ctx.namaGuru || '').toString().replace(/"/g,'&quot;')}">
+            <input type="hidden" name="mapel" value="${(ctx.mapel || '').toString().replace(/"/g,'&quot;')}">
+            <input type="hidden" name="kelasFase" value="${(ctx.kelasFase || '').toString().replace(/"/g,'&quot;')}">
+            <input type="hidden" name="materiTopik" value="${(ctx.materiTopik || '').toString().replace(/"/g,'&quot;')}">
+            <input type="hidden" name="tanggal" value="${(ctx.tanggal || '').toString().replace(/"/g,'&quot;')}">
+            <input type="hidden" name="observer" value="${(ctx.observer || '').toString().replace(/"/g,'&quot;')}">
+          </div>
+
+          ${sectionsHtml}
+
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5">
+            ${cmsTextarea('Catatan, Refleksi & Rencana Tindak Lanjut', 'catatan', '')}
+          </div>
+
+          <button type="submit" class="w-full bg-brand-900 hover:bg-brand-800 text-white font-bold py-3 rounded-xl text-sm"><i class="fa-solid fa-floppy-disk"></i> Simpan Hasil Instrumen</button>
+        </form>
+      `;
+      cmsUpdateInstrumenProgress();
+    }
+
+    function cmsSubmitInstrumenForm(e, key) {
+      e.preventDefault();
+      const t = INSTRUMEN_TYPES[key];
+      const f = e.target;
+
+      let skorTotal = 0;
+      const ringkasan = [];
+      t.sections.forEach(sec => {
+        sec.items.forEach(it => {
+          const skor = parseInt(f['skor_' + it.no].value, 10) || 0;
+          const bukti = f['bukti_' + it.no].value || '';
+          skorTotal += skor;
+          ringkasan.push({ no: it.no, kategori: it.kategori, indikator: it.indikator, skor: skor, bukti: bukti });
+        });
+      });
+      const totalItems = t.sections.reduce((s, x) => s + x.items.length, 0);
+      const skorMaksimal = totalItems * 4;
+      const nilaiAkhir = skorMaksimal ? +( (skorTotal / skorMaksimal) * 100 ).toFixed(1) : 0;
+      const predikat = cmsKlasifikasiPredikat(nilaiAkhir);
+
+      const data = {
+        jenisInstrumen: t.label,
+        npsn: f.npsn.value,
+        namaSekolah: CMS_INSTRUMEN_CONTEXT.namaSekolah || '',
+        namaGuru: f.namaGuru.value,
+        mapel: f.mapel.value,
+        kelasFase: f.kelasFase.value,
+        tanggal: f.tanggal.value,
+        observer: f.observer.value,
+        skorTotal: skorTotal,
+        skorMaksimal: skorMaksimal,
+        nilaiAkhir: nilaiAkhir,
+        predikat: predikat,
+        ringkasanJson: JSON.stringify({ materiTopik: f.materiTopik.value, catatan: f.catatan.value, items: ringkasan }),
+        pengawasNip: CMS_NAMA
+      };
+
+      const btn = f.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...';
+
+      google.script.run.withSuccessHandler(res => {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Simpan Hasil Instrumen';
+        toast(res.message + (res.success ? ` — Nilai: ${nilaiAkhir} (${predikat})` : ''), res.success ? 'success' : 'error');
+        if (res.success) { CMS_INSTRUMEN_CONTEXT = {}; cmsNav('supervisi'); }
+      }).withFailureHandler(err => {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Simpan Hasil Instrumen';
+        toast(err.message, 'error');
+      }).cmsSaveHasilInstrumen(CMS_TOKEN, data);
+    }
+
     function cmsFormSupervisi() {
       const opts = CMS_SEKOLAH_CACHE.length ? CMS_SEKOLAH_CACHE.map(s => `<option value="${s.NPSN}" data-nama="${s.Nama_Sekolah}">${s.Nama_Sekolah}</option>`).join('') : '';
       cmsOpenModal('Tambah Laporan E-Supervisi', `
