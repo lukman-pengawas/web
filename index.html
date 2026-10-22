@@ -811,6 +811,53 @@
     #schoolGrid > .school-card:nth-child(4n+2) > a.mt-4 { color: #3d2a00 !important; }
     #schoolGrid > .school-card > a.mt-4:hover { filter: brightness(1.08); transform: translateY(-1px); background: linear-gradient(135deg, var(--c1), var(--c2)) !important; }
     #schoolGrid > .school-card:hover .fa-location-dot { color: var(--c1); }
+  
+    /* =====================================================================
+       OPTIMASI TAMPILAN HP (layar <= 640px) — hanya berlaku di HP, desktop tidak berubah
+       ===================================================================== */
+    @media (max-width: 640px) {
+      html { -webkit-text-size-adjust: 100%; scroll-padding-top: 76px; }
+      body { overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+      img, svg, video, iframe { max-width: 100%; }
+      input, select, textarea { font-size: 16px !important; }            /* cegah zoom otomatis di iPhone */
+
+      /* Hero: teks lebih proporsional */
+      #heroText h1, #heroText h2 { font-size: clamp(1.75rem, 8.2vw, 2.3rem) !important; line-height: 1.15 !important; }
+      #heroText p { font-size: .95rem !important; line-height: 1.55 !important; }
+      .hero-band.hero-full { padding: 96px 0 96px; }
+
+      /* Statistik: kartu lebih ringkas supaya tidak memakan layar */
+      #statsBar { padding: .6rem !important; gap: .6rem !important; border-radius: 22px !important; }
+      #statsBar > div { padding: .85rem 1rem !important; min-height: 0 !important; border-radius: 18px !important; }
+      #statsBar p.text-2xl, #statsBar p.text-3xl, #statsBar .stat-num { font-size: 1.7rem !important; line-height: 1.1 !important; }
+      #statsBar > div > div:first-child { width: 42px !important; height: 42px !important; font-size: 1.05rem !important; flex: 0 0 42px; }
+
+      /* Jarak antar-bagian lebih rapat */
+      section.py-10 { padding-top: 1.75rem !important; padding-bottom: 1.75rem !important; }
+      section.py-8  { padding-top: 1.5rem !important;  padding-bottom: 1.5rem !important; }
+      section h2.text-2xl { font-size: 1.45rem !important; line-height: 1.25 !important; }
+
+      /* Profil & sambutan */
+      .sambutan-card { border-radius: 22px; }
+      .sambutan-photo { min-height: 300px; }
+      .sambutan-photo-text h3 { font-size: 1.15rem; }
+      .sambutan-content { padding: 1.4rem 1.15rem; }
+
+      /* Dokumen & kartu umum */
+      #dokumenGrid { gap: .7rem; }
+      #dokumen .grid > div { padding: .8rem .9rem !important; }
+
+      /* Tombol melayang (chat/WA) naik sedikit agar tidak menutupi dock bawah & teks */
+      .fab-stack { right: 12px; bottom: 96px; gap: 10px; }
+      .fab { width: 46px; height: 46px; font-size: 1.25rem; }
+
+      /* Ruang di bawah halaman agar footer tidak tertutup dock */
+      footer { padding-bottom: 104px !important; }
+
+      /* Jendela popup (menu cepat) tidak melebihi layar */
+      #quickDrawer > div { max-height: 85vh; overflow-y: auto; }
+      .overflow-x-auto { -webkit-overflow-scrolling: touch; }
+    }
   </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-300 pb-24">
