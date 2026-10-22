@@ -766,6 +766,51 @@
       background: var(--g100); color: var(--g800) !important; display: grid; place-items: center; transition: background .2s, color .2s; }
     #dokumen .grid > div > button:hover { background: linear-gradient(135deg, #0b5563, #1ba5b4); color: #fff !important; }
     .dark #dokumen .grid > div > button { background: #143b49; color: #7fdbe6 !important; }
+    /* =====================================================================
+       KARTU SEKOLAH — kepala berwarna (4 warna bergilir) + gelembung ikon
+       ===================================================================== */
+    #schoolGrid > .school-card { --c1: #073b4c; --c2: #118a9a; padding: 0 !important; border-radius: 26px !important; }
+    #schoolGrid > .school-card:nth-child(4n+2) { --c1: #e08a00; --c2: #ffb703; }
+    #schoolGrid > .school-card:nth-child(4n+3) { --c1: #c2255c; --c2: #f06595; }
+    #schoolGrid > .school-card:nth-child(4n+4) { --c1: #3a2a82; --c2: #7461d6; }
+    #schoolGrid > .school-card::before { display: none; }
+
+    /* Kepala kartu */
+    #schoolGrid > .school-card > div:first-child {
+      position: relative; overflow: hidden; min-height: 96px; margin: 0 0 1rem !important; padding: 1.15rem 1.25rem;
+      align-items: flex-start; background: linear-gradient(135deg, var(--c1), var(--c2)); }
+    #schoolGrid > .school-card > div:first-child::before { content: ""; position: absolute; left: 44%; top: -34px; width: 74px; height: 74px; border-radius: 50%; background: rgba(255,255,255,.10); pointer-events: none; }
+    #schoolGrid > .school-card > div:first-child::after { content: ""; position: absolute; right: -30px; bottom: -56px; width: 150px; height: 150px; border-radius: 50%; background: rgba(255,255,255,.15); pointer-events: none; }
+    #schoolGrid > .school-card > div:first-child > * { position: relative; z-index: 1; }
+
+    /* Gelembung ikon putih */
+    #schoolGrid > .school-card > div:first-child > div:first-child,
+    .dark #schoolGrid > .school-card > div:first-child > div:first-child {
+      width: 56px; height: 56px; font-size: 1.35rem; border-radius: 50% !important;
+      background: #ffffff !important; color: var(--c2) !important; box-shadow: 0 8px 18px rgba(0,0,0,.18); }
+    #schoolGrid > .school-card:nth-child(4n+2) > div:first-child > div:first-child { color: #e08a00 !important; }
+    #schoolGrid > .school-card:nth-child(4n+3) > div:first-child > div:first-child { color: #d6336c !important; }
+    #schoolGrid > .school-card:nth-child(4n+4) > div:first-child > div:first-child { color: #5b47bd !important; }
+
+    /* Badge akreditasi di atas warna */
+    #schoolGrid > .school-card > div:first-child > span {
+      background: rgba(255,255,255,.24) !important; color: #ffffff !important; font-weight: 700; backdrop-filter: blur(4px); }
+    #schoolGrid > .school-card:nth-child(4n+2) > div:first-child > span { color: #3d2a00 !important; background: rgba(255,255,255,.45) !important; }
+
+    /* Isi kartu: beri ruang kiri-kanan karena padding kartu 0 */
+    #schoolGrid > .school-card > h3 { margin: 0 1.35rem .35rem; }
+    #schoolGrid > .school-card > p { margin: 0 1.35rem 1.1rem; }
+    #schoolGrid > .school-card > div.text-xs { margin: auto 1.25rem 0; }
+    #schoolGrid > .school-card > a.mt-4, #schoolGrid > .school-card > span.mt-4 { margin: .9rem 1.25rem 1.25rem !important; width: auto !important; align-self: stretch; }
+
+    /* Baris kepala sekolah selalu setinggi 2 baris → kotak info & tombol sejajar di semua kartu */
+    #schoolGrid > .school-card > div.text-xs > div:first-child { min-height: 2.9em; align-items: flex-start; }
+
+    /* Warna tombol mengikuti warna kartu */
+    #schoolGrid > .school-card > a.mt-4 { background: linear-gradient(135deg, var(--c1), var(--c2)) !important; color: #fff !important; transition: filter .2s, transform .2s; }
+    #schoolGrid > .school-card:nth-child(4n+2) > a.mt-4 { color: #3d2a00 !important; }
+    #schoolGrid > .school-card > a.mt-4:hover { filter: brightness(1.08); transform: translateY(-1px); background: linear-gradient(135deg, var(--c1), var(--c2)) !important; }
+    #schoolGrid > .school-card:hover .fa-location-dot { color: var(--c1); }
   </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-300 pb-24">
