@@ -66,7 +66,7 @@
             },
             slate: {
               50: '#f4f8f5', 100: '#e8f0ea', 200: '#d3e1d7', 300: '#b3c8b9',
-              400: '#86a08d', 500: '#5f7b68', 600: '#475f50', 700: '#2f4538',
+              400: '#6b8573', 500: '#4a6653', 600: '#475f50', 700: '#2f4538',
               800: '#1b2e23', 900: '#0f1f17', 950: '#08130d'
             }
           },
@@ -432,8 +432,7 @@
     footer .rounded-full, footer a.w-6 { border-radius: var(--r-kecil) !important; }
 
     /* ---------- JUDUL BAGIAN ---------- */
-    section h2:not([class*="text-"]), section h2.font-extrabold { color: var(--g900); letter-spacing: -0.01em; }
-    .dark section h2:not([class*="text-"]), .dark section h2.font-extrabold { color: #ffffff; }
+    section h2 { letter-spacing: -0.01em; }
     section h2.font-extrabold::after { display: block !important; content: ''; width: 48px; height: 3px; margin-top: 10px; border-radius: 0; background: var(--kuning); }
     .text-center > h2.font-extrabold::after { margin-left: auto; margin-right: auto; }
     .uppercase.tracking-wider.text-amber-500, .uppercase.tracking-widest.text-amber-400 { color: var(--g600); font-weight: 700; }
@@ -518,6 +517,23 @@
     section .rounded-lg, section .rounded-xl button, #cmsContent .rounded-xl, #cmsContent .rounded-lg { border-radius: var(--r-kecil) !important; }
     #cmsContent .rounded-full:not(.w-2):not(.w-3):not(.h-2):not(.h-3) { border-radius: 4px !important; }
 
+
+    /* ---------- KONTRAS TEKS: wadah hijau tua selalu pakai teks terang ---------- */
+    footer.bg-brand-900, #supervisi .rounded-3xl, .sambutan-photo, #cmsAdminPanel aside.bg-brand-900, #mobileMenu.bg-brand-900 { color: #ffffff; }
+    footer h2, footer h3, footer h4, #supervisi .rounded-3xl h2, #supervisi .rounded-3xl h3, #supervisi .rounded-3xl h4,
+    #cmsAdminPanel aside h2, #cmsAdminPanel aside h3 { color: #ffffff !important; }
+    footer .text-slate-200, footer .text-slate-300, #supervisi .rounded-3xl .text-slate-200, #supervisi .rounded-3xl .text-slate-300,
+    #cmsAdminPanel aside .text-slate-300 { color: #e6f2e9 !important; }
+    footer .text-slate-400, footer .text-slate-500, #supervisi .rounded-3xl .text-slate-400, #supervisi .rounded-3xl .text-slate-500,
+    #cmsAdminPanel aside .text-slate-400 { color: #c3d9ca !important; }
+    footer .text-amber-400, #supervisi .rounded-3xl .text-amber-400, #cmsAdminPanel aside .text-amber-400 { color: #ffd45e !important; }
+    #supervisi .rounded-3xl .text-emerald-400, #supervisi .rounded-3xl .text-emerald-300 { color: #a7f3c4 !important; }
+    footer a:hover { color: var(--kuning); }
+
+    /* mode gelap: abu-abu jangan terlalu gelap di atas latar hijau gelap */
+    .dark .text-slate-400, .dark .dark\:text-slate-400 { color: #a9c2b0 !important; }
+    .dark .text-slate-500, .dark .dark\:text-slate-500 { color: #8fae98 !important; }
+
     /* ---------- DOCK & CHAT: persegi membulat kecil, bukan kapsul ---------- */
     .floating-dock > div { border-radius: 12px !important; box-shadow: 0 8px 24px rgba(11,74,42,.18) !important; }
     .floating-dock button, .floating-dock a { border-radius: 8px !important; }
@@ -533,8 +549,6 @@
     #cmsAdminPanel .cms-nav-item:hover { background: rgba(255,255,255,.12); border-left-color: var(--kuning); }
     #cmsContent table thead { background: var(--g100); }
     .dark #cmsContent table thead { background: #19372a; }
-    #cmsContent h2, #cmsContent h3 { color: var(--g900); }
-    .dark #cmsContent h2, .dark #cmsContent h3 { color: #fff; }
     #cmsAdminPanel .rounded-2xl { border: 1px solid var(--garis); box-shadow: none !important; border-radius: var(--r) !important; }
   </style>
 </head>
