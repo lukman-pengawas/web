@@ -706,6 +706,66 @@
     #supervisi .rounded-3xl, .info-box, .agenda-tabs { box-shadow: none !important; }
     #schoolFilters button:not(.bg-brand-800) { background: var(--g100) !important; }
     .dark .tl-card, .dark #statsBar, .dark .sambutan-card, .dark #schoolGrid > .school-card, .dark section .rounded-2xl:not(.hero-slide-card) { box-shadow: none !important; }
+    /* =====================================================================
+       IKON & BENTUK — kartu warna-warni, gelembung ikon, pola plus
+       ===================================================================== */
+
+    /* --- Kotak statistik: tiga kartu berwarna dengan gelembung ikon --- */
+    #statsBar, .dark #statsBar { background: transparent !important; box-shadow: none !important; padding: 0 !important; gap: 1.1rem !important; }
+    #statsBar > div { position: relative; overflow: hidden; min-height: 128px; padding: 1.3rem 1.4rem; border-radius: 24px;
+      color: #fff; align-items: flex-end !important; transition: transform .25s ease, box-shadow .25s ease; box-shadow: 0 10px 24px rgba(7,59,76,.16); }
+    #statsBar > div:nth-child(1) { background: linear-gradient(135deg, #073b4c, #118a9a); }
+    #statsBar > div:nth-child(2) { background: linear-gradient(135deg, #e08a00, #ffb703); }
+    #statsBar > div:nth-child(3) { background: linear-gradient(135deg, #c2255c, #f06595); }
+    #statsBar > div:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(7,59,76,.22); }
+    #statsBar > div::after { content: ""; position: absolute; right: -34px; bottom: -44px; width: 150px; height: 150px; border-radius: 50%; background: rgba(255,255,255,.14); pointer-events: none; }
+    #statsBar > div > div:first-child, .dark #statsBar > div > div:first-child {
+      position: absolute; top: 1rem; right: 1.1rem; width: 54px !important; height: 54px !important; z-index: 1;
+      border-radius: 50% !important; background: #ffffff !important; font-size: 1.35rem !important;
+      box-shadow: 0 8px 18px rgba(0,0,0,.16); }
+    #statsBar > div:nth-child(1) > div:first-child { color: #118a9a !important; }
+    #statsBar > div:nth-child(2) > div:first-child { color: #e08a00 !important; }
+    #statsBar > div:nth-child(3) > div:first-child { color: #d6336c !important; }
+    #statsBar > div > div:last-child { position: relative; z-index: 1; }
+    #statsBar p.stat-num, .dark #statsBar p.stat-num { color: #ffffff !important; font-size: 2.4rem !important; line-height: 1.05; }
+    #statsBar > div > div:last-child p:last-child { color: rgba(255,255,255,.92) !important; font-size: .82rem; font-weight: 600; }
+    #statsBar > div:nth-child(2) p.stat-num, #statsBar > div:nth-child(2) > div:last-child p:last-child { color: #3d2a00 !important; }
+
+    /* --- Band E-Supervisi: pola plus + gelembung ikon melayang --- */
+    #supervisi .rounded-3xl {
+      background-color: #073b4c !important;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cpath d='M23 14h10v9h9v10h-9v9H23v-9h-9V23h9z' fill='white' fill-opacity='.07'/%3E%3C/svg%3E"),
+        linear-gradient(135deg, #073b4c 0%, #0b5563 55%, #118a9a 100%) !important; }
+    #supervisi .backdrop-blur-md { position: relative; }
+    .esup-bubble { position: absolute; z-index: 2; width: 58px; height: 58px; border-radius: 50%; background: #fff;
+      display: grid; place-items: center; font-size: 1.35rem; box-shadow: 0 10px 22px rgba(0,0,0,.22); animation: esupFloat 4.5s ease-in-out infinite; }
+    .esup-bubble.b1 { top: -26px; right: 18px; color: #0b5563; }
+    .esup-bubble.b2 { bottom: -24px; right: -14px; color: #e08a00; animation-delay: -1.5s; }
+    .esup-bubble.b3 { top: 38%; left: -26px; color: #d6336c; animation-delay: -3s; width: 52px; height: 52px; }
+    @keyframes esupFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+    @media (max-width: 1023px) { .esup-bubble.b3 { display: none; } .esup-bubble.b2 { right: 10px; } }
+    @media (max-width: 480px) { .esup-bubble { width: 46px; height: 46px; font-size: 1.1rem; } .esup-bubble.b1 { right: 10px; top: -20px; } }
+    @media (prefers-reduced-motion: reduce) { .esup-bubble { animation: none; } #statsBar > div:hover { transform: none; } }
+
+    /* --- Ikon kartu sekolah: lingkaran bergradasi --- */
+    #schoolGrid > .school-card > div:first-child > div:first-child,
+    .dark #schoolGrid > .school-card > div:first-child > div:first-child {
+      width: 50px; height: 50px; border-radius: 50% !important; font-size: 1.2rem;
+      background: linear-gradient(135deg, #0b5563, #1ba5b4) !important; color: #fff !important;
+      box-shadow: 0 8px 16px rgba(17,138,154,.32); }
+
+    /* --- Kartu dokumen: ikon dalam lingkaran, tombol unduh bulat --- */
+    #dokumen .grid > div { border-radius: 20px !important; padding: .9rem 1rem !important; transition: transform .2s ease, box-shadow .2s ease; }
+    #dokumen .grid > div:hover { transform: translateY(-3px); box-shadow: var(--bayangan-hover) !important; }
+    #dokumen .grid > div > div:first-child > i:first-child { width: 48px; height: 48px; flex: 0 0 48px; display: grid; place-items: center;
+      border-radius: 16px; font-size: 1.3rem !important; background: rgba(17,138,154,.12); }
+    #dokumen .grid > div i.text-red-500 { background: rgba(239,68,68,.12); }
+    #dokumen .grid > div i.text-blue-500 { background: rgba(59,130,246,.12); }
+    #dokumen .grid > div i.text-emerald-500, #dokumen .grid > div i.text-emerald-600 { background: rgba(17,138,154,.14); }
+    #dokumen .grid > div > button { width: 42px; height: 42px; flex: 0 0 42px; padding: 0 !important; border-radius: 50% !important;
+      background: var(--g100); color: var(--g800) !important; display: grid; place-items: center; transition: background .2s, color .2s; }
+    #dokumen .grid > div > button:hover { background: linear-gradient(135deg, #0b5563, #1ba5b4); color: #fff !important; }
+    .dark #dokumen .grid > div > button { background: #143b49; color: #7fdbe6 !important; }
   </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-300 pb-24">
@@ -1004,6 +1064,9 @@
 
         <!-- Daftar website e-Supervisi sekolah (diisi otomatis dari data Sekolah Binaan) -->
         <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-2xl">
+          <span class="esup-bubble b1" aria-hidden="true"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <span class="esup-bubble b2" aria-hidden="true"><i class="fa-solid fa-lightbulb"></i></span>
+          <span class="esup-bubble b3" aria-hidden="true"><i class="fa-solid fa-bullhorn"></i></span>
           <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
             <div class="flex items-center gap-2">
               <span class="w-3 h-3 rounded-full bg-red-400"></span>
