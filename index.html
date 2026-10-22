@@ -338,45 +338,94 @@
     .wave-page { fill: #ffffff; } .dark .wave-page { fill: #07140d; }
     .wave-foot-wrap { display: none; }
 
-    /* ---------- HEADER: strip hijau + bar putih, menu huruf kapital kecil ---------- */
-    .topbar { background: var(--g800); color: #fff; font-size: .66rem; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; }
-    .topbar > div { height: 38px; }
-    .topbar i { color: var(--kuning); margin-right: .45rem; }
-    .topbar-links a { margin-left: 1.5rem; opacity: .95; transition: color .2s; }
-    .topbar-links a:hover { color: var(--kuning); }
+    /* ---------- HEADER: transparan di atas foto, jadi hijau solid saat di-scroll ---------- */
+    html { scroll-padding-top: 110px; }
     header.bg-brand-900 {
-      background: #ffffff !important; background-image: none !important; color: var(--g900);
-      border-bottom: 1px solid var(--garis) !important; box-shadow: none !important;
+      position: fixed !important; top: 0; left: 0; right: 0; width: 100%;
+      background: transparent !important; background-image: none !important; color: #fff;
+      border-bottom: 0 !important; box-shadow: none !important; transition: background .3s, box-shadow .3s;
     }
-    header .text-white, header h1 { color: var(--g900) !important; }
-    header h1 { font-weight: 800; letter-spacing: .01em !important; }
-    header p.text-amber-400, header .text-amber-400 { color: var(--g600) !important; }
-    header .text-slate-300 { color: #7a9582 !important; }
-    header nav > a, header nav button { text-transform: uppercase; font-size: .72rem; font-weight: 700; letter-spacing: .02em; border-radius: var(--r-kecil) !important; padding-left: .65rem; padding-right: .65rem; }
-    header .hover\:bg-white\/10:hover { background: var(--g50) !important; color: var(--g800) !important; }
-    header button.bg-white\/10, header a.bg-white\/10 { background: var(--g50) !important; color: var(--g800) !important; }
-    header nav .active-nav { background: transparent; color: var(--g800) !important; box-shadow: inset 0 -3px 0 var(--kuning); border-radius: 0 !important; }
-    header .bg-amber-500 { background: var(--g800) !important; color: #fff !important; box-shadow: none !important; border-radius: var(--r-kecil) !important; text-transform: uppercase; letter-spacing: .02em; }
-    header .bg-amber-500:hover { background: var(--g700) !important; }
-    header .rounded-full, header .rounded-xl { border-radius: var(--r-kecil) !important; }
-    header .rounded-xl.bg-gradient-to-br { background-color: var(--kuning); box-shadow: none !important; }
-    #mobileMenu.bg-brand-900 { background: #ffffff !important; border-top: 1px solid var(--garis) !important; }
-    .dark header.bg-brand-900 { background: #0d2217 !important; border-bottom-color: #19372a !important; }
-    .dark header .text-white, .dark header h1 { color: #ffffff !important; }
-    .dark header p.text-amber-400 { color: var(--kuning) !important; }
-    .dark header .hover\:bg-white\/10:hover { background: rgba(255,255,255,.1) !important; color: #fff !important; }
-    .dark header button.bg-white\/10 { background: rgba(255,255,255,.1) !important; color: #fff !important; }
-    .dark header nav .active-nav { color: #fff !important; }
-    .dark #mobileMenu.bg-brand-900 { background: #0d2217 !important; border-top-color: #19372a !important; }
+    header.hdr-solid { background: rgba(11,74,42,.97) !important; box-shadow: 0 6px 24px rgba(0,0,0,.25) !important; backdrop-filter: blur(8px); }
+    .dark header.hdr-solid { background: rgba(5,30,17,.97) !important; }
+    header.hdr-solid .topbar { display: none; }
+    .topbar { background: rgba(5,42,24,.55); backdrop-filter: blur(8px); border-bottom: 2px solid var(--kuning); color: #fff; font-size: .8rem; font-weight: 600; }
+    .topbar > div { height: 52px; gap: 1rem; }
+    .tb-pill { display: inline-flex; align-items: center; gap: .6rem; background: rgba(255,255,255,.10); padding: .3rem 1rem .3rem .3rem; border-radius: 999px; transition: background .2s; }
+    .tb-pill:hover { background: rgba(255,255,255,.2); }
+    .tb-email { display: none; }
+    @media (min-width: 1024px) { .tb-email { display: inline-flex; } }
+    .tb-ico { width: 32px; height: 32px; border-radius: 50%; background: var(--kuning); color: var(--g900); display: grid; place-items: center; font-size: .75rem; }
+    .tb-marquee { flex: 1; text-align: center; color: var(--kuning); font-weight: 800; letter-spacing: .06em; text-transform: uppercase; font-size: .78rem; white-space: nowrap; }
+    .tb-marquee i { font-size: .6rem; margin: 0 .5rem; }
+    .tb-social, .tb-toggle { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; transition: transform .2s, background .2s; }
+    .tb-social { background: rgba(255,255,255,.12); color: #fff; }
+    .tb-social:hover { background: #25d366; transform: translateY(-2px); }
+    .tb-toggle { background: var(--kuning); color: var(--g900); }
+    .tb-toggle:hover { transform: translateY(-2px); }
 
-    /* ---------- HERO: hijau solid, tepi lurus ---------- */
-    .hero-band { background: #0f6b3a !important; background-image: none !important; padding-bottom: 64px; }
-    .hero-band::after { display: none !important; }
-    .hero-title { text-shadow: none; }
-    .hero-cta { background: var(--kuning); color: var(--g900); border-radius: var(--r-kecil); box-shadow: none; text-transform: none; }
-    .hero-cta:hover { background: #ffffff; transform: none; }
-    .hero-band .hero-slide-card { border-radius: var(--r) !important; box-shadow: none !important; }
-    .hero-band .bg-amber-500 { border-radius: var(--r-kecil) !important; }
+    header .text-white, header h1 { color: #ffffff !important; }
+    header h1 { font-weight: 800; letter-spacing: .01em !important; }
+    header p.text-amber-400 { color: var(--kuning) !important; text-transform: uppercase; letter-spacing: .14em; font-size: .62rem !important; font-weight: 800; }
+    header nav > a, header nav button { text-transform: uppercase; font-size: .72rem; font-weight: 700; letter-spacing: .09em; padding: .5rem .65rem; border-radius: 6px !important; }
+    header .hover\:bg-white\/10:hover { background: rgba(255,255,255,.14) !important; color: #fff !important; }
+    header nav .active-nav { background: transparent; box-shadow: inset 0 -3px 0 var(--kuning); border-radius: 0 !important; }
+    header .bg-amber-500 { background: #ffffff !important; color: var(--g800) !important; border-radius: 999px !important; text-transform: uppercase; letter-spacing: .08em; font-weight: 800; box-shadow: 0 6px 18px rgba(0,0,0,.2) !important; }
+    header .bg-amber-500:hover { background: var(--kuning) !important; color: var(--g900) !important; }
+    header button[title^="Login"] { display: none !important; }
+    header .rounded-xl.bg-gradient-to-br { background-color: var(--kuning); box-shadow: none !important; border-radius: 12px !important; }
+    #mobileMenu.bg-brand-900 { background: #0b4a2a !important; border-top: 1px solid rgba(255,255,255,.14) !important; }
+
+    /* ---------- HERO: foto layar penuh + selubung hijau + motif belah ketupat di kiri ---------- */
+    .hero-band.hero-full {
+      position: relative; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center;
+      padding: 160px 0 130px; overflow: hidden; background: #0b4a2a !important; background-image: none !important;
+    }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; background: linear-gradient(135deg, #0b4a2a 0%, #0f6b3a 60%, #1f8a45 100%); }
+    .hero-layer { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transform: scale(1.05); transition: opacity .9s ease; }
+    .hero-layer.on { opacity: 1; animation: heroZoom 10s ease-out forwards; }
+    @keyframes heroZoom { from { transform: scale(1.05); } to { transform: scale(1); } }
+    .hero-shade { position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(90deg, rgba(6,52,29,.93) 0%, rgba(8,70,38,.74) 42%, rgba(8,70,38,.28) 100%), linear-gradient(0deg, rgba(5,40,22,.55) 0%, transparent 42%); }
+    .hero-diamonds { position: absolute; inset: 0; z-index: 1; width: 52%; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' fill='none' stroke='%23ffffff' stroke-opacity='.13' stroke-width='1.5'%3E%3Cpath d='M50 6 94 50 50 94 6 50Z'/%3E%3Cpath d='M50 26 74 50 50 74 26 50Z'/%3E%3C/svg%3E");
+      background-size: 100px 100px; -webkit-mask-image: linear-gradient(90deg, #000 0%, transparent 100%); mask-image: linear-gradient(90deg, #000 0%, transparent 100%); }
+    .hero-inner { position: relative; z-index: 3; width: 100%; }
+    .hero-text { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; max-width: 900px; }
+    .hero-text.in { opacity: 1; transform: none; }
+    .hero-badge { display: inline-flex; align-items: center; gap: .5rem; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.28); backdrop-filter: blur(6px);
+      padding: .4rem 1rem; border-radius: 999px; font-size: .78rem; font-weight: 700; color: #fff; margin-bottom: 1.4rem; }
+    .hero-badge i { color: var(--kuning); font-size: .7rem; }
+    .hero-h { font-family: 'Bricolage Grotesque','Plus Jakarta Sans',sans-serif; font-weight: 800; color: #fff; line-height: 1.04; letter-spacing: -0.02em;
+      font-size: clamp(2.3rem, 5.8vw, 4.9rem); text-shadow: 0 4px 24px rgba(0,0,0,.25); }
+    .hero-h-sorot { display: block; color: var(--kuning); }
+    .hero-sub { margin-top: 1.4rem; max-width: 640px; color: rgba(255,255,255,.92); font-size: clamp(1rem, 1.6vw, 1.3rem); line-height: 1.55; font-weight: 500; }
+    .hero-ctas { margin-top: 2.4rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1.2rem 1.8rem; }
+    .hero-btn-outline { display: inline-flex; align-items: center; gap: .8rem; padding: .95rem 1.9rem; border-radius: 999px; font-weight: 700; font-size: 1.02rem; color: #fff;
+      background: rgba(255,255,255,.09); border: 2px solid rgba(255,255,255,.55); backdrop-filter: blur(6px); transition: background .2s, color .2s, border-color .2s; }
+    .hero-btn-outline:hover { background: #fff; color: var(--g900); border-color: #fff; }
+    .hero-btn-link { display: inline-flex; align-items: center; gap: .6rem; color: #fff; font-weight: 600; font-size: 1.02rem; transition: color .2s; }
+    .hero-btn-link:hover { color: var(--kuning); }
+    .hero-btn-outline i, .hero-btn-link i { font-size: .72rem; }
+    .hero-controls { margin-top: 3rem; display: flex; align-items: center; gap: 14px; }
+    .hero-arrow { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; color: #fff; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.3); transition: background .2s, color .2s; }
+    .hero-arrow:hover { background: var(--kuning); color: var(--g900); border-color: var(--kuning); }
+    #heroDots button:not(.w-6) { background: rgba(255,255,255,.45) !important; }
+    #heroDots button.w-6 { background: var(--kuning) !important; }
+    .hero-band + section { position: relative; z-index: 5; margin-top: -64px; }
+
+    /* ---------- TOMBOL MELAYANG KANAN ---------- */
+    .fab-stack { position: fixed; right: 22px; bottom: 24px; z-index: 50; display: flex; flex-direction: column; gap: 14px; }
+    .fab { width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: 1.6rem; box-shadow: 0 10px 26px rgba(0,0,0,.28); transition: transform .2s, filter .2s; }
+    .fab:hover { transform: translateY(-3px) scale(1.05); filter: brightness(1.08); }
+    .fab-chat { background: #0f6b3a; font-size: 1.35rem; }
+    .fab-wa { background: #25d366; }
+    .floating-dock a[href*="wa.me"], .floating-dock button[onclick*="openChatbotModal"] { display: none !important; }
+    @media (max-width: 640px) {
+      .fab-stack { bottom: 84px; right: 14px; } .fab { width: 50px; height: 50px; }
+      .hero-band.hero-full { padding: 120px 0 110px; }
+    }
+
+    .hero-band::after, .hero-band .wave { display: none !important; }
 
     /* ---------- FOOTER ---------- */
     footer.bg-brand-900 { background: #0b4a2a !important; background-image: none !important; border-top: 0 !important; }
@@ -522,8 +571,15 @@
   <header class="bg-brand-900 text-white sticky top-0 z-40 shadow-xl border-b border-slate-700/50">
     <div class="topbar hidden md:block">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        <span><i class="fa-solid fa-circle-check"></i> Portal Resmi Pengawas Sekolah &middot; Cabang Dinas Pendidikan</span>
-        <span class="topbar-links"><a href="#sekolah">Sekolah Binaan</a><a href="#supervisi">E-Supervisi</a><a href="#agenda">Agenda Kerja</a><a href="#dokumen">Instrumen &amp; Unduhan</a><a href="#berita">Informasi</a></span>
+        <div class="flex items-center gap-3 shrink-0">
+          <a href="tel:+6285735902504" class="tb-pill"><span class="tb-ico"><i class="fa-solid fa-phone"></i></span>0857-3590-2504</a>
+          <a href="mailto:cabdin.pengawas@kemdikbud.go.id" class="tb-pill tb-email"><span class="tb-ico"><i class="fa-solid fa-envelope"></i></span>cabdin.pengawas@kemdikbud.go.id</a>
+        </div>
+        <div class="tb-marquee hidden xl:block"><i class="fa-solid fa-star"></i> Selamat datang di portal resmi pengawas sekolah <i class="fa-solid fa-star"></i></div>
+        <div class="flex items-center gap-3 shrink-0">
+          <a href="https://wa.me/6285735902504" target="_blank" rel="noopener" class="tb-social" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <button onclick="toggleDarkMode()" class="tb-toggle" title="Ganti Mode Gelap/Terang"><i class="theme-ico fa-solid fa-moon text-sm"></i></button>
+        </div>
       </div>
     </div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -562,7 +618,7 @@
           <a href="#sekolah" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition whitespace-nowrap">Sekolah Binaan</a>
           <a href="#supervisi" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition whitespace-nowrap">E-Supervisi</a>
           <a href="#agenda" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition whitespace-nowrap">Agenda Kerja</a>
-          <a href="#dokumen" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition whitespace-nowrap">Instrumen & Unduhan</a>
+          <a href="#dokumen" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition whitespace-nowrap">Instrumen</a>
           <a href="#berita" class="px-3 py-2 rounded-lg hover:bg-white/10 text-white transition whitespace-nowrap">Informasi</a>
         </nav>
 
@@ -570,7 +626,7 @@
         <div class="flex items-center gap-2 sm:gap-3 shrink-0">
           <button onclick="CMS_LOGIN_REDIRECT='dashboard'; CMS_RESTRICT_MODE=false; sessionStorage.removeItem('cms_restrict'); openLoginModal();" class="hidden md:flex bg-amber-500 hover:bg-amber-400 text-brand-900 font-bold text-xs xl:text-sm px-3 xl:px-4 py-2.5 rounded-full transition shadow-lg items-center gap-2 transform active:scale-95 whitespace-nowrap">
             <i class="fa-solid fa-right-to-bracket"></i>
-            <span>Portal Sistem CMS</span>
+            <span>Portal Admin</span>
           </button>
 
           <button onclick="CMS_LOGIN_REDIRECT='dashboard'; CMS_RESTRICT_MODE=false; sessionStorage.removeItem('cms_restrict'); openLoginModal();" class="md:hidden w-10 h-10 rounded-full bg-amber-500 hover:bg-amber-400 flex items-center justify-center text-brand-900 transition shrink-0" title="Portal Sistem CMS">
@@ -603,43 +659,21 @@
     </div>
   </header>
 
-  <!-- ==================== HERO BANNER SLIDER (2 KARTU, BISA SLIDE, FOTO DARI CMS) ==================== -->
-  <div class="hero-band">
-  <div class="max-w-4xl mx-auto px-4 pt-14 pb-4 text-center relative z-10">
-    <p class="text-sm font-semibold text-amber-400 mb-3">Portal Resmi Pengawas Sekolah</p>
-    <div class="hero-title">Pengawas Sekolah Berdaya &amp; Berkontribusi</div>
-    <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
-      <a href="#sekolah" class="hero-cta">Lihat Sekolah Binaan</a>
-      <a href="#sambutan" class="text-white/80 hover:text-white text-sm font-semibold px-3 py-2">Sambutan Pengawas</a>
-    </div>
-  </div>
-  <section id="beranda" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <!-- Slot Banner 1 -->
-      <div id="heroSlot1" class="hero-slide-card relative overflow-hidden rounded-3xl text-white shadow-2xl min-h-[320px] sm:min-h-[380px] flex flex-col justify-between p-6 sm:p-8 border border-white/10 group bg-brand-900">
-        <p class="relative z-10 text-xs text-white/50"><i class="fa-solid fa-spinner fa-spin"></i> Memuat banner...</p>
+  <!-- ==================== HERO FULL-LAYAR (foto dari CMS Hero Banner, tampil bergantian) ==================== -->
+  <div id="beranda" class="hero-band hero-full">
+    <div id="heroBg" class="hero-bg"></div>
+    <div class="hero-shade"></div>
+    <div class="hero-diamonds"></div>
+    <div class="hero-inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="heroText" class="hero-text">
+        <p class="text-sm text-white/70"><i class="fa-solid fa-spinner fa-spin"></i> Memuat banner...</p>
       </div>
-      <!-- Slot Banner 2 -->
-      <div id="heroSlot2" class="hero-slide-card relative overflow-hidden rounded-3xl text-white shadow-2xl min-h-[320px] sm:min-h-[380px] flex flex-col justify-between p-6 sm:p-8 border border-white/10 group bg-brand-900">
-        <p class="relative z-10 text-xs text-white/50"><i class="fa-solid fa-spinner fa-spin"></i> Memuat banner...</p>
+      <div class="hero-controls">
+        <button onclick="heroPrev()" aria-label="Sebelumnya" class="hero-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+        <div id="heroDots" class="flex items-center gap-2"></div>
+        <button onclick="heroNext()" aria-label="Berikutnya" class="hero-arrow"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
     </div>
-
-    <!-- Kontrol Slider: Panah & Titik Indikator -->
-    <div class="flex items-center justify-center gap-3 mt-5">
-      <button onclick="heroPrev()" aria-label="Sebelumnya" class="w-9 h-9 shrink-0 rounded-full bg-white dark:bg-slate-800 shadow border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center justify-center transition">
-        <i class="fa-solid fa-chevron-left text-xs"></i>
-      </button>
-      <div id="heroDots" class="flex items-center gap-2"></div>
-      <button onclick="heroNext()" aria-label="Berikutnya" class="w-9 h-9 shrink-0 rounded-full bg-white dark:bg-slate-800 shadow border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center justify-center transition">
-        <i class="fa-solid fa-chevron-right text-xs"></i>
-      </button>
-    </div>
-  </section>
-  <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
-    <path class="wave-soft" d="M0,60 C240,115 480,5 720,40 C960,75 1200,112 1440,48 L1440,120 L0,120 Z"/>
-    <path class="wave-page" d="M0,82 C300,22 600,112 900,72 C1100,46 1300,62 1440,88 L1440,120 L0,120 Z"/>
-  </svg>
   </div>
 
   <!-- ==================== QUICK STATS SUMMARY ==================== -->
@@ -991,6 +1025,12 @@
     </div>
   </div>
 
+  <!-- Tombol melayang kanan: Chatbot & WhatsApp -->
+  <div class="fab-stack">
+    <button onclick="openChatbotModal()" class="fab fab-chat" title="Tanya Chatbot AI" aria-label="Chatbot"><i class="fa-solid fa-comment-dots"></i></button>
+    <a href="https://wa.me/6285735902504" target="_blank" rel="noopener" class="fab fab-wa" title="Hubungi WhatsApp Pengawas" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+  </div>
+
   <!-- ==================== MODAL 1: LOGIN PORTAL CMS ==================== -->
   <div id="loginModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl w-full max-w-md p-6 sm:p-8 relative border border-slate-200 dark:border-slate-700">
@@ -1154,15 +1194,10 @@
   <script>
     // Dark Mode Toggle Logic
     function toggleDarkMode() {
-      const html = document.documentElement;
-      const icon = document.getElementById('themeIcon');
-      if (html.classList.contains('dark')) {
-        html.classList.remove('dark');
-        icon.className = 'fa-solid fa-moon text-sm';
-      } else {
-        html.classList.add('dark');
-        icon.className = 'fa-solid fa-sun text-sm text-amber-400';
-      }
+      const dark = document.documentElement.classList.toggle('dark');
+      document.querySelectorAll('#themeIcon, .theme-ico').forEach(ic => {
+        ic.className = (dark ? 'fa-solid fa-sun text-sm text-amber-400' : 'fa-solid fa-moon text-sm') + (ic.classList.contains('theme-ico') ? ' theme-ico' : '');
+      });
     }
 
     // Navigation Toggle Mobile
@@ -1837,7 +1872,7 @@
     // Data cadangan (dipakai jika belum ada banner di CMS / GAS belum terhubung)
     const HERO_DEFAULT_SLIDES = [
       {
-        gambar: 'https://placehold.co/1200x800/065f46/f59e0b?text=Supervisi+Akademik',
+        gambar: '',
         badge: 'Program Pembinaan Karakter 2026/2027',
         badgeColor: 'emerald',
         judul: 'Supervisi Akademik & ',
@@ -1847,7 +1882,7 @@
         linkTombol: 'https://wa.me/6285735902504'
       },
       {
-        gambar: 'https://placehold.co/1200x800/0f6b3a/bbf7d0?text=Penerimaan+Murid+Baru',
+        gambar: '',
         badge: 'Layanan Terpadu Pengawas',
         badgeColor: 'blue',
         judul: 'Penerimaan Murid Baru & ',
@@ -1857,7 +1892,7 @@
         linkTombol: '#login'
       },
       {
-        gambar: 'https://placehold.co/1200x800/14532d/fbbf24?text=Kunjungan+Sekolah+Binaan',
+        gambar: '',
         badge: 'Kunjungan Lapangan',
         badgeColor: 'amber',
         judul: 'Pendampingan Langsung ',
@@ -1919,25 +1954,41 @@
       `;
     }
 
-    // Tampilkan sepasang slide (slot 1 & slot 2) sesuai HERO_INDEX saat ini, dengan efek fade
+    // Tampilkan satu slide layar penuh: foto latar (crossfade) + teks di kiri
+    function heroTextHtml(slide) {
+      const safeLink = (slide.linkTombol || '').toString().replace(/'/g, "\\'");
+      return `
+        ${slide.badge ? `<div class="hero-badge"><i class="fa-solid fa-star"></i><span>${slide.badge}</span></div>` : ''}
+        <h2 class="hero-h">${slide.judul || ''}<span class="hero-h-sorot">${slide.sorot || ''}</span></h2>
+        ${slide.deskripsi ? `<p class="hero-sub">${slide.deskripsi}</p>` : ''}
+        <div class="hero-ctas">
+          <button onclick="heroSlideAction('${safeLink}')" class="hero-btn-outline"><span>${slide.teksTombol || 'Selengkapnya'}</span><i class="fa-solid fa-chevron-right"></i></button>
+          <a href="#sekolah" class="hero-btn-link">Jelajahi Sekolah Binaan <i class="fa-solid fa-chevron-right"></i></a>
+        </div>`;
+    }
+
     function renderHeroPair() {
       const total = HERO_SLIDES.length;
-      const slot1 = document.getElementById('heroSlot1');
-      const slot2 = document.getElementById('heroSlot2');
-      if (!slot1 || !slot2 || total === 0) return;
+      const bg = document.getElementById('heroBg');
+      const txt = document.getElementById('heroText');
+      if (!bg || !txt || total === 0) return;
+      const slide = HERO_SLIDES[HERO_INDEX % total];
 
-      const slideA = HERO_SLIDES[HERO_INDEX % total];
-      const slideB = total > 1 ? HERO_SLIDES[(HERO_INDEX + 1) % total] : slideA;
+      const layer = document.createElement('div');
+      layer.className = 'hero-layer';
+      if (slide.gambar) {
+        const safe = String(slide.gambar).replace(/'/g, '%27');
+        layer.style.backgroundImage = "url('" + safe + "')";
+        const pre = new Image();
+        pre.onerror = function () { layer.style.backgroundImage = 'none'; };
+        pre.src = slide.gambar;
+      }
+      bg.appendChild(layer);
+      requestAnimationFrame(() => requestAnimationFrame(() => layer.classList.add('on')));
+      setTimeout(() => { while (bg.children.length > 1) bg.removeChild(bg.firstChild); }, 1000);
 
-      slot1.style.opacity = '0';
-      slot2.style.opacity = '0';
-      setTimeout(() => {
-        slot1.innerHTML = buildHeroSlideHtml(slideA);
-        slot2.innerHTML = buildHeroSlideHtml(slideB);
-        slot1.style.opacity = '1';
-        slot2.style.opacity = '1';
-      }, 250);
-
+      txt.classList.remove('in');
+      setTimeout(() => { txt.innerHTML = heroTextHtml(slide); txt.classList.add('in'); }, 250);
       renderHeroDots();
     }
 
@@ -2921,5 +2972,13 @@
     }
   </script>
 
+<script>
+  (function () {
+    var h = document.querySelector('header');
+    if (!h) return;
+    function f() { h.classList.toggle('hdr-solid', window.scrollY > 40); }
+    window.addEventListener('scroll', f, { passive: true }); f();
+  })();
+</script>
 </body>
 </html>
